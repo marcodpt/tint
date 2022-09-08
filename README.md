@@ -1,3 +1,4 @@
+![Cannabis](favicon.ico)
 # Cannabis
 > The natural template engine for the browser
 
@@ -15,6 +16,8 @@ It is simple, intuitive, clean and beautiful. And always will be this way!
 ```html
 <html>
   <head>
+    <meta charset="utf-8">
+    <title>Sample cannabis</title>
     <script src="https://cdn.jsdelivr.net/gh/marcodpt/cannabis/index.js"></script>
   </head>
   <body>
