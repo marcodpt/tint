@@ -1,5 +1,4 @@
-![Cannabis](favicon.ico)
-# Cannabis
+# ![Cannabis](favicon.ico) Cannabis
 > The natural template engine for the browser
 
 A logicless xml template engine that uses valid `HTML` as input.
