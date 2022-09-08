@@ -1,0 +1,33 @@
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Tests raw.js</title>
+      <link
+        rel="stylesheet"
+        href="https://code.jquery.com/qunit/qunit-2.19.1.css"
+      />
+      <script src="https://code.jquery.com/qunit/qunit-2.19.1.js"></script>
+      <script src="index.js"></script>
+   </head>
+   <body>
+     <div id="qunit"></div>
+     <div id="qunit-fixture"></div> 
+
+    <template id="my-button">
+      <button class="btn btn-" :class="btn">
+        <slot></slot>
+      </button>
+    </template>
+
+    <template id="my-list">
+      <ul :if="items">
+        <li :each="items">
+          <span :text="title"></span>
+          <my-list :items="children"></my-list>
+        </li>
+      </ul>
+    </template>
+
+     <script src="test.js"></script>
+   </body>
+</html>

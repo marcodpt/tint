@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <template id="my-header">
+      <h1 :text="message"></h1>
+    </template>
+
+    <script>
+      cannabis('app', 'my-header', {
+        message: "Hello world!"
+      })
+    </script>
+  </body>
+</html>
