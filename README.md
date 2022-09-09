@@ -3,7 +3,7 @@
 
 A logicless xml template engine that uses valid `HTML` as input.
 
-It is simple, intuitive, clean and beautiful. And always will be this way!
+It is simple, intuitive, clean and beautiful.
 
 ## Usage
 > cannabis(target, template, scope)
@@ -557,20 +557,35 @@ horse
 </table>
 ```
 
-### custom tags (TODO)
-> Reuse your templates inside another template.
-
+### custom tags
 With the following tag in your `HTML` `body` 
 ```html
 <template id="my-button">
-  <button class="btn btn-" :class="btn">
-    <slot></slot>
-  </button>
+  <button class="btn btn-" :class="btn"><slot></slot></button>
 </template>
+```
+> Reuse your templates inside another template.
+```html
+<div>
+  <my-button :btn="button" :text="title">!</my-button>
+</div>
+```
+```js
+{
+  button: "primary",
+  title: "Submit"
+}
 ```
 ```html
 <div>
-  <my-button :each="" :btn="button" :text="title"></my-button>
+  <button class="btn btn-primary">Submit!</button>
+</div>
+```
+
+> Iterate with custom tags.
+```html
+<div>
+  <my-button :each="" :btn="button" :text="title">!</my-button>
 </div>
 ```
 ```js
@@ -581,16 +596,11 @@ With the following tag in your `HTML` `body`
 ```
 ```html
 <div>
-  <button class="btn btn-secondary">
-    Cancel 
-  </button>
-  <button class="btn btn-" :class="btn">
-    Submit
-  </button>
+  <button class="btn btn-secondary">Cancel!</button><button class="btn btn-primary">Submit!</button>
 </div>
 ```
 
-> Recursively flatten an array.
+> Recursive tags.
 
 With the following tag in your `HTML` `body` 
 ```html
@@ -661,21 +671,26 @@ With the following tag in your `HTML` `body`
     <span>countries</span>
     <ul>
       <li>
-        <span>NY</span>
+        <span>US</span>
         <ul>
           <li>
-            <span>New York</span>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <span>CA</span>
-        <ul>
-          <li>
-            <span>San Francisco</span>
+            <span>NY</span>
+            <ul>
+              <li>
+                <span>New York</span>
+              </li>
+            </ul>
           </li>
           <li>
-            <span>Los Angeles</span>
+            <span>CA</span>
+            <ul>
+              <li>
+                <span>San Francisco</span>
+              </li>
+              <li>
+                <span>Los Angeles</span>
+              </li>
+            </ul>
           </li>
         </ul>
       </li>
@@ -690,7 +705,7 @@ With the following tag in your `HTML` `body`
 ## Philosophy
  - Separation: Functions and data transformations belong to javascript, design
 and visual presentation to html and css, and the data belongs to database.
- - Designers and people with no programming knowledge should understand it
+ - Designers and people with no javascript knowledge should understand it
 and quickly become productive.
  - Templates must be valid `XML`/`HTML` that can be inserted into a
 `template` tag.
@@ -726,7 +741,6 @@ MUST be present in the tests.
 If the tests do not pass in your browser, if you find any bugs, please raise
 an issue.
 
-Any syntax changes must be within the philosophy of this project. If you
-disagree, feel free to fork it.
+Any syntax changes must be within the philosophy of this project.
 
 It's a very simple project. Any contribution is highly appreciated.

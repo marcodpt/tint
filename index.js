@@ -18,25 +18,68 @@ const cannabis = (target, element, scope) => {
     if (element.nodeType != 1) {
       target.appendChild(element.cloneNode(true))
     } else {
-      const tpl = element.tagName == 'TEMPLATE'
-      var e = tpl ? target : document.createElement(element.tagName)
+      var name = element.tagName.toLowerCase()
+      const tag = name.indexOf('-') > -1 ? getEl(name) : null
+      var context = null
+      const remap = {}
+      if (tag && tag.tagName.toLowerCase() == 'template') {
+        const node = document.createElement('template')
+        node.innerHTML = tag.innerHTML.trim()
+        var slot = node.content.querySelector('slot')
+        if (slot) {
+          const newSlot = document.createElement('template')
+          newSlot.innerHTML = element.innerHTML
+          Array.from(slot.attributes).forEach(attr => {
+            newSlot.setAttribute(attr.nodeName, attr.nodeValue)
+          })
+          slot.replaceWith(newSlot)
+          slot = newSlot
+        }
+        Array.from(element.attributes).forEach(attr => {
+          if (/^:?(html|text)$/.test(attr.nodeName)) {
+            slot.setAttribute(attr.nodeName, attr.nodeValue)
+            if (attr.nodeName.substr(0, 1) == ':') {
+              node.setAttribute(':'+attr.nodeValue, attr.nodeValue)
+            }
+          } else {
+            node.setAttribute(attr.nodeName, attr.nodeValue)
+          }
+        })
+        context = {}
+        name = 'template'
+        element = node
+      }
+      const tpl = name == 'template'
+      var e = tpl ? target : document.createElement(name)
       var loop = null
       var rows = null
       const set = (el, key, value) => {
-        el.setAttribute(key, (key.substr(0, 1) != ':' ?
-          e.getAttribute(key) || '' : ''
-        ) + value)
+        if (context) {
+          context[key] = (context[key] || '') + value
+        } else {
+          el.setAttribute(key, (key.substr(0, 1) != ':' ?
+            e.getAttribute(key) || '' : ''
+          ) + value)
+        }
       }
       var nextWord = undefined
       const rescope = (newScope) => {
+        var r = {}
         if (
-          scope && typeof scope == "object" &&
+          (scope && typeof scope == "object") &&
           newScope && typeof newScope == "object"
         ) {
-          return {...scope, ...newScope}
+          r =  {...scope, ...newScope}
         } else {
-          return newScope
+          r =  newScope
         }
+        if (context) {
+          r = Object.keys(remap).reduce((x, key) => {
+            x[remap[key]] = r[key]
+            return x
+          }, r)
+        }
+        return r
       }
 
       Array.from(element.attributes).forEach(attr => {
@@ -55,7 +98,15 @@ const cannabis = (target, element, scope) => {
           const okay = res != null && res !== false
           const label = res === true ? '' : okay ? String(res) : ''
 
-          if (key == 'text') {
+          if (context && [
+            'if', 'not', 'with', 'each', 'switch', 'case'
+          ].indexOf(key) == -1) {
+            if (key) {
+              context[key] = res
+            } else {
+              context = res
+            }
+          } else if (key == 'text') {
             e.appendChild(document.createTextNode(label))
           } else if (key == 'html') {
             e.innerHTML = e.innerHTML+label
@@ -73,7 +124,7 @@ const cannabis = (target, element, scope) => {
             scope = rescope(res)
           } else if (key == 'each') {
             if (res instanceof Array && res.length) {
-              loop = tpl ? document.createElement(element.tagName) :
+              loop = tpl ? document.createElement(name) :
                 e.cloneNode(true)
               loop.innerHTML = element.innerHTML
               rows = res
@@ -85,14 +136,18 @@ const cannabis = (target, element, scope) => {
             set(e, key, label)
           }
         } else if (loop) {
-          set(loop, attr.nodeName, attr.nodeValue)
+          if (context && attr.nodeName.substr(0, 1) == ':') {
+            remap[attr.nodeValue] = attr.nodeName.substr(1)
+          } else {
+            set(loop, attr.nodeName, attr.nodeValue)
+          }
         }
       })
 
       const getChild = (x) => Array.from((tpl ? x.content : x).childNodes)
       if (e != null) {
         getChild(element).forEach(child => {
-          render(e, child, scope, nextWord)
+          render(e, child, context || scope, nextWord)
         })
 
         if (target != e) {

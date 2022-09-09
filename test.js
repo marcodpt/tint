@@ -428,7 +428,118 @@ QUnit.module('each', hooks => {
     `);
   });
 });
-/*QUnit.module('custom tags', hooks => {
-  QUnit.test('Reuse your templates inside another template.');
-  QUnit.test('Recursively flatten an array.');
-});*/
+QUnit.module('custom tags', hooks => {
+  QUnit.test('Reuse your templates inside another template.', assert => {
+    assert.equal(render(`
+      <div>
+        <my-button :btn="button" :text="title">!</my-button>
+      </div>
+    `, {
+      button: "primary",
+      title: "Submit"
+    }), `
+      <div>
+        <button class="btn btn-primary">Submit!</button>
+      </div>
+    `);
+  });
+  QUnit.test('Iterate with custom tags.', assert => {
+    assert.equal(render(`
+      <div>
+        <my-button :each="" :btn="button" :text="title">!</my-button>
+      </div>
+    `, [
+      {button: "secondary", title: "Cancel"},
+      {button: "primary", title: "Submit"}
+    ]), `
+      <div>
+        <button class="btn btn-secondary">Cancel!</button><button class="btn btn-primary">Submit!</button>
+      </div>
+    `);
+  });
+  QUnit.test('Recursive tags.', assert => {
+    assert.equal(render(`
+      <my-list :items=""></my-list>
+    `, [
+      {
+        title: "animals",
+        children: [
+          {
+            title: "dog"
+          }, {
+            title: "cat"
+          }
+        ]
+      }, {
+        title: "countries",
+        children: [
+          {
+            title: "US",
+            children: [
+              {
+                title: "NY",
+                children: [
+                  {title: "New York"}
+                ]
+              }, {
+                title: "CA",
+                children: [
+                  {title: "San Francisco"},
+                  {title: "Los Angeles"}
+                ]
+              }
+            ]
+          }
+        ]
+      }, {
+        title: "home"
+      }
+    ]).replace(/\s\s+/g, ''), `
+      <ul>
+        <li>
+          <span>animals</span>
+          <ul>
+            <li>
+              <span>dog</span>
+            </li>
+            <li>
+              <span>cat</span>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span>countries</span>
+          <ul>
+            <li>
+              <span>US</span>
+              <ul>
+                <li>
+                  <span>NY</span>
+                  <ul>
+                    <li>
+                      <span>New York</span>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span>CA</span>
+                  <ul>
+                    <li>
+                      <span>San Francisco</span>
+                    </li>
+                    <li>
+                      <span>Los Angeles</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span>home</span>
+        </li>
+      </ul>
+    `.replace(/\s\s+/g, ''));
+  });
+});
