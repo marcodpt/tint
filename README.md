@@ -1,5 +1,5 @@
 # ![Cannabis](favicon.ico) Cannabis
-> The natural template engine for the browser
+#### The natural template engine for the browser
 
 A logicless xml template engine that uses valid `HTML` as input.
 
@@ -86,7 +86,7 @@ You can check the result:
 
 ## Docs
 ### :attribute
-> Simple eval
+#### Simple eval
 ```html
 <template id="attributes-1">
   <a class="primary" :href="target">Go to page 1</a>
@@ -101,7 +101,7 @@ render('attributes-1', {
 <a class="primary" href="#/page/1">Go to page 1</a>
 ```
 
-> Boolean attributes
+#### Boolean attributes
 ```html
 <template id="attributes-2">
   <input type="checkbox" :checked="isChecked" :disabled="isDisabled">
@@ -117,7 +117,7 @@ render('attributes-2', {
 <input type="checkbox" disabled="">
 ```
 
-> Extending attributes
+#### Extending attributes
 ```html
 <template id="attributes-3">
   <button class="btn btn-" :class="btn" disabled :disabled="isDisabled">
@@ -137,7 +137,7 @@ render('attributes-3', {
 </button>
 ```
 
-> Function calls 
+#### Function calls 
 ```html
 <template id="attributes-4">
   <button class="btn btn-primary" :onclick="action">
@@ -172,7 +172,7 @@ el.innerHTML
 ```
 
 ### text
-> Append text to node
+#### Append text to node
 ```html
 <template id="text-1">
   <h1 :text="name">Hello </h1>
@@ -187,7 +187,7 @@ render('text-1', {
 <h1>Hello John</h1>
 ```
 
-> Use template to interpolate text
+#### Use template to interpolate text
 ```html
 <template id="text-2">
   <h1>
@@ -206,7 +206,7 @@ render('text-2', {
 </h1>
 ```
 
-> HTML strings will be escaped
+#### HTML strings will be escaped
 ```html
 <template id="text-3">
   <code :text="raw"></code>
@@ -222,7 +222,7 @@ render('text-3', {
 ```
 
 ### if/not
-> Remove node with a conditional test
+#### Remove node with a conditional test
 ```html
 <template id="if-not-1">
   <div>
@@ -250,7 +250,7 @@ render('if-not-1', {
 </div>
 ```
 
-> Some critical js values
+#### Some critical js values
 ```html
 <template id="if-not-2">
   <div>
@@ -294,7 +294,7 @@ render('if-not-2', [
 ```
 
 ### switch/case
-> Choose a imediate children tag based on a criteria.
+#### Choose a imediate children tag based on a criteria.
 ```html
 <template id="switch-case-1">
   <form :switch="input">
@@ -333,7 +333,7 @@ render('switch-case-1', {
 </form>
 ```
 
-> You can use template for case
+#### You can use template for case
 ```html
 <template id="switch-case-2">
   <div :switch="color">
@@ -356,7 +356,7 @@ render('switch-case-2', {
 </div>
 ```
 
-> You can use template for switch
+#### You can use template for switch
 ```html
 <template id="switch-case-3">
   <template :switch="color">
@@ -376,7 +376,7 @@ render('switch-case-3', {
 My favorite color is: <b>Green</b>
 ```
 
-> You can use in both
+#### You can use in both
 ```html
 <template id="switch-case-4">
   <template :switch="color">
@@ -397,7 +397,7 @@ My favorite color is: Blue
 ```
 
 ### with
-> Change scope within tag.
+#### Change scope within tag.
 ```html
 <template id="with-1">
   <div>
@@ -423,7 +423,7 @@ render('with-1', {
 </div>
 ```
 
-> Parent keys access.
+#### Parent keys access.
 ```html
 <template id="with-2">
   <div>
@@ -450,7 +450,7 @@ render('with-2', {
 </div>
 ```
 
-> Simple types access.
+#### Simple types access.
 ```html
 <template id="with-3">
   <div :with="0">
@@ -482,7 +482,7 @@ render('with-3', [["Mary", "John"], "dog", 3.14]).innerHTML
 ```
 
 ### each
-> Simple array iteration.
+#### Simple array iteration.
 ```html
 <template id="each-1">
   <template :each="">
@@ -499,7 +499,7 @@ cat
 horse
 ```
 
-> Complex array iteration.
+#### Complex array iteration.
 
 ```html
 <template id="each-2">
@@ -598,7 +598,7 @@ With the following tag in your `HTML` `body`
   <button class="btn btn-" :class="btn"><slot></slot></button>
 </template>
 ```
-> Reuse your templates inside another template.
+#### Reuse your templates inside another template.
 ```html
 <template id="custom-1">
   <div>
@@ -618,7 +618,7 @@ render('custom-1', {
 </div>
 ```
 
-> Iterate with custom tags.
+#### Iterate with custom tags.
 ```html
 <template id="custom-2">
   <div>
@@ -639,7 +639,7 @@ render('custom2', [
 </div>
 ```
 
-> Recursive tags.
+#### Recursive tags.
 
 ```html
 <template id="my-list">
