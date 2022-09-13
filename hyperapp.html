@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>hyperapp + cannabis</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <script type="module">
+      import { h, text, app } from "https://unpkg.com/hyperapp"
+      import cannabis from "./index.js"
+
+      const render = cannabis(h, text)
+      const root = document.getElementById("app")
+
+      app({
+        init: {
+          todos: [],
+          value: "",
+          AddTodo: state => ({
+            ...state,
+            value: "",
+            todos: state.todos.concat(state.value),
+          }),
+          NewValue: (state, event) => ({
+            ...state,
+            value: event.target.value,
+          })
+        },
+        view: state => render('my-todo', state, root.tagName, {id: 'app'}),
+        node: root
+      })
+    </script>
+  </head>
+  <body>
+    <main id="app"></main>
+    <template id="my-todo">
+      <h1>To do list</h1>
+      <input type="text" :value="value" :oninput="NewValue">
+      <ul>
+        <li :each="todos" :text></li>
+      </ul>
+      <button :onclick="AddTodo">New!</button>
+    </template>
+  </body>
+</html>

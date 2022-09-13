@@ -5,32 +5,58 @@ A logicless xml template engine that uses valid `HTML` as input.
 
 It is simple, intuitive, clean and beautiful.
 
+You can use as a view engine for your favorite virtual DOM or framework.
+
 ## Usage
-> cannabis(target, template, scope)
+> cannabis(h, text) -> render
+Compile all templates with id tag inside the page and creates a render function.
 
- - target: `id` or `DOM element` that cannabis will `append` the result.
- - template: `id` or `DOM element` of the `template`.
- - scope: any valid json is a valid `scope` to be rendered.
+ - h(tagName, attributes, children): a
+[hyperscript](https://github.com/hyperhype/hyperscript) function that create a
+DOM or virtual DOM element, if no function is passed, it will use
+[document.createElement](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement).
+ - text(str): a 
+[hyperscript](https://github.com/hyperhype/hyperscript) function that crate DOM
+or vDOM text nodes.
 
+> render(templateId, scope, rootTag, rootAttributes) -> element
+Return the DOM or vDOM element (based on the `h` function) that is generated
+by renderering the `scope` with the template.
+
+ - templateId: The name of the template. Observe that you can only use as
+custom tags templates that id contains `-`. As described
+[here](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements).
+ - scope: The data passed to interpolate the template, any JSON object even
+with javascript functions is valid!
+ - rootTag: The optional root where the resulted should be mounted. If no root
+is passed it will be mounted inside a `div` tag.
+ - rootAttributes: The optional attributes object (with the exactly hypescript
+syntax of the `h` function). No attributes is the default.
+
+## Samples
+
+### Hello World!
 ```html
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Sample cannabis</title>
-    <script src="https://cdn.jsdelivr.net/gh/marcodpt/cannabis/index.js"></script>
+    <title>Hello Cannabis</title>
+    <script type="module">
+      import cannabis from 'https://cdn.jsdelivr.net/gh/marcodpt/cannabis/index.js'
+      const render = cannabis()
+
+      const root = document.getElementById("app")
+      root.replaceWith(render('my-view', {
+        message: "Hello World!"
+      }))
+    </script>
   </head>
   <body>
     <div id="app"></div>
 
-    <template id="my-header">
+    <template id="my-view">
       <h1 :text="message"></h1>
     </template>
-
-    <script>
-      cannabis('app', 'my-header', {
-        message: "Hello world!"
-      })
-    </script>
   </body>
 </html>
 ```
@@ -41,18 +67,33 @@ Result:
 </div>
 ```
 
-You can check the result [here](https://marcodpt.github.io/cannabis/sample.html).
+You can check the result:
+[live](https://marcodpt.github.io/cannabis/hello.html).
+[source](https://raw.githubusercontent.com/marcodpt/cannabis/main/hello.html)
 
-## Magic Attributes
+### Examples
+ - Todo without virtual DOM:
+[live](https://marcodpt.github.io/cannabis/todo.html).
+[source](https://raw.githubusercontent.com/marcodpt/cannabis/main/todo.html)
+ - [Superfine](https://github.com/jorgebucaran/superfine):
+[live](https://marcodpt.github.io/cannabis/superfine.html)
+[source](https://raw.githubusercontent.com/marcodpt/cannabis/main/superfine.html)
+ - [Hyperapp](https://github.com/jorgebucaran/hyperapp): 
+[live](https://marcodpt.github.io/cannabis/hyperapp.html).
+[source](https://raw.githubusercontent.com/marcodpt/cannabis/main/hyperapp.html)
+
+## Docs
 ### :attribute
 > Simple eval
 ```html
-<a class="primary" :href="target">Go to page 1</a>
+<template id="attributes-1">
+  <a class="primary" :href="target">Go to page 1</a>
+</template>
 ```
 ```js
-{
+render('attributes-1', {
   target: "#/page/1"
-}
+}).innerHTML
 ```
 ```html
 <a class="primary" href="#/page/1">Go to page 1</a>
@@ -60,13 +101,15 @@ You can check the result [here](https://marcodpt.github.io/cannabis/sample.html)
 
 > Boolean attributes
 ```html
-<input type="checkbox" :checked="isChecked" :disabled="isDisabled">
+<template id="attributes-2">
+  <input type="checkbox" :checked="isChecked" :disabled="isDisabled">
+</template>
 ```
 ```js
-{
+render('attributes-2', {
   isDisabled: true,
   isChecked: false
-}
+}).innerHTML
 ```
 ```html
 <input type="checkbox" disabled="">
@@ -74,15 +117,17 @@ You can check the result [here](https://marcodpt.github.io/cannabis/sample.html)
 
 > Extending attributes
 ```html
-<button class="btn btn-" :class="btn" disabled :disabled="isDisabled">
-  Submit
-</button>
+<template id="attributes-3">
+  <button class="btn btn-" :class="btn" disabled :disabled="isDisabled">
+    Submit
+  </button>
+</template>
 ```
 ```js
-{
+render('attributes-3', {
   isDisabled: false,
   btn: "primary"
-}
+}).innerHTML
 ```
 ```html
 <button class="btn btn-primary">
@@ -90,15 +135,51 @@ You can check the result [here](https://marcodpt.github.io/cannabis/sample.html)
 </button>
 ```
 
-### text
-> Prepend text to node
+> Function calls 
 ```html
-<h1 :text="hi">John</h1>
+<template id="attributes-4">
+  <button class="btn btn-primary" :onclick="action">
+    Submit
+  </button>
+</template>
 ```
 ```js
-{
-  hi: "Hello "
-}
+const el = render('attributes-4', {
+  action: (ev) => {
+    const btn = ev.target.closest('button')
+    btn.disabled = true
+    btn.textContent = 'Submited!'
+  }
+})
+el.innerHTML
+```
+```html
+<button class="btn btn-primary">
+  Submit
+</button>
+```
+```js
+const btn = el.querySelector('button')
+btn.click()
+el.innerHTML
+```
+```html
+<button class="btn btn-primary" disabled="">
+  Submited!
+</button>
+```
+
+### text
+> Append text to node
+```html
+<template id="text-1">
+  <h1 :text="name">Hello </h1>
+</template>
+```
+```js
+render('text-1', {
+  name: "John"
+}).innerHTML
 ```
 ```html
 <h1>Hello John</h1>
@@ -106,14 +187,16 @@ You can check the result [here](https://marcodpt.github.io/cannabis/sample.html)
 
 > Use template to interpolate text
 ```html
-<h1>
-  Hello <template :text="name"></template>, how are you?
-</h1>
+<template id="text-2">
+  <h1>
+    Hello <template :text="name"></template>, how are you?
+  </h1>
+</template>
 ```
 ```js
-{
+render('text-2', {
   name: "John"
-}
+}).innerHTML
 ```
 ```html
 <h1>
@@ -123,73 +206,39 @@ You can check the result [here](https://marcodpt.github.io/cannabis/sample.html)
 
 > HTML strings will be escaped
 ```html
-<code :text="raw"></code>
+<template id="text-3">
+  <code :text="raw"></code>
+</template>
 ```
 ```js
-{
+render('text-3', {
   raw: "var x = y > 4 && z / 3 == 2 ? 1 : 2"
-}
+}).innerHTML
 ```
 ```html
 <code>var x = y &gt; 4 &amp;&amp; z / 3 == 2 ? 1 : 2</code>
 ```
 
-### html
-> Prepend HTML to node
-```html
-<a href="#" :html="icon">Remove</a>
-```
-```js
-{
-  icon: '<i class="fas fa-trash"></i> '
-}
-```
-```html
-<a href="#"><i class="fas fa-trash"></i> Remove</a>
-```
-
-> Use template to interpolate html
-```html
-<h1>
-  Hello <template :html="name"></template>, how are you?
-</h1>
-```
-```js
-{
-  name: "<b>John</b>"
-}
-```
-```html
-<h1>
-  Hello <b>John</b>, how are you?
-</h1>
-```
-
-> Templates as void elements
-```html
-<a href="#"><template><i class="fas fa-trash"></i> </template>Remove</a>
-```
-```js
-{}
-```
-```html
-<a href="#"><i class="fas fa-trash"></i> Remove</a>
-```
-
 ### if/not
 > Remove node with a conditional test
 ```html
-<div>
-  John: <i :if="john" class="fas fa-check"></i><i :not="john" class="fas fa-times"></i>
-</div><div>
-  Mary: <i :if="mary" class="fas fa-check"></i><i :not="mary" class="fas fa-times"></i>
-</div>
+<template id="if-not-1">
+  <div>
+    John:
+    <i :if="john" class="fas fa-check"></i>
+    <i :not="john" class="fas fa-times"></i>
+  </div><div>
+    Mary:
+    <i :if="mary" class="fas fa-check"></i>
+    <i :not="mary" class="fas fa-times"></i>
+  </div>
+</template>
 ```
 ```js
-{
+render('if-not-1', {
   john: false,
   mary: true
-}
+}).innerHTML
 ```
 ```html
 <div>
@@ -201,20 +250,22 @@ You can check the result [here](https://marcodpt.github.io/cannabis/sample.html)
 
 > Some critical js values
 ```html
-<div>
-  null: <template :if="0">true</template><template :not="0">false</template>
-  0: <template :if="1">true</template><template :not="1">false</template>
-  1: <template :if="2">true</template><template :not="2">false</template>
-  -1: <template :if="3">true</template><template :not="3">false</template>
-  "": <template :if="4">true</template><template :not="4">false</template>
-  "0": <template :if="5">true</template><template :not="5">false</template>
-  []: <template :if="6">true</template><template :not="6">false</template>
-  {}: <template :if="7">true</template><template :not="7">false</template>
-  undefined: <template :if="8">true</template><template :not="8">false</template>
-</div>
+<template id="if-not-2">
+  <div>
+    null: <template :if="0">true</template><template :not="0">false</template>
+    0: <template :if="1">true</template><template :not="1">false</template>
+    1: <template :if="2">true</template><template :not="2">false</template>
+    -1: <template :if="3">true</template><template :not="3">false</template>
+    "": <template :if="4">true</template><template :not="4">false</template>
+    "0": <template :if="5">true</template><template :not="5">false</template>
+    []: <template :if="6">true</template><template :not="6">false</template>
+    {}: <template :if="7">true</template><template :not="7">false</template>
+    undefined: <template :if="8">true</template><template :not="8">false</template>
+  </div>
+</template>
 ```
 ```js
-[
+render('if-not-2', [
   null,
   0,
   1,
@@ -224,7 +275,7 @@ You can check the result [here](https://marcodpt.github.io/cannabis/sample.html)
   [],
   {},
   undefined
-]
+]).innerHTML
 ```
 ```html
 <div>
@@ -243,32 +294,34 @@ You can check the result [here](https://marcodpt.github.io/cannabis/sample.html)
 ### switch/case
 > Choose a imediate children tag based on a criteria.
 ```html
-<form :switch="input">
-  <label :text="title"></label>
-  <select
-    case="boolean"
-    :name="name"
-  >
-    <option value="0">No</option>
-    <option value="1">Yes</option>
-  </select><textarea
-    case="text"
-    :name="name"
-    rows="6"
-  ></textarea><input
-    case="default"
-    type="text"
-    :name="name"
-  >
-  <button>Submit</button>
-</form>
+<template id="switch-case-1">
+  <form :switch="input">
+    <label :text="title"></label>
+    <select
+      case="boolean"
+      :name="name"
+    >
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select><textarea
+      case="text"
+      :name="name"
+      rows="6"
+    ></textarea><input
+      case="default"
+      type="text"
+      :name="name"
+    >
+    <button>Submit</button>
+  </form>
+</template>
 ```
 ```js
-{
+render('switch-case-1', {
   input: "text",
   name: "bio",
   title: "Bio"
-}
+}).innerHTML
 ```
 ```html
 <form>
@@ -280,21 +333,19 @@ You can check the result [here](https://marcodpt.github.io/cannabis/sample.html)
 
 > You can use template for case
 ```html
-<div :switch="color">
-  My favorite color is:
-  <template
-    case="red"
-  >Red</template><template
-    case="green"
-  >Green</template><template
-    case="blue"
-  >Blue</template>
-</div>
+<template id="switch-case-2">
+  <div :switch="color">
+    My favorite color is:
+    <template case="red">Red</template>
+    <template case="green">Green</template>
+    <template case="blue">Blue</template>
+  </div>
+</template>
 ```
 ```js
-{
+render('switch-case-2', {
   color: "red"
-}
+}).innerHTML
 ```
 ```html
 <div>
@@ -305,18 +356,19 @@ You can check the result [here](https://marcodpt.github.io/cannabis/sample.html)
 
 > You can use template for switch
 ```html
-<template :switch="color">My favorite color is: <b
-  case="red"
->Red</b><b
-  case="green"
->Green</b><b
-  case="blue"
->Blue</b></template>
+<template id="switch-case-3">
+  <template :switch="color">
+    My favorite color is:
+    <b case="red">Red</b>
+    <b case="green">Green</b>
+    <b case="blue">Blue</b>
+  </template>
+</template>
 ```
 ```js
-{
+render('switch-case-3', {
   color: "green"
-}
+}).innerHTML
 ```
 ```html
 My favorite color is: <b>Green</b>
@@ -324,18 +376,19 @@ My favorite color is: <b>Green</b>
 
 > You can use in both
 ```html
-<template :switch="color">My favorite color is: <template
-  case="red"
->Red</template><template
-  case="green"
->Green</template><template
-  case="blue"
->Blue</template></template>
+<template id="switch-case-4">
+  <template :switch="color">
+    My favorite color is:
+    <template case="red">Red</template>
+    <template case="green">Green</template>
+    <template case="blue">Blue</template>
+  </template>
+</template>
 ```
 ```js
-{
+render('switch-case-4', {
   color: "blue"
-}
+}).innerHTML
 ```
 ```html
 My favorite color is: Blue
@@ -344,19 +397,21 @@ My favorite color is: Blue
 ### with
 > Change scope within tag.
 ```html
-<div>
-  <p>My name is: <template :text="name"></template></p>
-  <p :with="friend">My name is: <template :text="name"></template></p>
-  <p>My name is: <template :text="name"></template></p>
-</div>
+<template id="with-1">
+  <div>
+    <p>My name is: <template :text="name"></template></p>
+    <p :with="friend">My name is: <template :text="name"></template></p>
+    <p>My name is: <template :text="name"></template></p>
+  </div>
+</template>
 ```
 ```js
-{
+render('with-1', {
   name: "Mary",
   friend: {
     name: "John"
   }
-}
+}).innerHTML
 ```
 ```html
 <div>
@@ -368,64 +423,48 @@ My favorite color is: Blue
 
 > Parent keys access.
 ```html
-<div>
-  <p><b :text="greeting"></b><span :text="name"></span></p>
-  <p :with="friend"><b :text="greeting"></b><span :text="name"></span></p>
-  <p><b :text="greeting"></b><span :text="name"></span></p>
-</div>
+<template id="with-2">
+  <div>
+    <p><b :text="greeting"></b><span :text="name"></span></p>
+    <p :with="friend"><b :text="greeting"></b><span :text="name"></span></p>
+    <p><b :text="greeting"></b><span :text="name"></span></p>
+  </div>
+</template>
 ```
 ```js
-{
+render('with-2', {
   greeting: "Hello",
   name: "Mary",
   friend: {
     name: "John"
   }
-}
+}).innerHTML
 ```
 ```html
 <div>
   <p><b>Hello</b><span>Mary</span></p>
   <p><b>Hello</b><span>John</span></p>
   <p><b>Hello</b><span>Mary</span></p>
-</div>
-```
-
-> Arrays can also be expanded.
-```html
-<div :with="to">
-  <p><b :text="greeting"></b><span :text="0"></span></p>
-  <p><b :text="greeting"></b><span :text="1"></span></p>
-</div>
-```
-```js
-{
-  greeting: "Hello",
-  to: ["Mary", "John"]
-}
-```
-```html
-<div>
-  <p><b>Hello</b><span>Mary</span></p>
-  <p><b>Hello</b><span>John</span></p>
 </div>
 ```
 
 > Simple types access.
 ```html
-<div :with="0">
-  <p :text="0"></p>
-  <p :text="1"></p>
-</div>
-<div :with="1">
-  <p :text=""></p>
-</div>
-<div :with="2">
-  <p :text=""></p>
-</div>
+<template id="with-3">
+  <div :with="0">
+    <p :text="0"></p>
+    <p :text="1"></p>
+  </div>
+  <div :with="1">
+    <p :text=""></p>
+  </div>
+  <div :with="2">
+    <p :text=""></p>
+  </div>
+</template>
 ```
 ```js
-[["Mary", "John"], "dog", 3.14]
+render('with-3', [["Mary", "John"], "dog", 3.14]).innerHTML
 ```
 ```html
 <div>
@@ -440,60 +479,50 @@ My favorite color is: Blue
 </div>
 ```
 
-```html
-<div :with="">
-  <p :text=""></p>
-</div>
-```
-```js
-"dog"
-```
-```html
-<div>
-  <p>dog</p>
-</div>
-```
-
 ### each
 > Simple array iteration.
 ```html
-<template :each=""><template :text=""></template>
+<template id="each-1">
+  <template :each="">
+    <template :text=""></template>
+  </template>
 </template>
 ```
 ```js
-["dog", "cat", "horse"]
+render('each-1', ["dog", "cat", "horse"]).innerHTML
 ```
 ```html
 dog
 cat
 horse
-
 ```
 
 > Complex array iteration.
 
 ```html
-<table>
-  <thead>
-    <tr>
-      <th :each="links" :text=""></th>
-      <th>Id</th>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr :each="rows" :class="css">
-      <td :each="links">
-        <a :href="href" :href="id" :text="title"></a>
-      </td>
-      <td :text="id"></td>
-      <td :text="name"></td>
-    </tr>
-  </tbody>
-</table>
+<template id="each-2">
+  <table>
+    <thead>
+      <tr>
+        <th :each="links" :text=""></th>
+        <th>Id</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr :each="rows" :class="css">
+        <td :each="links">
+          <a :href="href" :href="id" :text="title"></a>
+        </td>
+        <td :text="id"></td>
+        <td :text="name"></td>
+      </tr>
+    </tbody>
+  </table>
+</template>
 ```
 ```js
-{
+render('each-2', {
   links: ["Delete", "Edit"],
   rows: [
     {
@@ -524,7 +553,7 @@ horse
       ]
     }
   ]
-}
+}).innerHTML
 ```
 ```html
 <table>
@@ -557,7 +586,10 @@ horse
 </table>
 ```
 
-### custom tags
+### Custom Tags
+Observe that you can only use as custom tags templates that id contains `-`.
+As described [here](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements).
+
 With the following tag in your `HTML` `body` 
 ```html
 <template id="my-button">
@@ -566,43 +598,47 @@ With the following tag in your `HTML` `body`
 ```
 > Reuse your templates inside another template.
 ```html
-<div>
-  <my-button :btn="button" :text="title">!</my-button>
-</div>
+<template id="custom-1">
+  <div>
+    <my-button :btn="button" :text="title">Go </my-button>
+  </div>
+</template>
 ```
 ```js
-{
+render('custom-1', {
   button: "primary",
   title: "Submit"
-}
+}).innerHTML
 ```
 ```html
 <div>
-  <button class="btn btn-primary">Submit!</button>
+  <button class="btn btn-primary">Go Submit</button>
 </div>
 ```
 
 > Iterate with custom tags.
 ```html
-<div>
-  <my-button :each="" :btn="button" :text="title">!</my-button>
-</div>
+<template id="custom-2">
+  <div>
+    <my-button :each="" :btn="button" :text="title">Go </my-button>
+  </div>
+</template>
 ```
 ```js
-[
+render('custom2', [
   {button: "secondary", title: "Cancel"},
   {button: "primary", title: "Submit"}
-]
+]).innerHTML
 ```
 ```html
 <div>
-  <button class="btn btn-secondary">Cancel!</button><button class="btn btn-primary">Submit!</button>
+  <button class="btn btn-secondary">Go Cancel</button>
+  <button class="btn btn-primary">Go Submit</button>
 </div>
 ```
 
 > Recursive tags.
 
-With the following tag in your `HTML` `body` 
 ```html
 <template id="my-list">
   <ul :if="items">
@@ -613,12 +649,8 @@ With the following tag in your `HTML` `body`
   </ul>
 </template>
 ```
-
-```html
-<my-list :items=""></my-list>
-```
 ```js
-[
+render('my-list', [
   {
     title: "animals",
     children: [
@@ -652,7 +684,7 @@ With the following tag in your `HTML` `body`
   }, {
     title: "home"
   }
-]
+]).innerHTML
 ```
 ```html
 <ul>

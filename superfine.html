@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>superfine + cannabis</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <script type="module">
+      import { h, text, patch } from "https://unpkg.com/superfine"
+      import cannabis from "./index.js"
+
+      const render = cannabis(h, text)
+
+      const setState = count => {
+        const root = document.getElementById("app")
+        patch(root, render('my-view', {
+          count: count,
+          dec: () => setState(count - 1),
+          inc: () => setState(count + 1)
+        }, root.tagName, {id: 'app'}))
+      }
+
+      setState(0)
+    </script>
+  </head>
+  <body>
+    <main id="app"></main>
+    <template id="my-view">
+      <h1 :text="count"></h1>
+      <button :onclick="dec">-</button>
+      <button :onclick="inc">+</button>
+    </template>
+  </body>
+</html>
