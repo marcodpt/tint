@@ -8,7 +8,8 @@ It is simple, intuitive, clean and beautiful.
 You can use as a view engine for your favorite virtual DOM or framework.
 
 ## Usage
-> cannabis(h, text) -> render
+### cannabis(h, text) -> render
+
 Compile all templates with id tag inside the page and creates a render function.
 
  - h(tagName, attributes, children): a
@@ -19,7 +20,8 @@ DOM or virtual DOM element, if no function is passed, it will use
 [hyperscript](https://github.com/hyperhype/hyperscript) function that crate DOM
 or vDOM text nodes.
 
-> render(templateId, scope, rootTag, rootAttributes) -> element
+### render(templateId, scope, rootTag, rootAttributes) -> element
+
 Return the DOM or vDOM element (based on the `h` function) that is generated
 by renderering the `scope` with the template.
 
