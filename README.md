@@ -83,6 +83,12 @@ You can check the result:
  - [Hyperapp](https://github.com/jorgebucaran/hyperapp): 
    - [live](https://marcodpt.github.io/cannabis/hyperapp.html)
    - [source](https://raw.githubusercontent.com/marcodpt/cannabis/main/hyperapp.html)
+ - [Mithril.js](https://github.com/MithrilJS/mithril.js): 
+   - [live](https://marcodpt.github.io/cannabis/mithril.html)
+   - [source](https://raw.githubusercontent.com/marcodpt/cannabis/main/mithril.html)
+ - [preact](https://github.com/preactjs/preact): 
+   - [live](https://marcodpt.github.io/cannabis/preact.html)
+   - [source](https://raw.githubusercontent.com/marcodpt/cannabis/main/preact.html)
 
 ## Docs
 ### :attribute

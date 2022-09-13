@@ -17,10 +17,14 @@ export default (h, text) => {
       })
       return element
     }
+
+    if (typeof text != 'function') {
+      text = str => document.createTextNode(str)
+    }
   }
 
   if (typeof text != 'function') {
-    text = str => document.createTextNode(str)
+    text = str => str
   }
 
   const isObj = X => X && typeof X == 'object' && !(X instanceof Array)
