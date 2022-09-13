@@ -75,14 +75,14 @@ You can check the result:
 
 ### Examples
  - Todo without virtual DOM:
-[live](https://marcodpt.github.io/cannabis/todo.html).
-[source](https://raw.githubusercontent.com/marcodpt/cannabis/main/todo.html)
+   - [live](https://marcodpt.github.io/cannabis/todo.html).
+   - [source](https://raw.githubusercontent.com/marcodpt/cannabis/main/todo.html)
  - [Superfine](https://github.com/jorgebucaran/superfine):
-[live](https://marcodpt.github.io/cannabis/superfine.html)
-[source](https://raw.githubusercontent.com/marcodpt/cannabis/main/superfine.html)
+   - [live](https://marcodpt.github.io/cannabis/superfine.html)
+   - [source](https://raw.githubusercontent.com/marcodpt/cannabis/main/superfine.html)
  - [Hyperapp](https://github.com/jorgebucaran/hyperapp): 
-[live](https://marcodpt.github.io/cannabis/hyperapp.html).
-[source](https://raw.githubusercontent.com/marcodpt/cannabis/main/hyperapp.html)
+   - [live](https://marcodpt.github.io/cannabis/hyperapp.html).
+   - [source](https://raw.githubusercontent.com/marcodpt/cannabis/main/hyperapp.html)
 
 ## Docs
 ### :attribute
