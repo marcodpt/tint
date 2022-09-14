@@ -1,24 +1,30 @@
 # ![Cannabis](favicon.ico) Cannabis
-#### The natural template engine for the browser
+#### The natural view engine for the browser
 
-A logicless xml template engine that uses valid `HTML` as input.
+A logicless xml template engine that takes valid `HTML` as input.
 
-It is simple, intuitive, clean and beautiful.
+Compile all HTML5 `template` tags from the current page to any
+[hyperscript](https://github.com/hyperhype/hyperscript) function you want to
+use.
 
-You can use as a view engine for your favorite virtual DOM or framework.
+Completely separate layouts from javascript logic.
+
+It works with all javascript frameworks that support
+[hyperscript](https://github.com/hyperhype/hyperscript).
 
 ## Usage
 ### cannabis(h, text) -> render
 
-Compile all templates with id tag inside the page and creates a render function.
+Transforms all template tags (with id attribute) within the current page into a
+[hyperscript](https://github.com/hyperhype/hyperscript) function.
 
  - h(tagName, attributes, children): a
 [hyperscript](https://github.com/hyperhype/hyperscript) function that create a
 DOM or virtual DOM element, if no function is passed, it will use
 [document.createElement](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement).
  - text(str): a 
-[hyperscript](https://github.com/hyperhype/hyperscript) function that crate DOM
-or vDOM text nodes.
+[hyperscript](https://github.com/hyperhype/hyperscript) function that create
+DOM or vDOM text nodes.
 
 ### render(templateId, scope, rootTag, rootAttributes) -> element
 
@@ -601,7 +607,7 @@ As described [here](https://developer.mozilla.org/en-US/docs/Web/Web_Components/
 With the following tag in your `HTML` `body` 
 ```html
 <template id="my-button">
-  <button class="btn btn-" :class="btn"><slot></slot></button>
+  <button class="btn btn-" :class="btn" :text="text"><slot></slot></button>
 </template>
 ```
 #### Reuse your templates inside another template.
