@@ -70,7 +70,7 @@ syntax of the `h` function). No attributes is the default.
 ```
 Result:
 ```html
-<div id="app">
+<div>
   <h1>Hello world!</h1>
 </div>
 ```
