@@ -1,6 +1,6 @@
-import cannabis from "./index.js"
+import tint from "./index.js"
 
-const render = cannabis()
+const render = tint()
 const text = str => str.trim()
   .replace(/>\s+</g, () => '><')
   .replace(/\s+/g, () => ' ')

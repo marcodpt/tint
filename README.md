@@ -1,4 +1,4 @@
-# ![Cannabis](favicon.ico) Cannabis
+# ![Tint](favicon.ico) Tint
 #### The natural view engine for the browser
 
 A logicless xml template engine that takes valid `HTML` as input.
@@ -13,7 +13,7 @@ It works with all javascript frameworks that support
 [hyperscript](https://github.com/hyperhype/hyperscript).
 
 ## Usage
-### cannabis(h, text) -> render
+### tint(h, text) -> render
 
 Transforms all template tags (with id attribute) within the current page into a
 [hyperscript](https://github.com/hyperhype/hyperscript) function.
@@ -48,10 +48,10 @@ syntax of the `h` function). No attributes is the default.
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Hello Cannabis</title>
+    <title>Hello Tint</title>
     <script type="module">
-      import cannabis from 'https://cdn.jsdelivr.net/gh/marcodpt/cannabis/index.js'
-      const render = cannabis()
+      import tint from 'https://cdn.jsdelivr.net/gh/marcodpt/tint/index.js'
+      const render = tint()
 
       const root = document.getElementById("app")
       root.replaceWith(render('my-view', {
@@ -76,25 +76,25 @@ Result:
 ```
 
 You can check the result:
- - [live](https://marcodpt.github.io/cannabis/hello.html)
- - [source](https://raw.githubusercontent.com/marcodpt/cannabis/main/hello.html)
+ - [live](https://marcodpt.github.io/tint/hello.html)
+ - [source](https://raw.githubusercontent.com/marcodpt/tint/main/hello.html)
 
 ### Examples
  - Todo without virtual DOM:
-   - [live](https://marcodpt.github.io/cannabis/todo.html)
-   - [source](https://raw.githubusercontent.com/marcodpt/cannabis/main/todo.html)
+   - [live](https://marcodpt.github.io/tint/todo.html)
+   - [source](https://raw.githubusercontent.com/marcodpt/tint/main/todo.html)
  - [Superfine](https://github.com/jorgebucaran/superfine):
-   - [live](https://marcodpt.github.io/cannabis/superfine.html)
-   - [source](https://raw.githubusercontent.com/marcodpt/cannabis/main/superfine.html)
+   - [live](https://marcodpt.github.io/tint/superfine.html)
+   - [source](https://raw.githubusercontent.com/marcodpt/tint/main/superfine.html)
  - [Hyperapp](https://github.com/jorgebucaran/hyperapp): 
-   - [live](https://marcodpt.github.io/cannabis/hyperapp.html)
-   - [source](https://raw.githubusercontent.com/marcodpt/cannabis/main/hyperapp.html)
+   - [live](https://marcodpt.github.io/tint/hyperapp.html)
+   - [source](https://raw.githubusercontent.com/marcodpt/tint/main/hyperapp.html)
  - [Mithril.js](https://github.com/MithrilJS/mithril.js): 
-   - [live](https://marcodpt.github.io/cannabis/mithril.html)
-   - [source](https://raw.githubusercontent.com/marcodpt/cannabis/main/mithril.html)
+   - [live](https://marcodpt.github.io/tint/mithril.html)
+   - [source](https://raw.githubusercontent.com/marcodpt/tint/main/mithril.html)
  - [preact](https://github.com/preactjs/preact): 
-   - [live](https://marcodpt.github.io/cannabis/preact.html)
-   - [source](https://raw.githubusercontent.com/marcodpt/cannabis/main/preact.html)
+   - [live](https://marcodpt.github.io/tint/preact.html)
+   - [source](https://raw.githubusercontent.com/marcodpt/tint/main/preact.html)
 
 ## Docs
 ### :attribute
@@ -780,7 +780,7 @@ A huge thank you to all the people who contributed to these projects.
 First, thanks for reading this far.
 
 Everything within this documentation is tested 
-[here](https://marcodpt.github.io/cannabis/).
+[here](https://marcodpt.github.io/tint/).
 And it will always be so. Any changes to the documentation, any contributions
 MUST be present in the tests.
 
