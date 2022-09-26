@@ -6,8 +6,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     <script type="module">
-      import tint from "./index.js"
-      const render = tint()
+      import render from "./template.js"
 
       const state = {
         todos: [],
@@ -22,12 +21,11 @@
         state.value = ev.target.value
       }
       const rerender = () => {
-        const root = document.getElementById("app")
-        root.replaceWith(render('my-todo', {
+        render(document.getElementById("app"), 'my-todo', {
           ...state,
           AddTodo,
           NewValue
-        }, root.tagName, {id: 'app'}))
+        })
       }
 
       rerender()

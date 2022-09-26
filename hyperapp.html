@@ -5,16 +5,11 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     <script type="module">
-      import { h, text, app } from "https://unpkg.com/hyperapp"
-      import tint from "./index.js"
-
-      const render = tint(h, text)
-      const root = document.getElementById("app")
+      import app from "./hyperapp.js"
 
       app({
-        init: {
-          todos: [],
-          value: "",
+        template: 'my-todo',
+        actions: {
           AddTodo: state => ({
             ...state,
             value: "",
@@ -25,8 +20,11 @@
             value: event.target.value,
           })
         },
-        view: state => render('my-todo', state, root.tagName, {id: 'app'}),
-        node: root
+        init: {
+          todos: [],
+          value: ""
+        },
+        node: document.getElementById("app")
       })
     </script>
   </head>
