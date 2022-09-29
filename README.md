@@ -53,7 +53,208 @@ You can check the result:
  - [live](https://marcodpt.github.io/tint/hello.html)
  - [source](https://raw.githubusercontent.com/marcodpt/tint/main/hello.html)
 
-## Usage
+## Building a todo app
+Now we gonna show examples wrappers you can use with some hyperscript
+frameworks that you can use to construct real world applications.
+
+In all examples we use the same `body`. This is a full demonstration of the
+power of layout separation.
+
+```html
+<body>
+  <main id="app"></main>
+  <template id="todo">
+    <h1>To do list</h1>
+    <input type="text" :value="value" :oninput="NewValue">
+    <ul>
+      <li :each="todos" :text></li>
+    </ul>
+    <button :onclick="AddTodo">New!</button>
+  </template>
+</body>
+```
+
+### Todo without any framework or virtual DOM
+This is not the recommended way to do it.
+You will update the DOM more than necessary, you will lose focus and maybe
+other things.
+But here's a demo anyway.
+
+```js
+import render from "https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js"
+
+const state = {
+  todos: [],
+  value: "",
+  AddTodo: () => {
+    state.todos.push(state.value)
+    state.value = ""
+    rerender()
+  },
+  NewValue: ev => {
+    state.value = ev.target.value
+  }
+}
+
+const node = document.getElementById("app")
+const rerender = () => render('todo', state, node)
+
+rerender()
+```
+
+ - [live](https://marcodpt.github.io/tint/todo.html)
+ - [source](https://raw.githubusercontent.com/marcodpt/tint/main/todo.html)
+
+### Todo with [Superfine](https://github.com/jorgebucaran/superfine)
+Here we changed a little bit the usage of superfine, you must pass an object as
+state, and you need to add inside the object:
+ - nodeId: The id of the DOM element where you will mount the app.
+ - templateId: The id of the template tag with your view.
+
+```js
+import superfine from "https://cdn.jsdelivr.net/gh/marcodpt/tint/superfine.js"
+
+const state = {
+  nodeId: 'app',
+  templateId: 'todo',
+  todos: [],
+  value: "",
+  AddTodo: () => {
+    state.todos.push(state.value)
+    state.value = ""
+    setState(state)
+  },
+  NewValue: ev => {
+    state.value = ev.target.value
+  }
+}
+
+const setState = superfine(state)
+```
+
+ - [live](https://marcodpt.github.io/tint/superfine.html)
+ - [source](https://raw.githubusercontent.com/marcodpt/tint/main/superfine.html)
+
+### Todo with [Hyperapp](https://github.com/jorgebucaran/hyperapp)
+We eliminated `view` property because `tint` will generate it automatically
+based on `templateId` that you pass to `app`.
+
+We've also introduced an `actions` object for your static methods, but you can
+also enter any variable that is a constant here.
+
+Everything else is exactly equals on hyperapp.
+
+[Here](https://github.com/jorgebucaran/hyperapp/issues/1098) is a nice
+discussion where this wrapper came to existence.
+
+```js
+import app from "https://cdn.jsdelivr.net/gh/marcodpt/tint/hyperapp.js"
+
+app({
+  templateId: 'todo',
+  actions: {
+    AddTodo: state => ({
+      ...state,
+      value: "",
+      todos: state.todos.concat(state.value),
+    }),
+    NewValue: (state, event) => ({
+      ...state,
+      value: event.target.value,
+    })
+  },
+  init: {
+    todos: [],
+    value: ""
+  },
+  node: document.getElementById("app")
+})
+```
+
+ - [live](https://marcodpt.github.io/tint/hyperapp.html)
+ - [source](https://raw.githubusercontent.com/marcodpt/tint/main/hyperapp.html)
+
+### Todo with [Mithril.js](https://github.com/MithrilJS/mithril.js)
+In this example you also must import mithril in the page by yourself before the
+wrapper.
+
+You can pass any of the components methods like: `oninit`, `oncreate`, etc.
+And it will work fine.
+
+```js
+import component from 'https://cdn.jsdelivr.net/gh/marcodpt/tint/mithril.js'
+
+const state = {
+  templateId: 'todo',
+  todos: [],
+  value: "",
+  AddTodo: () => {
+    state.todos.push(state.value)
+    state.value = ""
+  },
+  NewValue: ev => {
+    state.value = ev.target.value
+  }
+}
+
+m.mount(document.getElementById("app"), component(state))
+```
+
+ - [live](https://marcodpt.github.io/tint/mithril.html)
+ - [source](https://raw.githubusercontent.com/marcodpt/tint/main/mithril.html)
+
+### Todo with [preact](https://github.com/preactjs/preact)
+Our preact wrapper is not the best. But it serves to show an example
+with a global state and no components. If you think you can improve this
+wrapper please send a pull request.
+
+```js
+import preact from "https://cdn.jsdelivr.net/gh/marcodpt/tint/preact.js"
+
+const state = {
+  templateId: 'todo',
+  todos: [],
+  value: "",
+  AddTodo: () => {
+    state.todos.push(state.value)
+    state.value = ""
+    render()
+  },
+  NewValue: ev => {
+    state.value = ev.target.value
+  }
+}
+
+const render = preact(state, document.getElementById("app"))
+```
+
+ - [live](https://marcodpt.github.io/tint/preact.html)
+ - [source](https://raw.githubusercontent.com/marcodpt/tint/main/preact.html)
+
+## Usage as a low level library
+To build all the wrappers for the TODO application, we use this package as a
+low-level library.
+
+```js
+import tint from 'https://cdn.jsdelivr.net/gh/marcodpt/tint/index.js'
+```
+
+Here is the source code for each of the wrappers:
+
+ - [template](https://raw.githubusercontent.com/marcodpt/tint/main/template.js)
+ - [superfine](https://raw.githubusercontent.com/marcodpt/tint/main/superfine.js)
+ - [hyperapp](https://raw.githubusercontent.com/marcodpt/tint/main/hyperapp.js)
+ - [mithril](https://raw.githubusercontent.com/marcodpt/tint/main/mithril.js)
+ - [preact](https://raw.githubusercontent.com/marcodpt/tint/main/preact.js)
+
+If you want to create a wrapper for a framework that is not on this list or
+if you want to improve any of the wrappers we've created here, you'll need
+use `tint` as described in this section.
+
+If you created something interesting, or a wrapper for another framework or
+improved any example. Submit a pull request or open an issue with your
+code.
+
 ### tint(h, text) -> render
 
 Transforms all template tags (with id attribute) within the current page into a
@@ -82,24 +283,7 @@ is passed it will be mounted inside a `div` tag.
  - rootAttributes: The optional attributes object (with the exactly hypescript
 syntax of the `h` function). No attributes is the default.
 
-### Examples
- - Todo without virtual DOM:
-   - [live](https://marcodpt.github.io/tint/todo.html)
-   - [source](https://raw.githubusercontent.com/marcodpt/tint/main/todo.html)
- - [Superfine](https://github.com/jorgebucaran/superfine):
-   - [live](https://marcodpt.github.io/tint/superfine.html)
-   - [source](https://raw.githubusercontent.com/marcodpt/tint/main/superfine.html)
- - [Hyperapp](https://github.com/jorgebucaran/hyperapp): 
-   - [live](https://marcodpt.github.io/tint/hyperapp.html)
-   - [source](https://raw.githubusercontent.com/marcodpt/tint/main/hyperapp.html)
- - [Mithril.js](https://github.com/MithrilJS/mithril.js): 
-   - [live](https://marcodpt.github.io/tint/mithril.html)
-   - [source](https://raw.githubusercontent.com/marcodpt/tint/main/mithril.html)
- - [preact](https://github.com/preactjs/preact): 
-   - [live](https://marcodpt.github.io/tint/preact.html)
-   - [source](https://raw.githubusercontent.com/marcodpt/tint/main/preact.html)
-
-## Docs
+## Docs for the template engine
 ### :attribute
 #### Simple eval
 ```html
