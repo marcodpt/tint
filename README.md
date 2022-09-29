@@ -102,8 +102,8 @@ const rerender = () => render('todo', state, node)
 rerender()
 ```
 
- - [live](https://marcodpt.github.io/tint/todo.html)
- - [source](https://raw.githubusercontent.com/marcodpt/tint/main/todo.html)
+ - [live](https://marcodpt.github.io/tint/template.html)
+ - [source](https://raw.githubusercontent.com/marcodpt/tint/main/template.html)
 
 ### Todo with [Superfine](https://github.com/jorgebucaran/superfine)
 Here we changed a little bit the usage of superfine, you must pass an object as
