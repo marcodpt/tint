@@ -5,13 +5,11 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     <script type="module">
-      import tint from "./index.js"
-      const render = tint()
+      import render from "./template.js"
 
-      const root = document.getElementById("app")
-      root.replaceWith(render('my-view', {
+      render('my-view', {
         message: "Hello World!"
-      }))
+      }, document.getElementById("app"))
     </script>
   </head>
   <body>

@@ -6,36 +6,27 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     <script src="https://unpkg.com/mithril/mithril.js"></script>
     <script type="module">
-      import tint from "./index.js"
-      const render = tint(m)
+      import component from './mithril.js'
 
       const state = {
+        templateId: 'todo',
         todos: [],
-        value: ""
-      }
-      const AddTodo = () => {
-        state.todos.push(state.value)
-        state.value = ""
-        rerender()
-      }
-      const NewValue = (ev) => {
-        state.value = ev.target.value
-      }
-      const rerender = () => {
-        const root = document.getElementById("app")
-        m.render(root, render('my-todo', {
-          ...state,
-          AddTodo,
-          NewValue
-        }, root.tagName, {id: 'app'}))
+        value: "",
+        AddTodo: () => {
+          state.todos.push(state.value)
+          state.value = ""
+        },
+        NewValue: ev => {
+          state.value = ev.target.value
+        }
       }
 
-      rerender()
+      m.mount(document.getElementById("app"), component(state))
     </script>
   </head>
   <body>
     <main id="app"></main>
-    <template id="my-todo">
+    <template id="todo">
       <h1>To do list</h1>
       <input type="text" :value="value" :oninput="NewValue">
       <ul>

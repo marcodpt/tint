@@ -10,30 +10,26 @@
 
       const state = {
         todos: [],
-        value: ""
+        value: "",
+        AddTodo: () => {
+          state.todos.push(state.value)
+          state.value = ""
+          rerender()
+        },
+        NewValue: ev => {
+          state.value = ev.target.value
+        }
       }
-      const AddTodo = () => {
-        state.todos.push(state.value)
-        state.value = ""
-        rerender()
-      }
-      const NewValue = (ev) => {
-        state.value = ev.target.value
-      }
-      const rerender = () => {
-        render(document.getElementById("app"), 'my-todo', {
-          ...state,
-          AddTodo,
-          NewValue
-        })
-      }
+
+      const node = document.getElementById("app")
+      const rerender = () => render('todo', state, node)
 
       rerender()
     </script>
   </head>
   <body>
     <main id="app"></main>
-    <template id="my-todo">
+    <template id="todo">
       <h1>To do list</h1>
       <input type="text" :value="value" :oninput="NewValue">
       <ul>

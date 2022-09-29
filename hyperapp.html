@@ -8,7 +8,7 @@
       import app from "./hyperapp.js"
 
       app({
-        template: 'my-todo',
+        templateId: 'todo',
         actions: {
           AddTodo: state => ({
             ...state,
@@ -30,7 +30,7 @@
   </head>
   <body>
     <main id="app"></main>
-    <template id="my-todo">
+    <template id="todo">
       <h1>To do list</h1>
       <input type="text" :value="value" :oninput="NewValue">
       <ul>

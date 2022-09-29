@@ -12,6 +12,47 @@ Completely separate layouts from javascript logic.
 It works with all javascript frameworks that support
 [hyperscript](https://github.com/hyperhype/hyperscript).
 
+## Usage as a template engine
+### render(templateId, scope, target)
+Renders the template using the scope. If a target node is passed, the result
+will be inserted into the node, otherwise it will return the DOM element.
+
+ - templateId: the id of the view template tag in the current page.
+ - scope: template scope to be used.
+ - target: optional DOM element where the result will be displayed. If none
+target is passed it will return a DOM element with the result.
+
+```html
+<html>
+  <head>
+    <script type="module">
+      import render from "https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js"
+
+      render('my-view', {
+        message: "Hello World!"
+      }, document.getElementById("app"))
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <template id="my-view">
+      <h1 :text="message"></h1>
+    </template>
+  </body>
+</html>
+```
+Result:
+```html
+<div id="app">
+  <h1>Hello world!</h1>
+</div>
+```
+
+You can check the result:
+ - [live](https://marcodpt.github.io/tint/hello.html)
+ - [source](https://raw.githubusercontent.com/marcodpt/tint/main/hello.html)
+
 ## Usage
 ### tint(h, text) -> render
 
@@ -40,44 +81,6 @@ with javascript functions is valid!
 is passed it will be mounted inside a `div` tag.
  - rootAttributes: The optional attributes object (with the exactly hypescript
 syntax of the `h` function). No attributes is the default.
-
-## Samples
-
-### Hello World!
-```html
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Hello Tint</title>
-    <script type="module">
-      import tint from 'https://cdn.jsdelivr.net/gh/marcodpt/tint/index.js'
-      const render = tint()
-
-      const root = document.getElementById("app")
-      root.replaceWith(render('my-view', {
-        message: "Hello World!"
-      }))
-    </script>
-  </head>
-  <body>
-    <div id="app"></div>
-
-    <template id="my-view">
-      <h1 :text="message"></h1>
-    </template>
-  </body>
-</html>
-```
-Result:
-```html
-<div>
-  <h1>Hello world!</h1>
-</div>
-```
-
-You can check the result:
- - [live](https://marcodpt.github.io/tint/hello.html)
- - [source](https://raw.githubusercontent.com/marcodpt/tint/main/hello.html)
 
 ### Examples
  - Todo without virtual DOM:

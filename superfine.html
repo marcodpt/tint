@@ -5,29 +5,35 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     <script type="module">
-      import { h, text, patch } from "https://unpkg.com/superfine"
-      import tint from "./index.js"
+      import superfine from "./superfine.js"
 
-      const render = tint(h, text)
-
-      const setState = count => {
-        const root = document.getElementById("app")
-        patch(root, render('my-view', {
-          count: count,
-          dec: () => setState(count - 1),
-          inc: () => setState(count + 1)
-        }, root.tagName, {id: 'app'}))
+      const state = {
+        nodeId: 'app',
+        templateId: 'todo',
+        todos: [],
+        value: "",
+        AddTodo: () => {
+          state.todos.push(state.value)
+          state.value = ""
+          setState(state)
+        },
+        NewValue: ev => {
+          state.value = ev.target.value
+        }
       }
 
-      setState(0)
+      const setState = superfine(state)
     </script>
   </head>
   <body>
     <main id="app"></main>
-    <template id="my-view">
-      <h1 :text="count"></h1>
-      <button :onclick="dec">-</button>
-      <button :onclick="inc">+</button>
+    <template id="todo">
+      <h1>To do list</h1>
+      <input type="text" :value="value" :oninput="NewValue">
+      <ul>
+        <li :each="todos" :text></li>
+      </ul>
+      <button :onclick="AddTodo">New!</button>
     </template>
   </body>
 </html>

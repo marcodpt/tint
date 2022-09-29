@@ -5,37 +5,28 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     <script type="module">
-      import { h, Component, render } from 'https://unpkg.com/preact?module'
-      import tint from "./index.js"
-      const renderView = tint(h)
+      import preact from "./preact.js"
 
       const state = {
+        templateId: 'todo',
         todos: [],
-        value: ""
-      }
-      const AddTodo = () => {
-        state.todos.push(state.value)
-        state.value = ""
-        rerender()
-      }
-      const NewValue = (ev) => {
-        state.value = ev.target.value
-      }
-      const rerender = () => {
-        const root = document.getElementById("app")
-        render(renderView('my-todo', {
-          ...state,
-          AddTodo,
-          NewValue
-        }, root.tagName, {id: 'app'}), root)
+        value: "",
+        AddTodo: () => {
+          state.todos.push(state.value)
+          state.value = ""
+          render()
+        },
+        NewValue: ev => {
+          state.value = ev.target.value
+        }
       }
 
-      rerender()
+      const render = preact(state, document.getElementById("app"))
     </script>
   </head>
   <body>
     <main id="app"></main>
-    <template id="my-todo">
+    <template id="todo">
       <h1>To do list</h1>
       <input type="text" :value="value" :oninput="NewValue">
       <ul>
