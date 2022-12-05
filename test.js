@@ -4,8 +4,9 @@ const render = tint()
 const text = str => str.trim()
   .replace(/>\s+</g, () => '><')
   .replace(/\s+/g, () => ' ')
+const div = document.createElement('div')
 const test = (id, scope, result) => assert => {
-  const e = render(id, scope)
+  const e = render(div, id)(scope)
   assert.equal(text(e.innerHTML), text(result))
 }
 
@@ -32,7 +33,7 @@ QUnit.module(':attribute', () => {
         btn.textContent = 'Submited!';
       }
     }
-    const e = render('attributes-4', scope)
+    const e = render(div, 'attributes-4')(scope)
     const b = e.querySelector('button')
     assert.equal(
       text(e.innerHTML),
@@ -50,9 +51,9 @@ QUnit.module(':attribute', () => {
   })
 })
 QUnit.module('text', () => {
-  QUnit.test('Append text to node', test('text-1', {
-    name: "John"
-  }, `<h1>Hello John</h1>`))
+  QUnit.test('Replace node text', test('text-1', {
+    content: "Hello John!"
+  }, `<h1>Hello John!</h1>`))
   QUnit.test('Use template to interpolate text', test('text-2', {
     name: "John"
   }, `<h1>
@@ -228,14 +229,14 @@ QUnit.module('custom tags', () => {
     button: "primary",
     title: "Submit"
   }, `<div>
-    <button class="btn btn-primary">Go Submit</button>
+    <button class="btn btn-primary">Submit</button>
   </div>`))
   QUnit.test('Iterate with custom tags.', test('custom-2', [
     {button: "secondary", title: "Cancel"},
     {button: "primary", title: "Submit"}
   ], `<div>
-    <button class="btn btn-secondary">Go Cancel</button>
-    <button class="btn btn-primary">Go Submit</button>
+    <button class="btn btn-secondary">Cancel</button>
+    <button class="btn btn-primary">Submit</button>
   </div>`))
   QUnit.test('Recursive tags.', test('my-list', {
     items: [

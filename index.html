@@ -33,7 +33,7 @@
     </template>
 
     <template id="text-1">
-      <h1 :text="name">Hello </h1>
+      <h1 :text="content">Hello World!</h1>
     </template>
     <template id="text-2">
       <h1>
@@ -132,13 +132,20 @@
     <template id="with-3">
       <div :with="0">
         <p :text="0"></p>
-        <p :text="1"></p>
+        <template :with="1">
+          <p :text=""></p>
+        </template>
       </div>
       <div :with="1">
         <p :text=""></p>
       </div>
       <div :with="2">
-        <p :text=""></p>
+        <template :with="">
+          <p :text=""></p>
+        </template>
+      </div>
+      <div :with="3">
+        <p>This will not render</p>
       </div>
     </template>
 
@@ -174,12 +181,12 @@
 
     <template id="custom-1">
       <div>
-        <my-button :btn="button" :text="title">Go </my-button>
+        <my-button :btn="button" :text="title">Action</my-button>
       </div>
     </template>
     <template id="custom-2">
       <div>
-        <my-button :each="" :btn="button" :text="title">Go </my-button>
+        <my-button :each="" :btn="button" :text="title"></my-button>
       </div>
     </template>
 

@@ -1,16 +1,13 @@
 import tint from './index.js'
 
-const render = tint()
+const compile = tint()
 
-export default (templateId, state, node) => {
-  const res = render(templateId, state)
-  if (!node) {
-    return res
-  }
-  while (node.childNodes.length) {
-    node.removeChild(node.childNodes[0])
-  }
-  while (res.childNodes.length) {
-    node.appendChild(res.childNodes[0])
+export default element => {
+  const render = compile(element)
+  var e = element
+  return scope => {
+    const x = render(scope)
+    e.replaceWith(x)
+    e = x
   }
 }

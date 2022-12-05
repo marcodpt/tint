@@ -1,8 +1,11 @@
 import tint from "./index.js"
 
-const render = tint(m)
+const compile = tint(m)
 
-export default state => ({
-  ...state,
-  view: () => render(state.templateId, state)
-})
+export default (element, {state, ...options}) => {
+  const render = compile(element)
+  return ({
+    ...(options || {}),
+    view: () => render(state)
+  })
+}

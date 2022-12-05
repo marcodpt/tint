@@ -1,20 +1,16 @@
 import {h, text, app} from "https://unpkg.com/hyperapp"
 import tint from './index.js'
 
-const render = tint(h, text)
+const compile = tint(h, text)
 
-export default options => {
+export default ({actions, ...options}) => {
+  const render = compile(options.node)
+
   return app({
     ...options,
-    view: state => render(options.templateId, {
+    view: state => render({
       ...state,
-      ...options.actions
-    }, options.node.tagName, Array.from(options.node.attributes).reduce((X, {
-      nodeName,
-      nodeValue
-    }) => ({
-      ...X,
-      [nodeName]: nodeValue
-    }), {}))
+      ...actions
+    })
   })
 }

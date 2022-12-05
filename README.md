@@ -13,32 +13,29 @@ It works with all javascript frameworks that support
 [hyperscript](https://github.com/hyperhype/hyperscript).
 
 ## Usage as a template engine
-### render(templateId, scope, target)
-Renders the template using the scope. If a target node is passed, the result
-will be inserted into the node, otherwise it will return the DOM element.
+### compile(element) -> render(scope)
+Compiles the element as a template.
+Returns a function that interpolate the scope inside the element.
+You can render as many times you like.
 
- - templateId: the id of the view template tag in the current page.
+ - element: Any DOM element.
  - scope: template scope to be used.
- - target: optional DOM element where the result will be displayed. If none
-target is passed it will return a DOM element with the result.
 
 ```html
 <html>
   <head>
     <script type="module">
-      import render from "https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js"
-
-      render('my-view', {
+      import compile from "./template.js"
+      const render = compile(document.getElementById("app"))
+      render({
         message: "Hello World!"
-      }, document.getElementById("app"))
+      })
     </script>
   </head>
   <body>
-    <div id="app"></div>
-
-    <template id="my-view">
-      <h1 :text="message"></h1>
-    </template>
+    <div id="app">
+      <h1 :text="message">Loading...</h1>
+    </div>
   </body>
 </html>
 ```
@@ -54,34 +51,34 @@ You can check the result:
  - [source](https://raw.githubusercontent.com/marcodpt/tint/main/hello.html)
 
 ## Building a todo app
-Now we gonna show examples wrappers you can use with some hyperscript
-frameworks that you can use to construct real world applications.
+Now we will show examples with hyperscript frameworks to build real world
+applications.
 
 In all examples we use the same `body`. This is a full demonstration of the
 power of layout separation.
 
 ```html
 <body>
-  <main id="app"></main>
-  <template id="todo">
+  <main id="app">
     <h1>To do list</h1>
     <input type="text" :value="value" :oninput="NewValue">
     <ul>
       <li :each="todos" :text></li>
     </ul>
     <button :onclick="AddTodo">New!</button>
-  </template>
+  </main>
 </body>
 ```
 
 ### Todo without any framework or virtual DOM
-This is not the recommended way to do it.
-You will update the DOM more than necessary, you will lose focus and maybe
-other things.
+This is not the recommended way to do this.
+You'll update the DOM more than necessary, lose focus, and maybe other things.
 But here's a demo anyway.
 
 ```js
-import render from "https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js"
+import compile from "https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js"
+
+const render = compile(document.getElementById("app"))
 
 const state = {
   todos: [],
@@ -89,28 +86,20 @@ const state = {
   AddTodo: () => {
     state.todos.push(state.value)
     state.value = ""
-    rerender()
+    render(state)
   },
   NewValue: ev => {
     state.value = ev.target.value
   }
 }
 
-const node = document.getElementById("app")
-const rerender = () => render('todo', state, node)
-
-rerender()
+render(state)
 ```
 
  - [live](https://marcodpt.github.io/tint/template.html)
  - [source](https://raw.githubusercontent.com/marcodpt/tint/main/template.html)
 
 ### Todo with [Superfine](https://github.com/jorgebucaran/superfine)
-Here we changed a little bit the usage of superfine, you must pass an object as
-state, and you need to add inside the object:
- - nodeId: The id of the DOM element where you will mount the app.
- - templateId: The id of the template tag with your view.
-
 ```js
 import superfine from "https://cdn.jsdelivr.net/gh/marcodpt/tint/superfine.js"
 
@@ -136,22 +125,20 @@ const setState = superfine(state)
  - [source](https://raw.githubusercontent.com/marcodpt/tint/main/superfine.html)
 
 ### Todo with [Hyperapp](https://github.com/jorgebucaran/hyperapp)
-We eliminated `view` property because `tint` will generate it automatically
-based on `templateId` that you pass to `app`.
+We delete the `view` property because `tint` will automatically generate it
+based on the `node` that is passed to the `app`.
 
-We've also introduced an `actions` object for your static methods, but you can
-also enter any variable that is a constant here.
+We've also introduced an `actions` object for your static methods.
 
 Everything else is exactly equals on hyperapp.
 
-[Here](https://github.com/jorgebucaran/hyperapp/issues/1098) is a nice
-discussion where this wrapper came to existence.
+[Here](https://github.com/jorgebucaran/hyperapp/issues/1098) is the thread
+that gave rise to this wrapper.
 
 ```js
 import app from "https://cdn.jsdelivr.net/gh/marcodpt/tint/hyperapp.js"
 
 app({
-  templateId: 'todo',
   actions: {
     AddTodo: state => ({
       ...state,
@@ -175,17 +162,17 @@ app({
  - [source](https://raw.githubusercontent.com/marcodpt/tint/main/hyperapp.html)
 
 ### Todo with [Mithril.js](https://github.com/MithrilJS/mithril.js)
-In this example you also must import mithril in the page by yourself before the
+In this example, you must also import mithril into the page yourself before the
 wrapper.
 
-You can pass any of the components methods like: `oninit`, `oncreate`, etc.
-And it will work fine.
+The `view` method is generated by the `state` property.
+All other components methods are available. Ex: `oninit`, `oncreate`, etc.
 
 ```js
 import component from 'https://cdn.jsdelivr.net/gh/marcodpt/tint/mithril.js'
 
+const app = document.getElementById("app")
 const state = {
-  templateId: 'todo',
   todos: [],
   value: "",
   AddTodo: () => {
@@ -196,17 +183,23 @@ const state = {
     state.value = ev.target.value
   }
 }
+const todo = component(app, {
+  oninit: () => {
+    console.log('component oninit')
+  },
+  state: state
+})
 
-m.mount(document.getElementById("app"), component(state))
+m.mount(app, todo)
 ```
 
  - [live](https://marcodpt.github.io/tint/mithril.html)
  - [source](https://raw.githubusercontent.com/marcodpt/tint/main/mithril.html)
 
 ### Todo with [preact](https://github.com/preactjs/preact)
-Our preact wrapper is not the best. But it serves to show an example
+Our `preact` wrapper is not the best. But it serves to show an example
 with a global state and no components. If you think you can improve this
-wrapper please send a pull request.
+wrapper, please submit a pull request.
 
 ```js
 import preact from "https://cdn.jsdelivr.net/gh/marcodpt/tint/preact.js"
@@ -231,8 +224,8 @@ const render = preact(state, document.getElementById("app"))
  - [live](https://marcodpt.github.io/tint/preact.html)
  - [source](https://raw.githubusercontent.com/marcodpt/tint/main/preact.html)
 
-## Usage as a low level library
-To build all the wrappers for the TODO application, we use this package as a
+## Usage as a low-level library
+To build all the wrappers for the `TODO` application, we use this package as a
 low-level library.
 
 ```js
@@ -255,7 +248,7 @@ If you created something interesting, or a wrapper for another framework or
 improved any example. Submit a pull request or open an issue with your
 code.
 
-### tint(h, text) -> render
+### tint(h, text) -> compile 
 
 Transforms all template tags (with id attribute) within the current page into a
 [hyperscript](https://github.com/hyperhype/hyperscript) function.
@@ -268,20 +261,22 @@ DOM or virtual DOM element, if no function is passed, it will use
 [hyperscript](https://github.com/hyperhype/hyperscript) function that create
 DOM or vDOM text nodes.
 
-### render(templateId, scope, rootTag, rootAttributes) -> element
+### compile(element, templateId) -> render(scope) -> DOM/vDOM element
 
 Return the DOM or vDOM element (based on the `h` function) that is generated
-by renderering the `scope` with the template.
+by renderering the `scope` within the `element`.
 
- - templateId: The name of the template. Observe that you can only use as
-custom tags templates that id contains `-`. As described
-[here](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements).
- - scope: The data passed to interpolate the template, any JSON object even
-with javascript functions is valid!
- - rootTag: The optional root where the resulted should be mounted. If no root
-is passed it will be mounted inside a `div` tag.
- - rootAttributes: The optional attributes object (with the exactly hypescript
-syntax of the `h` function). No attributes is the default.
+Optionally, you can use a `templateId` to replace the `element`'s inner HTML
+with your own contents.
+
+ - element: The `element` that will be the root of the result. If you don't
+pass a `templateId`, it will be treated as a complete template. in case you
+provide a `templateId` it will only be used as the root of the result,
+ignoring its content.
+ - templateId: The optional name of the template you want to render.
+ - scope: The data passed to interpolate the `element`
+(or `templateId` if passed),
+any JSON object even with javascript functions is valid!
 
 ## Docs for the template engine
 ### :attribute
@@ -374,12 +369,12 @@ el.innerHTML
 #### Append text to node
 ```html
 <template id="text-1">
-  <h1 :text="name">Hello </h1>
+  <h1 :text="content">Hello World!</h1>
 </template>
 ```
 ```js
 render('text-1', {
-  name: "John"
+  content: "Hello John!"
 }).innerHTML
 ```
 ```html
@@ -654,13 +649,20 @@ render('with-2', {
 <template id="with-3">
   <div :with="0">
     <p :text="0"></p>
-    <p :text="1"></p>
+    <template :with="1">
+      <p :text=""></p>
+    </template>
   </div>
   <div :with="1">
     <p :text=""></p>
   </div>
   <div :with="2">
-    <p :text=""></p>
+    <template :with="">
+      <p :text=""></p>
+    </template>
+  </div>
+  <div :with="3">
+    <p>This will not render</p>
   </div>
 </template>
 ```
@@ -801,7 +803,7 @@ With the following tag in your `HTML` `body`
 ```html
 <template id="custom-1">
   <div>
-    <my-button :btn="button" :text="title">Go </my-button>
+    <my-button :btn="button" :text="title">Action</my-button>
   </div>
 </template>
 ```
@@ -813,7 +815,7 @@ render('custom-1', {
 ```
 ```html
 <div>
-  <button class="btn btn-primary">Go Submit</button>
+  <button class="btn btn-primary">Submit</button>
 </div>
 ```
 
@@ -821,7 +823,7 @@ render('custom-1', {
 ```html
 <template id="custom-2">
   <div>
-    <my-button :each="" :btn="button" :text="title">Go </my-button>
+    <my-button :each="" :btn="button" :text="title"></my-button>
   </div>
 </template>
 ```
@@ -833,8 +835,8 @@ render('custom2', [
 ```
 ```html
 <div>
-  <button class="btn btn-secondary">Go Cancel</button>
-  <button class="btn btn-primary">Go Submit</button>
+  <button class="btn btn-secondary">Cancel</button>
+  <button class="btn btn-primary">Submit</button>
 </div>
 ```
 
@@ -936,19 +938,19 @@ render('my-list', [
 ```
 
 ## Philosophy
- - Separation: Functions and data transformations belong to javascript, design
-and visual presentation to html and css, and the data belongs to database.
+ - Separation: Functions and data transformations belong in javascript, design
+and visual presentation to the html and css, and the data belongs to the database.
  - Designers and people with no javascript knowledge should understand it
 and quickly become productive.
  - Templates must be valid `XML`/`HTML` that can be inserted into a
 `template` tag.
- - Should not conflict with other templates engines and frameworks.
- - Every layout should be written only once, without repetition.
+ - It must not conflict with other templates engines and frameworks.
+ - Each layout should be written only once, without repetition.
  - Simplicity matters.
- - Beautiful syntax matters.
+ - Elegant syntax is important.
 
 ## Influences and thanks
-This work is hugely influenced by this amazing template engines and frameworks:
+This work is hugely influenced by these amazing template engines and frameworks:
  - [mustache](https://mustache.github.io/mustache.5.html)
  - [transparency](https://github.com/leonidas/transparency)
  - [thymeleaf](https://www.thymeleaf.org/)
@@ -968,12 +970,12 @@ First, thanks for reading this far.
 
 Everything within this documentation is tested 
 [here](https://marcodpt.github.io/tint/).
-And it will always be so. Any changes to the documentation, any contributions
-MUST be present in the tests.
+And it will always like this. Any changes to the documentation,
+any contributions MUST be present in the tests.
 
 If the tests do not pass in your browser, if you find any bugs, please raise
 an issue.
 
 Any syntax changes must be within the philosophy of this project.
 
-It's a very simple project. Any contribution is highly appreciated.
+It's a very simple project. Any contribution is greatly appreciated.

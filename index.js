@@ -76,10 +76,12 @@ export default (h, text) => {
             })
           }
         } else if (key == 'with') {
-          nodes.push({
-            ...data,
-            scope: merge(scope, value)
-          })
+          if (value != null) {
+            nodes.push({
+              ...data,
+              scope: merge(scope, value)
+            })
+          }
         } else if (key == 'if' || key == 'not') {
           if ((key == 'if' && value) || (key == 'not' && !value)) {
             nodes.push(data)
@@ -119,6 +121,9 @@ export default (h, text) => {
       const hasTpl = tag.indexOf('-') >= 0 && templates[tag] != null
 
       if (attributes.text != null && !hasTpl) {
+        while (children.length) {
+          children.pop()
+        }
         children.push(text(attributes.text))
         attributes = {...attributes}
         delete attributes.text
@@ -145,6 +150,20 @@ export default (h, text) => {
     templates[tpl.getAttribute('id')] = compile(tpl)
   })
 
-  return (template, scope, tag, attributes) =>
-    h(tag || 'div', attributes || {}, templates[template](scope))
+  return (element, templateId) => {
+    if (templateId != null) {
+      const tag = element.tagName.toLowerCase()
+      const attributes = Array.from(element.attributes).reduce((X, {
+        attrName,
+        attrValue
+      }) => ({
+        ...X,
+        [attrName]: attrValue
+      }), {})
+      return scope => h(tag, attributes, templates[templateId](scope))
+    } else {
+      const render = compile(element)
+      return scope => render(scope)[0]
+    }
+  }
 }
