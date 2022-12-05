@@ -22,22 +22,22 @@ You can render as many times you like.
  - scope: template scope to be used.
 
 ```html
-<html>
-  <head>
-    <script type="module">
-      import compile from "./template.js"
-      const render = compile(document.getElementById("app"))
-      render({
-        message: "Hello World!"
-      })
-    </script>
-  </head>
-  <body>
-    <div id="app">
-      <h1 :text="message">Loading...</h1>
-    </div>
-  </body>
-</html>
+    <html>
+      <head>
+        <script type="module">
+          import compile from "https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js"
+          const render = compile(document.getElementById("app"))
+          render({
+            message: "Hello World!"
+          })
+        </script>
+      </head>
+      <body>
+        <div id="app">
+          <h1 :text="message">Loading...</h1>
+        </div>
+      </body>
+    </html>
 ```
 Result:
 ```html
