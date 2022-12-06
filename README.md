@@ -104,8 +104,6 @@ render(state)
 import superfine from "https://cdn.jsdelivr.net/gh/marcodpt/tint/superfine.js"
 
 const state = {
-  nodeId: 'app',
-  templateId: 'todo',
   todos: [],
   value: "",
   AddTodo: () => {
@@ -118,7 +116,8 @@ const state = {
   }
 }
 
-const setState = superfine(state)
+const setState = superfine(document.getElementById('app'))
+setState(state)
 ```
 
  - [live](https://marcodpt.github.io/tint/superfine.html)
@@ -205,7 +204,6 @@ wrapper, please submit a pull request.
 import preact from "https://cdn.jsdelivr.net/gh/marcodpt/tint/preact.js"
 
 const state = {
-  templateId: 'todo',
   todos: [],
   value: "",
   AddTodo: () => {
