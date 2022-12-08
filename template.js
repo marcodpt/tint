@@ -2,8 +2,8 @@ import tint from './index.js'
 
 const compile = tint()
 
-export default element => {
-  const render = compile(element)
+export default (element, template) => {
+  const render = compile(element, template)
   var e = element
   return scope => {
     const x = render(scope)

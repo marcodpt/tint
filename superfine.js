@@ -3,7 +3,7 @@ import tint from "./index.js"
 
 const compile = tint(h, text)
 
-export default element => {
-  const render = compile(element)
+export default (element, template) => {
+  const render = compile(element, template)
   return state => patch(element, render(state))
 }
