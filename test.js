@@ -1,12 +1,12 @@
 import tint from "./index.js"
 
-const render = tint()
+const compile = tint()
 const text = str => str.trim()
   .replace(/>\s+</g, () => '><')
   .replace(/\s+/g, () => ' ')
 const div = document.createElement('div')
 const test = (id, scope, result) => assert => {
-  const e = render(div, id)(scope)
+  const e = compile(div, document.getElementById(id))(scope)
   assert.equal(text(e.innerHTML), text(result))
 }
 
@@ -33,7 +33,7 @@ QUnit.module(':attribute', () => {
         btn.textContent = 'Submited!';
       }
     }
-    const e = render(div, 'attributes-4')(scope)
+    const e = compile(div, document.getElementById('attributes-4'))(scope)
     const b = e.querySelector('button')
     assert.equal(
       text(e.innerHTML),

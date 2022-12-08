@@ -30,8 +30,6 @@ export default (h, text) => {
   const isObj = X => X && typeof X == 'object' && !(X instanceof Array)
   const merge = (X, Y) => isObj(X) && isObj(Y) ? {...X, ...Y} : Y
 
-  const templates = {}
-
   const compile = element => {
     if (element.nodeType != 1) {
       return () => [text(element.textContent)]
@@ -118,9 +116,9 @@ export default (h, text) => {
           })
           return result
         }, [])
-      const hasTpl = tag.indexOf('-') >= 0 && templates[tag] != null
+      const tpl = tag.indexOf('-') >= 0 ? document.getElementById(tag) : null
 
-      if (attributes.text != null && !hasTpl) {
+      if (attributes.text != null && tpl == null) {
         while (children.length) {
           children.pop()
         }
@@ -132,8 +130,8 @@ export default (h, text) => {
       var it = null
       if (tag == 'template' || tag == 'slot') {
         it = children
-      } else if (hasTpl) {
-        it = templates[tag](attributes, null, childNodes)
+      } else if (tpl != null) {
+        it = compile(tpl)(attributes, null, childNodes)
       } else {
         it = [h(tag, attributes, children)]
       }
@@ -146,12 +144,8 @@ export default (h, text) => {
     }, [])
   }
 
-  document.querySelectorAll('template[id]').forEach(tpl => {
-    templates[tpl.getAttribute('id')] = compile(tpl)
-  })
-
-  return (element, templateId) => {
-    if (templateId != null) {
+  return (element, template) => {
+    if (template) {
       const tag = element.tagName.toLowerCase()
       const attributes = Array.from(element.attributes).reduce((X, {
         attrName,
@@ -160,7 +154,8 @@ export default (h, text) => {
         ...X,
         [attrName]: attrValue
       }), {})
-      return scope => h(tag, attributes, templates[templateId](scope))
+      const view = compile(template)
+      return scope => h(tag, attributes, view(scope))
     } else {
       const render = compile(element)
       return scope => render(scope)[0]
