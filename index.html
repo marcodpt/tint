@@ -176,7 +176,9 @@
     </template>
 
     <template id="my-button">
-      <button class="btn btn-" :class="btn" :text="text"><slot></slot></button>
+      <button class="btn btn-" :class="btn" :text="text" :click="click">
+        <slot></slot>
+      </button>
     </template>
 
     <template id="custom-1">
@@ -197,6 +199,14 @@
           <my-list :items="children"></my-list>
         </li>
       </ul>
+    </template>
+
+    <template id="bind-1">
+      <h1 :bind="">Hello World!</h1>
+    </template>
+
+    <template id="bind-2">
+      <my-button :each="" :bind=""></my-button>
     </template>
   </body>
 </html>

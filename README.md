@@ -795,7 +795,9 @@ As described [here](https://developer.mozilla.org/en-US/docs/Web/Web_Components/
 With the following tag in your `HTML` `body` 
 ```html
 <template id="my-button">
-  <button class="btn btn-" :class="btn" :text="text"><slot></slot></button>
+  <button class="btn btn-" :class="btn" :text="text" :click="click">
+    <slot></slot>
+  </button>
 </template>
 ```
 #### Reuse your templates inside another template.
@@ -827,7 +829,7 @@ render('custom-1', {
 </template>
 ```
 ```js
-render('custom2', [
+render('custom-2', [
   {button: "secondary", title: "Cancel"},
   {button: "primary", title: "Submit"}
 ]).innerHTML
@@ -934,6 +936,63 @@ render('my-list', [
     <span>home</span>
   </li>
 </ul>
+```
+
+### bind 
+#### Spread attributes
+```html
+<template id="bind-1">
+  <h1 :bind="">Hello World!</h1>
+</template>
+```
+```js
+render('bind-1', {
+  class: "message",
+  style: "white-space:pre-wrap;",
+  text: "Hello John!"
+}).innerHTML
+```
+```html
+<h1 class="message" style="white-space:pre-wrap;">Hello John!</h1>
+```
+
+#### Very useful with custom tags
+```html
+<template id="bind-2">
+  <my-button :each="" :bind=""></my-button>
+</template>
+```
+```js
+render('bind-2', [
+  {
+    btn: "secondary",
+    text: "Cancel",
+    click: (ev) => {
+      ev.target.textContent = 'canceled!';
+    }
+  },
+  {
+    btn: "primary",
+    text: "Submit",
+    click: (ev) => {
+      ev.target.textContent = 'submited!';
+    }
+  }
+]).innerHTML
+```
+```html
+<button class="btn btn-secondary">Cancel</button>
+<button class="btn btn-primary">Submit</button>
+```
+
+```js
+e.querySelector('.btn-secondary').click()
+e.querySelector('.btn-primary').click()
+console.log(el.innerHTML)
+```
+```html
+<button class="btn btn-secondary">canceled!</button>
+<button class="btn btn-primary">submited!</button>
 ```
 
 ## Philosophy

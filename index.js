@@ -29,6 +29,8 @@ export default (h, text) => {
 
   const isObj = X => X && typeof X == 'object' && !(X instanceof Array)
   const merge = (X, Y) => isObj(X) && isObj(Y) ? {...X, ...Y} : Y
+  const setAttr = (old, value) =>
+    typeof old == "string" && typeof value == "string" ? old+value : value
 
   const compile = element => {
     if (element.nodeType != 1) {
@@ -93,11 +95,18 @@ export default (h, text) => {
             ...data,
             word: value
           })
+        } else if (key == 'bind') {
+          if (value && typeof value == 'object') {
+            Object.keys(value).forEach(key => {
+              attributes[key] = setAttr(attributes[key], value[key])
+            })
+          }
+          nodes.push({
+            ...data,
+            attributes: attributes
+          })
         } else {
-          const attr = {...attributes}
-          const old = attributes[key]
-          attributes[key] = typeof old == 'string' && typeof value == 'string' ?
-            old+value : value
+          attributes[key] = setAttr(attributes[key], value)
           nodes.push({
             ...data,
             attributes: attributes

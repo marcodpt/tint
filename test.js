@@ -320,3 +320,46 @@ QUnit.module('custom tags', () => {
     </li>
   </ul>`))
 })
+
+QUnit.module('bind', () => {
+  QUnit.test('Spread attributes', test('bind-1', {
+    class: "message",
+    style: "white-space:pre-wrap;",
+    text: "Hello John!"
+  }, `<h1 class="message" style="white-space:pre-wrap;">Hello John!</h1>`))
+
+  QUnit.test('Very useful with custom tags', assert => {
+    const e = compile(div, document.getElementById('bind-2'))([
+      {
+        btn: "secondary",
+        text: "Cancel",
+        click: (ev) => {
+          ev.target.textContent = 'canceled!';
+        }
+      },
+      {
+        btn: "primary",
+        text: "Submit",
+        click: (ev) => {
+          ev.target.textContent = 'submited!';
+        }
+      }
+    ])
+    assert.equal(
+      text(e.innerHTML),
+      text(`
+        <button class="btn btn-secondary">Cancel</button>
+        <button class="btn btn-primary">Submit</button>
+      `)
+    )
+    e.querySelector('.btn-secondary').click()
+    e.querySelector('.btn-primary').click()
+    assert.equal(
+      text(e.innerHTML),
+      text(`
+        <button class="btn btn-secondary">canceled!</button>
+        <button class="btn btn-primary">submited!</button>
+      `)
+    )
+  })
+})
