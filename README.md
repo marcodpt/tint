@@ -1,999 +1,130 @@
-# ![Tint](favicon.ico) Tint
-#### The natural view engine for the browser
+# ![Tint](assets/favicon.ico) Tint
+A natural template engine for the HTML DOM. 
 
-A logicless xml template engine that takes valid `HTML` as input.
-
-Transform `HTML5` tags in any
+ - takes valid `HTML` as input.
+ - converts the result to any 
 [hyperscript](https://github.com/hyperhype/hyperscript)
 function you want to use.
-
-Completely separate layouts from javascript logic.
-
-It works with all javascript frameworks that support
+ - layouts completely separate from javascript logic.
+ - works with all javascript frameworks that support
 [hyperscript](https://github.com/hyperhype/hyperscript).
+ - you can use the template as a server-side rendered version of your app.
+ - you can use a regular HTML file as a single file component without ANY javascript build tools.
+ - [hyperscript](https://github.com/hyperhype/hyperscript) frameworks can be
+used by any team of designers or people with no javascript knowledge.
+ - the template syntax allow very simple and elegant templates without
+repeat yourself.
 
-## Usage as a template engine
-### compile(element) -> render(scope)
-Compiles the element as a template.
-Returns a function that interpolate the scope inside the element.
-You can render as many times you like.
-
- - element: Any DOM element.
- - scope: template scope to be used.
-
-```html
-    <html>
-      <head>
-        <script type="module">
-          import compile from "https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js"
-          const render = compile(document.getElementById("app"))
-          render({
-            message: "Hello World!"
-          })
-        </script>
-      </head>
-      <body>
-        <div id="app">
-          <h1 :text="message">Loading...</h1>
-        </div>
-      </body>
-    </html>
-```
-Result:
-```html
-<div id="app">
-  <h1>Hello world!</h1>
-</div>
-```
-
-You can check the result:
- - [live](https://marcodpt.github.io/tint/hello.html)
- - [source](https://raw.githubusercontent.com/marcodpt/tint/main/hello.html)
-
-## Building a todo app
-Now we will show examples with hyperscript frameworks to build real world
-applications.
-
-In all examples we use the same `body`. This is a full demonstration of the
-power of layout separation.
+## Showcase
+The classic TODO app, with an initial server-rendered state.
 
 ```html
-<body>
-  <main id="app">
-    <h1>To do list</h1>
-    <input type="text" :value="value" :oninput="NewValue">
-    <ul>
-      <li :each="todos" :text></li>
-    </ul>
-    <button :onclick="AddTodo">New!</button>
-  </main>
-</body>
-```
+<html>
+  <head>
+    <script type="module">
+      import compile from "https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js"
+      const render = compile(document.getElementById("app"))
 
-### Todo without any framework or virtual DOM
-This is not the recommended way to do this.
-You'll update the DOM more than necessary, lose focus, and maybe other things.
-But here's a demo anyway.
-
-```js
-import compile from "https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js"
-
-const render = compile(document.getElementById("app"))
-
-const state = {
-  todos: [],
-  value: "",
-  AddTodo: () => {
-    state.todos.push(state.value)
-    state.value = ""
-    render(state)
-  },
-  NewValue: ev => {
-    state.value = ev.target.value
-  }
-}
-
-render(state)
-```
-
- - [live](https://marcodpt.github.io/tint/template.html)
- - [source](https://raw.githubusercontent.com/marcodpt/tint/main/template.html)
-
-### Todo with [Superfine](https://github.com/jorgebucaran/superfine)
-```js
-import superfine from "https://cdn.jsdelivr.net/gh/marcodpt/tint/superfine.js"
-
-const state = {
-  todos: [],
-  value: "",
-  AddTodo: () => {
-    state.todos.push(state.value)
-    state.value = ""
-    setState(state)
-  },
-  NewValue: ev => {
-    state.value = ev.target.value
-  }
-}
-
-const setState = superfine(document.getElementById('app'))
-setState(state)
-```
-
- - [live](https://marcodpt.github.io/tint/superfine.html)
- - [source](https://raw.githubusercontent.com/marcodpt/tint/main/superfine.html)
-
-### Todo with [Hyperapp](https://github.com/jorgebucaran/hyperapp)
-We delete the `view` property because `tint` will automatically generate it
-based on the `node` that is passed to the `app`.
-
-We've also introduced an `actions` object for your static methods.
-
-Everything else is exactly equals on hyperapp.
-
-[Here](https://github.com/jorgebucaran/hyperapp/issues/1098) is the thread
-that gave rise to this wrapper.
-
-```js
-import app from "https://cdn.jsdelivr.net/gh/marcodpt/tint/hyperapp.js"
-
-app({
-  actions: {
-    AddTodo: state => ({
-      ...state,
-      value: "",
-      todos: state.todos.concat(state.value),
-    }),
-    NewValue: (state, event) => ({
-      ...state,
-      value: event.target.value,
-    })
-  },
-  init: {
-    todos: [],
-    value: ""
-  },
-  node: document.getElementById("app")
-})
-```
-
- - [live](https://marcodpt.github.io/tint/hyperapp.html)
- - [source](https://raw.githubusercontent.com/marcodpt/tint/main/hyperapp.html)
-
-### Todo with [Mithril.js](https://github.com/MithrilJS/mithril.js)
-In this example, you must also import mithril into the page yourself before the
-wrapper.
-
-The `view` method is generated by the `state` property.
-All other components methods are available. Ex: `oninit`, `oncreate`, etc.
-
-```js
-import component from 'https://cdn.jsdelivr.net/gh/marcodpt/tint/mithril.js'
-
-const app = document.getElementById("app")
-const state = {
-  todos: [],
-  value: "",
-  AddTodo: () => {
-    state.todos.push(state.value)
-    state.value = ""
-  },
-  NewValue: ev => {
-    state.value = ev.target.value
-  }
-}
-const todo = component(app, {
-  oninit: () => {
-    console.log('component oninit')
-  },
-  state: state
-})
-
-m.mount(app, todo)
-```
-
- - [live](https://marcodpt.github.io/tint/mithril.html)
- - [source](https://raw.githubusercontent.com/marcodpt/tint/main/mithril.html)
-
-### Todo with [preact](https://github.com/preactjs/preact)
-Our `preact` wrapper is not the best. But it serves to show an example
-with a global state and no components. If you think you can improve this
-wrapper, please submit a pull request.
-
-```js
-import preact from "https://cdn.jsdelivr.net/gh/marcodpt/tint/preact.js"
-
-const state = {
-  todos: [],
-  value: "",
-  AddTodo: () => {
-    state.todos.push(state.value)
-    state.value = ""
-    render()
-  },
-  NewValue: ev => {
-    state.value = ev.target.value
-  }
-}
-
-const render = preact(state, document.getElementById("app"))
-```
-
- - [live](https://marcodpt.github.io/tint/preact.html)
- - [source](https://raw.githubusercontent.com/marcodpt/tint/main/preact.html)
-
-## Usage as a low-level library
-To build all the wrappers for the `TODO` application, we use this package as a
-low-level library.
-
-```js
-import tint from 'https://cdn.jsdelivr.net/gh/marcodpt/tint/index.js'
-```
-
-Here is the source code for each of the wrappers:
-
- - [template](https://raw.githubusercontent.com/marcodpt/tint/main/template.js)
- - [superfine](https://raw.githubusercontent.com/marcodpt/tint/main/superfine.js)
- - [hyperapp](https://raw.githubusercontent.com/marcodpt/tint/main/hyperapp.js)
- - [mithril](https://raw.githubusercontent.com/marcodpt/tint/main/mithril.js)
- - [preact](https://raw.githubusercontent.com/marcodpt/tint/main/preact.js)
-
-If you want to create a wrapper for a framework that is not on this list or
-if you want to improve any of the wrappers we've created here, you'll need
-use `tint` as described in this section.
-
-If you created something interesting, or a wrapper for another framework or
-improved any example. Submit a pull request or open an issue with your
-code.
-
-### tint(h, text) -> compile 
-
-Returns a `compile` function based on your hyperscript DOM/vDOM choice.
-
- - h(tagName, attributes, children): a
-[hyperscript](https://github.com/hyperhype/hyperscript) function that create a
-DOM or virtual DOM element, if no function is passed, it will use
-[document.createElement](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement).
- - text(str): a 
-[hyperscript](https://github.com/hyperhype/hyperscript) function that create
-DOM or vDOM text nodes.
-If no `text` function is passed, it will use `h(str)`.
-
-### compile(element, template) -> render
-Returns the view associated with `element`.
-
-Optionally, you can use a `template` element to replace the `element`'s inner
-HTML with your own contents.
-
- - element: The `element` that will be the root of the result. If you don't
-pass a `template`, it will be treated as a complete template. In case you
-provide a `template` it will only be used as the root of the result,
-ignoring its content.
- - template: The optional `template` element you want to render inside .
-
-### render(scope) -> DOM/vDOM element
-Returns the DOM/vDOM generated by applying the `scope` in the view 
-
- - scope: The data passed to interpolate the `element`,
-any JSON object even with javascript functions is valid!
-
-## Docs for the template engine
-### :attribute
-#### Simple eval
-```html
-<template id="attributes-1">
-  <a class="primary" :href="target">Go to page 1</a>
-</template>
-```
-```js
-render('attributes-1', {
-  target: "#/page/1"
-}).innerHTML
-```
-```html
-<a class="primary" href="#/page/1">Go to page 1</a>
-```
-
-#### Boolean attributes
-```html
-<template id="attributes-2">
-  <input type="checkbox" :checked="isChecked" :disabled="isDisabled">
-</template>
-```
-```js
-render('attributes-2', {
-  isDisabled: true,
-  isChecked: false
-}).innerHTML
-```
-```html
-<input type="checkbox" disabled="">
-```
-
-#### Extending attributes
-```html
-<template id="attributes-3">
-  <button class="btn btn-" :class="btn" disabled :disabled="isDisabled">
-    Submit
-  </button>
-</template>
-```
-```js
-render('attributes-3', {
-  isDisabled: false,
-  btn: "primary"
-}).innerHTML
-```
-```html
-<button class="btn btn-primary">
-  Submit
-</button>
-```
-
-#### Function calls 
-```html
-<template id="attributes-4">
-  <button class="btn btn-primary" :onclick="action">
-    Submit
-  </button>
-</template>
-```
-```js
-const el = render('attributes-4', {
-  action: (ev) => {
-    const btn = ev.target.closest('button')
-    btn.disabled = true
-    btn.textContent = 'Submited!'
-  }
-})
-el.innerHTML
-```
-```html
-<button class="btn btn-primary">
-  Submit
-</button>
-```
-```js
-const btn = el.querySelector('button')
-btn.click()
-el.innerHTML
-```
-```html
-<button class="btn btn-primary" disabled="">
-  Submited!
-</button>
-```
-
-### text
-#### Replace node text
-```html
-<template id="text-1">
-  <h1 :text="content">Hello World!</h1>
-</template>
-```
-```js
-render('text-1', {
-  content: "Hello John!"
-}).innerHTML
-```
-```html
-<h1>Hello John</h1>
-```
-
-#### Use template to interpolate text
-```html
-<template id="text-2">
-  <h1>
-    Hello <template :text="name"></template>, how are you?
-  </h1>
-</template>
-```
-```js
-render('text-2', {
-  name: "John"
-}).innerHTML
-```
-```html
-<h1>
-  Hello John, how are you?
-</h1>
-```
-
-#### HTML strings will be escaped
-```html
-<template id="text-3">
-  <code :text="raw"></code>
-</template>
-```
-```js
-render('text-3', {
-  raw: "var x = y > 4 && z / 3 == 2 ? 1 : 2"
-}).innerHTML
-```
-```html
-<code>var x = y &gt; 4 &amp;&amp; z / 3 == 2 ? 1 : 2</code>
-```
-
-### if/not
-#### Remove node with a conditional test
-```html
-<template id="if-not-1">
-  <div>
-    John:
-    <i :if="john" class="fas fa-check"></i>
-    <i :not="john" class="fas fa-times"></i>
-  </div><div>
-    Mary:
-    <i :if="mary" class="fas fa-check"></i>
-    <i :not="mary" class="fas fa-times"></i>
-  </div>
-</template>
-```
-```js
-render('if-not-1', {
-  john: false,
-  mary: true
-}).innerHTML
-```
-```html
-<div>
-  John: <i class="fas fa-times"></i>
-</div><div>
-  Mary: <i class="fas fa-check"></i>
-</div>
-```
-
-#### Some critical js values
-```html
-<template id="if-not-2">
-  <div>
-    null: <template :if="0">true</template><template :not="0">false</template>
-    0: <template :if="1">true</template><template :not="1">false</template>
-    1: <template :if="2">true</template><template :not="2">false</template>
-    -1: <template :if="3">true</template><template :not="3">false</template>
-    "": <template :if="4">true</template><template :not="4">false</template>
-    "0": <template :if="5">true</template><template :not="5">false</template>
-    []: <template :if="6">true</template><template :not="6">false</template>
-    {}: <template :if="7">true</template><template :not="7">false</template>
-    undefined: <template :if="8">true</template><template :not="8">false</template>
-  </div>
-</template>
-```
-```js
-render('if-not-2', [
-  null,
-  0,
-  1,
-  -1,
-  "",
-  "0",
-  [],
-  {},
-  undefined
-]).innerHTML
-```
-```html
-<div>
-  null: false
-  0: false
-  1: true
-  -1: true
-  "": false
-  "0": true
-  []: true
-  {}: true
-  undefined: false
-</div>
-```
-
-### switch/case
-#### Choose a imediate children tag based on a criteria.
-```html
-<template id="switch-case-1">
-  <form :switch="input">
-    <label :text="title"></label>
-    <select
-      case="boolean"
-      :name="name"
-    >
-      <option value="0">No</option>
-      <option value="1">Yes</option>
-    </select><textarea
-      case="text"
-      :name="name"
-      rows="6"
-    ></textarea><input
-      case="default"
-      type="text"
-      :name="name"
-    >
-    <button>Submit</button>
-  </form>
-</template>
-```
-```js
-render('switch-case-1', {
-  input: "text",
-  name: "bio",
-  title: "Bio"
-}).innerHTML
-```
-```html
-<form>
-  <label>Bio</label>
-  <textarea name="bio" rows="6"></textarea>
-  <button>Submit</button>
-</form>
-```
-
-#### You can use template for case
-```html
-<template id="switch-case-2">
-  <div :switch="color">
-    My favorite color is:
-    <template case="red">Red</template>
-    <template case="green">Green</template>
-    <template case="blue">Blue</template>
-  </div>
-</template>
-```
-```js
-render('switch-case-2', {
-  color: "red"
-}).innerHTML
-```
-```html
-<div>
-  My favorite color is:
-  Red
-</div>
-```
-
-#### You can use template for switch
-```html
-<template id="switch-case-3">
-  <template :switch="color">
-    My favorite color is:
-    <b case="red">Red</b>
-    <b case="green">Green</b>
-    <b case="blue">Blue</b>
-  </template>
-</template>
-```
-```js
-render('switch-case-3', {
-  color: "green"
-}).innerHTML
-```
-```html
-My favorite color is: <b>Green</b>
-```
-
-#### You can use in both
-```html
-<template id="switch-case-4">
-  <template :switch="color">
-    My favorite color is:
-    <template case="red">Red</template>
-    <template case="green">Green</template>
-    <template case="blue">Blue</template>
-  </template>
-</template>
-```
-```js
-render('switch-case-4', {
-  color: "blue"
-}).innerHTML
-```
-```html
-My favorite color is: Blue
-```
-
-### with
-#### Change scope within tag.
-```html
-<template id="with-1">
-  <div>
-    <p>My name is: <template :text="name"></template></p>
-    <p :with="friend">My name is: <template :text="name"></template></p>
-    <p>My name is: <template :text="name"></template></p>
-  </div>
-</template>
-```
-```js
-render('with-1', {
-  name: "Mary",
-  friend: {
-    name: "John"
-  }
-}).innerHTML
-```
-```html
-<div>
-  <p>My name is: Mary</p>
-  <p>My name is: John</p>
-  <p>My name is: Mary</p>
-</div>
-```
-
-#### Parent keys access.
-```html
-<template id="with-2">
-  <div>
-    <p><b :text="greeting"></b><span :text="name"></span></p>
-    <p :with="friend"><b :text="greeting"></b><span :text="name"></span></p>
-    <p><b :text="greeting"></b><span :text="name"></span></p>
-  </div>
-</template>
-```
-```js
-render('with-2', {
-  greeting: "Hello",
-  name: "Mary",
-  friend: {
-    name: "John"
-  }
-}).innerHTML
-```
-```html
-<div>
-  <p><b>Hello</b><span>Mary</span></p>
-  <p><b>Hello</b><span>John</span></p>
-  <p><b>Hello</b><span>Mary</span></p>
-</div>
-```
-
-#### Simple types access.
-```html
-<template id="with-3">
-  <div :with="0">
-    <p :text="0"></p>
-    <template :with="1">
-      <p :text=""></p>
-    </template>
-  </div>
-  <div :with="1">
-    <p :text=""></p>
-  </div>
-  <div :with="2">
-    <template :with="">
-      <p :text=""></p>
-    </template>
-  </div>
-  <div :with="3">
-    <p>This will not render</p>
-  </div>
-</template>
-```
-```js
-render('with-3', [["Mary", "John"], "dog", 3.14]).innerHTML
-```
-```html
-<div>
-  <p>Mary</p>
-  <p>John</p>
-</div>
-<div>
-  <p>dog</p>
-</div>
-<div>
-  <p>3.14</p>
-</div>
-```
-
-### each
-#### Simple array iteration.
-```html
-<template id="each-1">
-  <template :each="">
-    <template :text=""></template>
-  </template>
-</template>
-```
-```js
-render('each-1', ["dog", "cat", "horse"]).innerHTML
-```
-```html
-dog
-cat
-horse
-```
-
-#### Complex array iteration.
-
-```html
-<template id="each-2">
-  <table>
-    <thead>
-      <tr>
-        <th :each="links" :text=""></th>
-        <th>Id</th>
-        <th>Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr :each="rows" :class="css">
-        <td :each="links">
-          <a :href="href" :href="id" :text="title"></a>
-        </td>
-        <td :text="id"></td>
-        <td :text="name"></td>
-      </tr>
-    </tbody>
-  </table>
-</template>
-```
-```js
-render('each-2', {
-  links: ["Delete", "Edit"],
-  rows: [
-    {
-      id: 1,
-      name: "Mary",
-      css: "dark",
-      links: [
-        {
-          title: "Delete",
-          href: "#/delete/1"
-        }, {
-          title: "Edit",
-          href: "#/edit/1"
+      const state = {
+        todos: [
+          "read a book",
+          "plant a tree"
+        ],
+        value: "",
+        AddTodo: () => {
+          state.todos.push(state.value)
+          state.value = ""
+          render(state)
+        },
+        NewValue: ev => {
+          state.value = ev.target.value
         }
-      ]
-    }, {
-      id: 2,
-      name: "John",
-      css: "light",
-      links: [
-        {
-          title: "Delete",
-          href: "#/delete/2"
-        }, {
-          title: "Edit",
-          href: "#/edit/2"
-        }
-      ]
-    }
-  ]
-}).innerHTML
-```
-```html
-<table>
-  <thead>
-    <tr>
-      <th>Delete</th><th>Edit</th>
-      <th>Id</th>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="dark">
-      <td>
-        <a href="#/delete/1">Delete</a>
-      </td><td>
-        <a href="#/edit/1">Edit</a>
-      </td>
-      <td>1</td>
-      <td>Mary</td>
-    </tr><tr class="light">
-      <td>
-        <a href="#/delete/2">Delete</a>
-      </td><td>
-        <a href="#/edit/2">Edit</a>
-      </td>
-      <td>2</td>
-      <td>John</td>
-    </tr>
-  </tbody>
-</table>
+      }
+
+      render(state)
+    </script>
+  </head>
+  <body>
+    <main id="app">
+      <h1>To do list</h1>
+      <input type="text" :value="value" :oninput="NewValue">
+      <ul>
+        <li :each="todos" :text></li>
+      </ul>
+      <button :onclick="AddTodo">New!</button>
+    </main>
+  </body>
+</html>
 ```
 
-### Custom Tags
-Observe that you can only use as custom tags templates that id contains `-`.
-As described [here](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements).
-
-With the following tag in your `HTML` `body` 
+Result: 
 ```html
-<template id="my-button">
-  <button class="btn btn-" :class="btn" :text="text" :click="click">
-    <slot></slot>
-  </button>
-</template>
-```
-#### Reuse your templates inside another template.
-```html
-<template id="custom-1">
-  <div>
-    <my-button :btn="button" :text="title">Action</my-button>
-  </div>
-</template>
-```
-```js
-render('custom-1', {
-  button: "primary",
-  title: "Submit"
-}).innerHTML
-```
-```html
-<div>
-  <button class="btn btn-primary">Submit</button>
-</div>
-```
-
-#### Iterate with custom tags.
-```html
-<template id="custom-2">
-  <div>
-    <my-button :each="" :btn="button" :text="title"></my-button>
-  </div>
-</template>
-```
-```js
-render('custom-2', [
-  {button: "secondary", title: "Cancel"},
-  {button: "primary", title: "Submit"}
-]).innerHTML
-```
-```html
-<div>
-  <button class="btn btn-secondary">Cancel</button>
-  <button class="btn btn-primary">Submit</button>
-</div>
-```
-
-#### Recursive tags.
-
-```html
-<template id="my-list">
-  <ul :if="items">
-    <li :each="items">
-      <span :text="title"></span>
-      <my-list :items="children"></my-list>
-    </li>
+<main id="app">
+  <h1>To do list</h1>
+  <input type="text" value="">
+  <ul>
+    <li>read a book</li>
+    <li>plant a tree</li>
   </ul>
-</template>
-```
-```js
-render('my-list', [
-  {
-    title: "animals",
-    children: [
-      {
-        title: "dog"
-      }, {
-        title: "cat"
-      }
-    ]
-  }, {
-    title: "countries",
-    children: [
-      {
-        title: "US",
-        children: [
-          {
-            title: "NY",
-            children: [
-              {title: "New York"}
-            ]
-          }, {
-            title: "CA",
-            children: [
-              {title: "San Francisco"},
-              {title: "Los Angeles"}
-            ]
-          }
-        ]
-      }
-    ]
-  }, {
-    title: "home"
-  }
-]).innerHTML
-```
-```html
-<ul>
-  <li>
-    <span>animals</span>
-    <ul>
-      <li>
-        <span>dog</span>
-      </li>
-      <li>
-        <span>cat</span>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <span>countries</span>
-    <ul>
-      <li>
-        <span>US</span>
-        <ul>
-          <li>
-            <span>NY</span>
-            <ul>
-              <li>
-                <span>New York</span>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <span>CA</span>
-            <ul>
-              <li>
-                <span>San Francisco</span>
-              </li>
-              <li>
-                <span>Los Angeles</span>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <span>home</span>
-  </li>
-</ul>
+  <button>New!</button>
+</main>
 ```
 
-### bind 
-#### Spread attributes
-```html
-<template id="bind-1">
-  <h1 :bind="">Hello World!</h1>
-</template>
-```
+It looks like a normal template engine, but internally compiles the template to:
 ```js
-render('bind-1', {
-  class: "message",
-  style: "white-space:pre-wrap;",
-  text: "Hello John!"
-}).innerHTML
+({ todos, value, NewValue, AddTodo }) =>
+  h("main", {}, [
+    h("h1", {}, text("To do list")),
+    h("input", { type: "text", oninput: NewValue, value }),
+    h("ul", {},
+      todos.map((todo) => h("li", {}, text(todo)))
+    ),
+    h("button", { onclick: AddTodo }, text("New!")),
+  ])
 ```
+where `h` and `text` can be any hyperscript function you want to use.
+
+You can use it
+(and even define single-file Components without any build steps!!!)
+with these frameworks:
+
+- [Hyperapp](lib/hyperapp.md)
+- [Superfine](lib/superfine.md)
+- [Mithril](lib/mithril.md)
+- [Preact](lib/preact.md)
+
+With your help, we can grow this list and improve the work done on already
+supported frameworks.
+
+With a little trick, you can even render your application on the server side,
+without the complications of the build steps.
+
 ```html
-<h1 class="message" style="white-space:pre-wrap;">Hello John!</h1>
+<main id="app">
+  <h1>To do list</h1>
+  <input type="text" :value="value" :oninput="NewValue">
+  <ul>
+    <li :each="todos" :text>read a book</li>
+    <li :not>plant a tree</li>
+  </ul>
+  <button :onclick="AddTodo">New!</button>
+</main>
 ```
 
-#### Very useful with custom tags
-```html
-<template id="bind-2">
-  <my-button :each="" :bind=""></my-button>
-</template>
-```
-```js
-render('bind-2', [
-  {
-    btn: "secondary",
-    text: "Cancel",
-    click: (ev) => {
-      ev.target.textContent = 'canceled!';
-    }
-  },
-  {
-    btn: "primary",
-    text: "Submit",
-    click: (ev) => {
-      ev.target.textContent = 'submited!';
-    }
-  }
-]).innerHTML
-```
-```html
-<button class="btn btn-secondary">Cancel</button>
-<button class="btn btn-primary">Submit</button>
-```
+- [Example in action](../samples/ssr_dynamic.html)
+- [Static HTML rendered by server](../samples/ssr_static.html)
 
-```js
-e.querySelector('.btn-secondary').click()
-e.querySelector('.btn-primary').click()
-console.log(el.innerHTML)
-```
-```html
-<button class="btn btn-secondary">canceled!</button>
-<button class="btn btn-primary">submited!</button>
-```
+What have you achieved:
+ - The happiness of designers who can write in plain html.
+ - The happiness of customers, which has a very fast and interactive
+application, rendered on the server side, search engine friendly and at the
+same time as dynamic as necessary.
+ - The happiness of developers, who don't need complicated settings for the
+ build steps, they can use normal html files to create single file components
+and they can use any hyperscript framework they want.
+
+To celebrate the widespread happiness, how about taking a look at the
+[documentation](https://marcodpt.github.io/tint/).
 
 ## Philosophy
  - Separation: Functions and data transformations belong in javascript, design
@@ -1006,6 +137,26 @@ and quickly become productive.
  - Each layout should be written only once, without repetition.
  - Simplicity matters.
  - Elegant syntax is important.
+
+## Contributing
+Everything within this documentation is tested 
+[here](tests/).
+And it will always like this. Any changes to the documentation,
+any contributions MUST be present in the tests.
+
+If the tests do not pass in your browser, if you find any bugs, please raise
+an issue.
+
+Any changes must be within the philosophy of this project.
+
+It's a very simple project. Any contribution is greatly appreciated.
+
+## [Docs](https://marcodpt.github.io/tint/)
+To generate the docs and create a server for tests.
+
+```
+mdbook serve
+```
 
 ## Influences and thanks
 This work is hugely influenced by these amazing template engines and frameworks:
@@ -1022,18 +173,3 @@ This work is hugely influenced by these amazing template engines and frameworks:
  - [knockout](https://knockoutjs.com/documentation/introduction.html)
 
 A huge thank you to all the people who contributed to these projects.
-
-## Contributing
-First, thanks for reading this far.
-
-Everything within this documentation is tested 
-[here](https://marcodpt.github.io/tint/).
-And it will always like this. Any changes to the documentation,
-any contributions MUST be present in the tests.
-
-If the tests do not pass in your browser, if you find any bugs, please raise
-an issue.
-
-Any syntax changes must be within the philosophy of this project.
-
-It's a very simple project. Any contribution is greatly appreciated.

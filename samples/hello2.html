@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello Tint</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <script type="module">
+      import compile from "../template.js"
+      const render = compile(
+        document.getElementById("app"),
+        document.getElementById("view")
+      )
+      render({
+        message: "Hello World!"
+      })
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <p>Loading...</p>
+    </div>
+    <template id="view">
+      <h1 :text="message"></h1>
+    </template>
+  </body>
+</html>

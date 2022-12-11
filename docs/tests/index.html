@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tests tint</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/favicon.ico">
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/qunit/qunit-2.19.1.css"
+    />
+    <script src="https://code.jquery.com/qunit/qunit-2.19.1.js"></script>
+    <script type="module" src="test.js"></script>
+  </head>
+  <body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div> 
+
+    <template id="attributes-1">
+      <a class="primary" :href="target">Go to page 1</a>
+    </template>
+    <template id="attributes-2">
+      <input type="checkbox" :checked="isChecked" :disabled="isDisabled">
+    </template>
+    <template id="attributes-3">
+      <button class="btn btn-" :class="btn" disabled :disabled="isDisabled">
+        Submit
+      </button>
+    </template>
+    <template id="attributes-4">
+      <button class="btn btn-primary" :onclick="action">
+        Submit
+      </button>
+    </template>
+
+    <template id="text-1">
+      <h1 :text="content">Hello World!</h1>
+    </template>
+    <template id="text-2">
+      <h1>
+        Hello <template :text="name"></template>, how are you?
+      </h1>
+    </template>
+    <template id="text-3">
+      <code :text="raw"></code>
+    </template>
+
+    <template id="if-not-1">
+      <div>
+        John:
+        <i :if="john" class="fas fa-check"></i>
+        <i :not="john" class="fas fa-times"></i>
+      </div><div>
+        Mary:
+        <i :if="mary" class="fas fa-check"></i>
+        <i :not="mary" class="fas fa-times"></i>
+      </div>
+    </template>
+    <template id="if-not-2">
+      <div>
+        null: <template :if="0">true</template><template :not="0">false</template>
+        0: <template :if="1">true</template><template :not="1">false</template>
+        1: <template :if="2">true</template><template :not="2">false</template>
+        -1: <template :if="3">true</template><template :not="3">false</template>
+        "": <template :if="4">true</template><template :not="4">false</template>
+        "0": <template :if="5">true</template><template :not="5">false</template>
+        []: <template :if="6">true</template><template :not="6">false</template>
+        {}: <template :if="7">true</template><template :not="7">false</template>
+        undefined: <template :if="8">true</template><template :not="8">false</template>
+      </div>
+    </template>
+
+    <template id="switch-case-1">
+      <form :switch="input">
+        <label :text="title"></label>
+        <select
+          case="boolean"
+          :name="name"
+        >
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+        <textarea
+          case="text"
+          :name="name"
+          rows="6"
+        ></textarea>
+        <input
+          case="default"
+          type="text"
+          :name="name"
+        >
+        <button>Submit</button>
+      </form>
+    </template>
+    <template id="switch-case-2">
+      <div :switch="color">
+        My favorite color is:
+        <template case="red">Red</template>
+        <template case="green">Green</template>
+        <template case="blue">Blue</template>
+      </div>
+    </template>
+    <template id="switch-case-3">
+      <template :switch="color">
+        My favorite color is:
+        <b case="red">Red</b>
+        <b case="green">Green</b>
+        <b case="blue">Blue</b>
+      </template>
+    </template>
+    <template id="switch-case-4">
+      <template :switch="color">
+        My favorite color is:
+        <template case="red">Red</template>
+        <template case="green">Green</template>
+        <template case="blue">Blue</template>
+      </template>
+    </template>
+
+    <template id="with-1">
+      <div>
+        <p>My name is: <template :text="name"></template></p>
+        <p :with="friend">My name is: <template :text="name"></template></p>
+        <p>My name is: <template :text="name"></template></p>
+      </div>
+    </template>
+    <template id="with-2">
+      <div>
+        <p><b :text="greeting"></b><span :text="name"></span></p>
+        <p :with="friend"><b :text="greeting"></b><span :text="name"></span></p>
+        <p><b :text="greeting"></b><span :text="name"></span></p>
+      </div>
+    </template>
+    <template id="with-3">
+      <div :with="0">
+        <p :text="0"></p>
+        <template :with="1">
+          <p :text=""></p>
+        </template>
+      </div>
+      <div :with="1">
+        <p :text=""></p>
+      </div>
+      <div :with="2">
+        <template :with="">
+          <p :text=""></p>
+        </template>
+      </div>
+      <div :with="3">
+        <p>This will not render</p>
+      </div>
+    </template>
+
+    <template id="each-1">
+      <template :each="">
+        <template :text=""></template>
+      </template>
+    </template>
+    <template id="each-2">
+      <table>
+        <thead>
+          <tr>
+            <th :each="links" :text=""></th>
+            <th>Id</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr :each="rows" :class="css">
+            <td :each="links">
+              <a :href="href" :href="id" :text="title"></a>
+            </td>
+            <td :text="id"></td>
+            <td :text="name"></td>
+          </tr>
+        </tbody>
+      </table>
+    </template>
+
+    <template id="my-button">
+      <button class="btn btn-" :class="btn" :text="text" :click="click">
+        <slot></slot>
+      </button>
+    </template>
+
+    <template id="custom-1">
+      <div>
+        <my-button :btn="button">
+          Action
+        </my-button>
+      </div>
+    </template>
+    <template id="custom-2">
+      <div>
+        <my-button :each="" :btn="button" :text="title"></my-button>
+      </div>
+    </template>
+
+    <template id="my-list">
+      <ul :if="items">
+        <li :each="items">
+          <span :text="title"></span>
+          <my-list :items="children"></my-list>
+        </li>
+      </ul>
+    </template>
+
+    <template id="bind-1">
+      <h1 :bind="">Hello World!</h1>
+    </template>
+
+    <template id="bind-2">
+      <my-button :each="" :bind=""></my-button>
+    </template>
+  </body>
+</html>

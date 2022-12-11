@@ -1,0 +1,1304 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Tint</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="A natural template engine for the HTML DOM.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Usage</li><li class="chapter-item expanded "><a href="lib/template.html"><strong aria-hidden="true">1.</strong> Template engine</a></li><li class="chapter-item expanded "><a href="lib/hyperapp.html"><strong aria-hidden="true">2.</strong> Hyperapp</a></li><li class="chapter-item expanded "><a href="lib/superfine.html"><strong aria-hidden="true">3.</strong> Superfine</a></li><li class="chapter-item expanded "><a href="lib/mithril.html"><strong aria-hidden="true">4.</strong> Mithril</a></li><li class="chapter-item expanded "><a href="lib/preact.html"><strong aria-hidden="true">5.</strong> Preact</a></li><li class="chapter-item expanded "><a href="lib/library.html"><strong aria-hidden="true">6.</strong> Low-level library</a></li><li class="chapter-item expanded affix "><li class="part-title">Template Syntax Reference</li><li class="chapter-item expanded "><a href="syntax/intro.html"><strong aria-hidden="true">7.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="syntax/attribute.html"><strong aria-hidden="true">8.</strong> Dynamic attributes</a></li><li class="chapter-item expanded "><a href="syntax/text.html"><strong aria-hidden="true">9.</strong> text</a></li><li class="chapter-item expanded "><a href="syntax/if.html"><strong aria-hidden="true">10.</strong> if/not</a></li><li class="chapter-item expanded "><a href="syntax/switch.html"><strong aria-hidden="true">11.</strong> switch/case</a></li><li class="chapter-item expanded "><a href="syntax/with.html"><strong aria-hidden="true">12.</strong> with</a></li><li class="chapter-item expanded "><a href="syntax/each.html"><strong aria-hidden="true">13.</strong> each</a></li><li class="chapter-item expanded "><a href="syntax/custom.html"><strong aria-hidden="true">14.</strong> Custom Tags</a></li><li class="chapter-item expanded "><a href="syntax/bind.html"><strong aria-hidden="true">15.</strong> bind</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Tint</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="tint"><a class="header" href="#tint"><img src="assets/favicon.ico" alt="Tint" /> Tint</a></h1>
+<p>A natural template engine for the HTML DOM. </p>
+<ul>
+<li>takes valid <code>HTML</code> as input.</li>
+<li>converts the result to any 
+<a href="https://github.com/hyperhype/hyperscript">hyperscript</a>
+function you want to use.</li>
+<li>layouts completely separate from javascript logic.</li>
+<li>works with all javascript frameworks that support
+<a href="https://github.com/hyperhype/hyperscript">hyperscript</a>.</li>
+<li>you can use the template as a server-side rendered version of your app.</li>
+<li>you can use a regular HTML file as a single file component without ANY javascript build tools.</li>
+<li><a href="https://github.com/hyperhype/hyperscript">hyperscript</a> frameworks can be
+used by any team of designers or people with no javascript knowledge.</li>
+<li>the template syntax allow very simple and elegant templates without
+repeat yourself.</li>
+</ul>
+<h2 id="showcase"><a class="header" href="#showcase">Showcase</a></h2>
+<p>The classic TODO app, with an initial server-rendered state.</p>
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;script type=&quot;module&quot;&gt;
+      import compile from &quot;https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js&quot;
+      const render = compile(document.getElementById(&quot;app&quot;))
+
+      const state = {
+        todos: [
+          &quot;read a book&quot;,
+          &quot;plant a tree&quot;
+        ],
+        value: &quot;&quot;,
+        AddTodo: () =&gt; {
+          state.todos.push(state.value)
+          state.value = &quot;&quot;
+          render(state)
+        },
+        NewValue: ev =&gt; {
+          state.value = ev.target.value
+        }
+      }
+
+      render(state)
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;main id=&quot;app&quot;&gt;
+      &lt;h1&gt;To do list&lt;/h1&gt;
+      &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+      &lt;ul&gt;
+        &lt;li :each=&quot;todos&quot; :text&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+    &lt;/main&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Result: </p>
+<pre><code class="language-html">&lt;main id=&quot;app&quot;&gt;
+  &lt;h1&gt;To do list&lt;/h1&gt;
+  &lt;input type=&quot;text&quot; value=&quot;&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;read a book&lt;/li&gt;
+    &lt;li&gt;plant a tree&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;button&gt;New!&lt;/button&gt;
+&lt;/main&gt;
+</code></pre>
+<p>It looks like a normal template engine, but internally compiles the template to:</p>
+<pre><code class="language-js">({ todos, value, NewValue, AddTodo }) =&gt;
+  h(&quot;main&quot;, {}, [
+    h(&quot;h1&quot;, {}, text(&quot;To do list&quot;)),
+    h(&quot;input&quot;, { type: &quot;text&quot;, oninput: NewValue, value }),
+    h(&quot;ul&quot;, {},
+      todos.map((todo) =&gt; h(&quot;li&quot;, {}, text(todo)))
+    ),
+    h(&quot;button&quot;, { onclick: AddTodo }, text(&quot;New!&quot;)),
+  ])
+</code></pre>
+<p>where <code>h</code> and <code>text</code> can be any hyperscript function you want to use.</p>
+<p>You can use it
+(and even define single-file Components without any build steps!!!)
+with these frameworks:</p>
+<ul>
+<li><a href="lib/hyperapp.html">Hyperapp</a></li>
+<li><a href="lib/superfine.html">Superfine</a></li>
+<li><a href="lib/mithril.html">Mithril</a></li>
+<li><a href="lib/preact.html">Preact</a></li>
+</ul>
+<p>With your help, we can grow this list and improve the work done on already
+supported frameworks.</p>
+<p>With a little trick, you can even render your application on the server side,
+without the complications of the build steps.</p>
+<pre><code class="language-html">&lt;main id=&quot;app&quot;&gt;
+  &lt;h1&gt;To do list&lt;/h1&gt;
+  &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+  &lt;ul&gt;
+    &lt;li :each=&quot;todos&quot; :text&gt;read a book&lt;/li&gt;
+    &lt;li :not&gt;plant a tree&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+&lt;/main&gt;
+</code></pre>
+<ul>
+<li><a href="../samples/ssr_dynamic.html">Example in action</a></li>
+<li><a href="../samples/ssr_static.html">Static HTML rendered by server</a></li>
+</ul>
+<p>What have you achieved:</p>
+<ul>
+<li>The happiness of designers who can write in plain html.</li>
+<li>The happiness of customers, which has a very fast and interactive
+application, rendered on the server side, search engine friendly and at the
+same time as dynamic as necessary.</li>
+<li>The happiness of developers, who don't need complicated settings for the
+build steps, they can use normal html files to create single file components
+and they can use any hyperscript framework they want.</li>
+</ul>
+<p>To celebrate the widespread happiness, how about taking a look at the
+<a href="https://marcodpt.github.io/tint/">documentation</a>.</p>
+<h2 id="philosophy"><a class="header" href="#philosophy">Philosophy</a></h2>
+<ul>
+<li>Separation: Functions and data transformations belong in javascript, design
+and visual presentation to the html and css, and the data belongs to the database.</li>
+<li>Designers and people with no javascript knowledge should understand it
+and quickly become productive.</li>
+<li>Templates must be valid <code>XML</code>/<code>HTML</code> that can be inserted into a
+<code>template</code> tag or anywhere in the DOM.</li>
+<li>It must not conflict with other template engines and frameworks.</li>
+<li>Each layout should be written only once, without repetition.</li>
+<li>Simplicity matters.</li>
+<li>Elegant syntax is important.</li>
+</ul>
+<h2 id="contributing"><a class="header" href="#contributing">Contributing</a></h2>
+<p>Everything within this documentation is tested 
+<a href="tests/">here</a>.
+And it will always like this. Any changes to the documentation,
+any contributions MUST be present in the tests.</p>
+<p>If the tests do not pass in your browser, if you find any bugs, please raise
+an issue.</p>
+<p>Any changes must be within the philosophy of this project.</p>
+<p>It's a very simple project. Any contribution is greatly appreciated.</p>
+<h2 id="docs"><a class="header" href="#docs"><a href="https://marcodpt.github.io/tint/">Docs</a></a></h2>
+<p>To generate the docs and create a server for tests.</p>
+<pre><code>mdbook serve
+</code></pre>
+<h2 id="influences-and-thanks"><a class="header" href="#influences-and-thanks">Influences and thanks</a></h2>
+<p>This work is hugely influenced by these amazing template engines and frameworks:</p>
+<ul>
+<li><a href="https://mustache.github.io/mustache.5.html">mustache</a></li>
+<li><a href="https://github.com/leonidas/transparency">transparency</a></li>
+<li><a href="https://www.thymeleaf.org/">thymeleaf</a></li>
+<li><a href="https://handlebarsjs.com/">handlebars</a></li>
+<li><a href="https://jinja.palletsprojects.com/en/3.1.x/">jinja</a></li>
+<li><a href="https://tera.netlify.app/docs">tera</a></li>
+<li><a href="https://vuejs.org/">vue</a></li>
+<li><a href="https://github.com/jorgebucaran/superfine">superfine</a></li>
+<li><a href="https://github.com/jorgebucaran/hyperapp">hyperapp</a></li>
+<li><a href="http://rivetsjs.com/docs/reference/">rivets</a></li>
+<li><a href="https://knockoutjs.com/documentation/introduction.html">knockout</a></li>
+</ul>
+<p>A huge thank you to all the people who contributed to these projects.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="usage-as-a-template-engine"><a class="header" href="#usage-as-a-template-engine">Usage as a template engine</a></h1>
+<h3 id="compileelement-template---renderscope"><a class="header" href="#compileelement-template---renderscope">compile(element, template?) -&gt; render(scope)</a></h3>
+<p>Returns the view associated with <code>element</code>.</p>
+<p>Optionally, you can use a <code>template</code> element to replace the <code>element</code>'s inner
+HTML with your own contents.</p>
+<ul>
+<li>element: The <code>element</code> that will be the root of the result. If you don't
+pass a <code>template</code>, it will be treated as a complete template. In case you
+provide a <code>template</code> it will only be used as the root of the result,
+ignoring its content.</li>
+<li>template: The optional <code>template</code> element you want to render inside .</li>
+<li>scope: The data passed to interpolate the <code>element</code>,
+any JSON object even with javascript functions is valid!</li>
+</ul>
+<h2 id="hello-world-example"><a class="header" href="#hello-world-example">Hello world example!</a></h2>
+<ul>
+<li><a href="lib/../samples/hello.html">Example in action</a></li>
+</ul>
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;script type=&quot;module&quot;&gt;
+      import compile from &quot;https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js&quot;
+      const render = compile(document.getElementById(&quot;app&quot;))
+      render({
+        message: &quot;Hello World!&quot;
+      })
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+      &lt;h1 :text=&quot;message&quot;&gt;Loading...&lt;/h1&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+  &lt;h1&gt;Hello world!&lt;/h1&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="hello-world-with-external-template-example"><a class="header" href="#hello-world-with-external-template-example">Hello world with external template example!</a></h2>
+<ul>
+<li><a href="lib/../samples/hello2.html">Example in action</a></li>
+</ul>
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;script type=&quot;module&quot;&gt;
+      import compile from &quot;../template.js&quot;
+      const render = compile(
+        document.getElementById(&quot;app&quot;),
+        document.getElementById(&quot;view&quot;)
+      )
+      render({
+        message: &quot;Hello World!&quot;
+      })
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+      &lt;p&gt;Loading...&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;template id=&quot;view&quot;&gt;
+      &lt;h1 :text=&quot;message&quot;&gt;&lt;/h1&gt;
+    &lt;/template&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+  &lt;h1&gt;Hello world!&lt;/h1&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="todo-app-without-any-framework-or-virtual-dom"><a class="header" href="#todo-app-without-any-framework-or-virtual-dom">TODO app without any framework or virtual DOM</a></h2>
+<p>This is not the recommended way to do this.
+You'll update the DOM more than necessary, lose focus, and maybe other things.
+But here's a demo anyway.</p>
+<ul>
+<li><a href="lib/../samples/template.html">Example in action</a></li>
+</ul>
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;script type=&quot;module&quot;&gt;
+      import compile from &quot;https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js&quot;
+      const render = compile(document.getElementById(&quot;app&quot;))
+
+      const state = {
+        todos: [],
+        value: &quot;&quot;,
+        AddTodo: () =&gt; {
+          state.todos.push(state.value)
+          state.value = &quot;&quot;
+          render(state)
+        },
+        NewValue: ev =&gt; {
+          state.value = ev.target.value
+        }
+      }
+
+      render(state)
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;main id=&quot;app&quot;&gt;
+      &lt;h1&gt;To do list&lt;/h1&gt;
+      &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+      &lt;ul&gt;
+        &lt;li :each=&quot;todos&quot; :text&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+    &lt;/main&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="usage-with-hyperapp"><a class="header" href="#usage-with-hyperapp">Usage with <a href="https://github.com/jorgebucaran/hyperapp">Hyperapp</a></a></h1>
+<p>We delete the <code>view</code> property because <code>tint</code> will automatically generate it
+based on the <code>node</code> that is passed to the <code>app</code>.</p>
+<p>We've also introduced an <code>actions</code> object for your static methods.</p>
+<p>Everything else is exactly equals on hyperapp.</p>
+<p><a href="https://github.com/jorgebucaran/hyperapp/issues/1098">Here</a> is the thread
+that gave rise to this wrapper.</p>
+<h2 id="todo-app-sample"><a class="header" href="#todo-app-sample">TODO app sample</a></h2>
+<ul>
+<li><a href="lib/../samples/hyperapp.html">Example in action</a></li>
+</ul>
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;script type=&quot;module&quot;&gt;
+      import app from &quot;https://cdn.jsdelivr.net/gh/marcodpt/tint/hyperapp.js&quot;
+
+      app({
+        actions: {
+          AddTodo: state =&gt; ({
+            ...state,
+            value: &quot;&quot;,
+            todos: state.todos.concat(state.value),
+          }),
+          NewValue: (state, event) =&gt; ({
+            ...state,
+            value: event.target.value,
+          })
+        },
+        init: {
+          todos: [],
+          value: &quot;&quot;
+        },
+        node: document.getElementById(&quot;app&quot;)
+      })
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;main id=&quot;app&quot;&gt;
+      &lt;h1&gt;To do list&lt;/h1&gt;
+      &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+      &lt;ul&gt;
+        &lt;li :each=&quot;todos&quot; :text&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+    &lt;/main&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="usage-with-superfine"><a class="header" href="#usage-with-superfine">Usage with <a href="https://github.com/jorgebucaran/superfine">Superfine</a></a></h1>
+<h2 id="todo-app-sample-1"><a class="header" href="#todo-app-sample-1">TODO app sample</a></h2>
+<ul>
+<li><a href="lib/../samples/superfine.html">Example in action</a></li>
+</ul>
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;script type=&quot;module&quot;&gt;
+      import superfine from &quot;https://cdn.jsdelivr.net/gh/marcodpt/tint/superfine.js&quot;
+
+      const state = {
+        todos: [],
+        value: &quot;&quot;,
+        AddTodo: () =&gt; {
+          state.todos.push(state.value)
+          state.value = &quot;&quot;
+          setState(state)
+        },
+        NewValue: ev =&gt; {
+          state.value = ev.target.value
+        }
+      }
+
+      const setState = superfine(document.getElementById('app'))
+      setState(state)
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;main id=&quot;app&quot;&gt;
+      &lt;h1&gt;To do list&lt;/h1&gt;
+      &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+      &lt;ul&gt;
+        &lt;li :each=&quot;todos&quot; :text&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+    &lt;/main&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="usage-with-mithriljs"><a class="header" href="#usage-with-mithriljs">Usage with <a href="https://github.com/MithrilJS/mithril.js">Mithril.js</a></a></h1>
+<p>In this example, you must also import mithril into the page yourself before the
+wrapper.</p>
+<p>The <code>view</code> method is generated by the <code>state</code> property.
+All other components methods are available. Ex: <code>oninit</code>, <code>oncreate</code>, etc.</p>
+<h2 id="todo-app-sample-2"><a class="header" href="#todo-app-sample-2">TODO app sample</a></h2>
+<ul>
+<li><a href="lib/../samples/mithril.html">Example in action</a></li>
+</ul>
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;script src=&quot;https://unpkg.com/mithril/mithril.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;module&quot;&gt;
+      import component from 'https://cdn.jsdelivr.net/gh/marcodpt/tint/mithril.js'
+
+      const state = {
+        todos: [],
+        value: &quot;&quot;,
+        AddTodo: () =&gt; {
+          state.todos.push(state.value)
+          state.value = &quot;&quot;
+        },
+        NewValue: ev =&gt; {
+          state.value = ev.target.value
+        }
+      }
+      const todo = component(document.getElementById('view-todo'), {
+        oninit: () =&gt; {
+          console.log('component oninit')
+        },
+        state: state
+      })
+
+      m.mount(document.getElementById(&quot;app&quot;), todo)
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;main id=&quot;app&quot;&gt;
+      &lt;div id=&quot;view-todo&quot;&gt;
+        &lt;h1&gt;To do list&lt;/h1&gt;
+        &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+        &lt;ul&gt;
+          &lt;li :each=&quot;todos&quot; :text&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/main&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="usage-with-preact"><a class="header" href="#usage-with-preact">Usage with <a href="https://github.com/preactjs/preact">preact</a></a></h1>
+<p>Our <code>preact</code> wrapper is not the best. But it serves to show an example
+with a global state and no components. If you think you can improve this
+wrapper, please submit a pull request.</p>
+<h2 id="todo-app-sample-3"><a class="header" href="#todo-app-sample-3">TODO app sample</a></h2>
+<ul>
+<li><a href="lib/../samples/preact.html">Example in action</a></li>
+</ul>
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;script type=&quot;module&quot;&gt;
+      import preact from &quot;https://cdn.jsdelivr.net/gh/marcodpt/tint/preact.js&quot;
+
+      const state = {
+        todos: [],
+        value: &quot;&quot;,
+        AddTodo: () =&gt; {
+          state.todos.push(state.value)
+          state.value = &quot;&quot;
+          render()
+        },
+        NewValue: ev =&gt; {
+          state.value = ev.target.value
+        }
+      }
+
+      const render = preact(state, document.getElementById(&quot;app&quot;))
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;main id=&quot;app&quot;&gt;
+      &lt;div&gt;
+        &lt;h1&gt;To do list&lt;/h1&gt;
+        &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+        &lt;ul&gt;
+          &lt;li :each=&quot;todos&quot; :text&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/main&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="usage-as-a-low-level-library"><a class="header" href="#usage-as-a-low-level-library">Usage as a low-level library</a></h1>
+<p>To build all the wrappers for the <code>TODO</code> application, we use this package as a
+low-level library.</p>
+<pre><code class="language-js">import tint from 'https://cdn.jsdelivr.net/gh/marcodpt/tint/index.js'
+</code></pre>
+<p>Here is the source code for each of the wrappers:</p>
+<ul>
+<li><a href="lib/../template.js">template</a></li>
+<li><a href="lib/../superfine.js">superfine</a></li>
+<li><a href="lib/../hyperapp.js">hyperapp</a></li>
+<li><a href="lib/../mithril.js">mithril</a></li>
+<li><a href="lib/../preact.js">preact</a></li>
+</ul>
+<p>If you want to create a wrapper for a framework that is not on this list or
+if you want to improve any of the wrappers we've created here, you'll need
+use <code>tint</code> as described in this section.</p>
+<p>If you created something interesting, or a wrapper for another framework or
+improved any example. Submit a pull request or open an issue with your
+code.</p>
+<h3 id="tinth-text---compile"><a class="header" href="#tinth-text---compile">tint(h, text) -&gt; compile</a></h3>
+<p>Returns a <code>compile</code> function based on your hyperscript DOM/vDOM choice.</p>
+<ul>
+<li>h(tagName, attributes, children): a
+<a href="https://github.com/hyperhype/hyperscript">hyperscript</a> function that create a
+DOM or virtual DOM element, if no function is passed, it will use
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement">document.createElement</a>.</li>
+<li>text(str): a 
+<a href="https://github.com/hyperhype/hyperscript">hyperscript</a> function that create
+DOM or vDOM text nodes.
+If no <code>text</code> function is passed, it will use <code>h(str)</code>.</li>
+</ul>
+<h3 id="compileelement-template---render"><a class="header" href="#compileelement-template---render">compile(element, template?) -&gt; render</a></h3>
+<p>Returns the view associated with <code>element</code>.</p>
+<p>Optionally, you can use a <code>template</code> element to replace the <code>element</code>'s inner
+HTML with your own contents.</p>
+<ul>
+<li>element: The <code>element</code> that will be the root of the result. If you don't
+pass a <code>template</code>, it will be treated as a complete template. In case you
+provide a <code>template</code> it will only be used as the root of the result,
+ignoring its content.</li>
+<li>template: The optional <code>template</code> element you want to render inside .</li>
+</ul>
+<h3 id="renderscope---domvdom-element"><a class="header" href="#renderscope---domvdom-element">render(scope) -&gt; DOM/vDOM element</a></h3>
+<p>Returns the DOM/vDOM generated by applying the <code>scope</code> in the view </p>
+<ul>
+<li>scope: The data passed to interpolate the <code>element</code>,
+any JSON object even with javascript functions is valid!</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>Tint is a DOM-based template engine and compiles the output to hyperscript
+functions.</p>
+<p>While on the surface it may look like a normal (text-based) template engine,
+it has some important differences:</p>
+<ul>
+<li>you can use functions and will be bound to DOM element events.</li>
+<li>the syntax must always be valid HTML, in order to use the javascript DOM.</li>
+<li>although it is currently implemented in the browser, as long as the DOM API
+is available, can be implemented in languages such as node and deno.</li>
+<li>there is no dot syntax, javascript expressions, filters, delimiters for text
+interpolation or any kind of logic other than the special attributes available,
+this is a decision made in order for the template to be as free of logic as
+possible.</li>
+<li>all complex data operations must be done in javascript before rendering the
+template.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="attribute"><a class="header" href="#attribute">:attribute</a></h1>
+<h2 id="simple-eval"><a class="header" href="#simple-eval">Simple eval</a></h2>
+<pre><code class="language-js">{
+  target: &quot;#/page/1&quot;
+}
+</code></pre>
+<pre><code class="language-html">&lt;a class=&quot;primary&quot; :href=&quot;target&quot;&gt;Go to page 1&lt;/a&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;a class=&quot;primary&quot; href=&quot;#/page/1&quot;&gt;Go to page 1&lt;/a&gt;
+</code></pre>
+<h2 id="boolean-attributes"><a class="header" href="#boolean-attributes">Boolean attributes</a></h2>
+<pre><code class="language-js">{
+  isDisabled: true,
+  isChecked: false
+}
+</code></pre>
+<pre><code class="language-html">&lt;input type=&quot;checkbox&quot; :checked=&quot;isChecked&quot; :disabled=&quot;isDisabled&quot;&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;input type=&quot;checkbox&quot; disabled=&quot;&quot;&gt;
+</code></pre>
+<h2 id="extending-attributes"><a class="header" href="#extending-attributes">Extending attributes</a></h2>
+<pre><code class="language-js">{
+  isDisabled: false,
+  btn: &quot;primary&quot;
+}
+</code></pre>
+<pre><code class="language-html">&lt;button class=&quot;btn btn-&quot; :class=&quot;btn&quot; disabled :disabled=&quot;isDisabled&quot;&gt;
+  Submit
+&lt;/button&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;button class=&quot;btn btn-primary&quot;&gt;
+  Submit
+&lt;/button&gt;
+</code></pre>
+<h2 id="function-calls"><a class="header" href="#function-calls">Function calls</a></h2>
+<pre><code class="language-js">{
+  action: (ev) =&gt; {
+    const btn = ev.target.closest('button')
+    btn.disabled = true
+    btn.textContent = 'Submited!'
+  }
+}
+</code></pre>
+<pre><code class="language-html">&lt;button class=&quot;btn btn-primary&quot; :onclick=&quot;action&quot;&gt;
+  Submit
+&lt;/button&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;button class=&quot;btn btn-primary&quot;&gt;
+  Submit
+&lt;/button&gt;
+</code></pre>
+<p>After clicking the button:</p>
+<pre><code class="language-html">&lt;button class=&quot;btn btn-primary&quot; disabled=&quot;&quot;&gt;
+  Submited!
+&lt;/button&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="text"><a class="header" href="#text">text</a></h1>
+<h2 id="replace-node-text"><a class="header" href="#replace-node-text">Replace node text</a></h2>
+<pre><code class="language-js">{
+  content: &quot;Hello John!&quot;
+}
+</code></pre>
+<pre><code class="language-html">&lt;h1 :text=&quot;content&quot;&gt;Hello World!&lt;/h1&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;h1&gt;Hello John&lt;/h1&gt;
+</code></pre>
+<h2 id="use-template-to-interpolate-text"><a class="header" href="#use-template-to-interpolate-text">Use template to interpolate text</a></h2>
+<pre><code class="language-js">{
+  name: &quot;John&quot;
+}
+</code></pre>
+<pre><code class="language-html">&lt;h1&gt;
+  Hello &lt;template :text=&quot;name&quot;&gt;&lt;/template&gt;, how are you?
+&lt;/h1&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;h1&gt;
+  Hello John, how are you?
+&lt;/h1&gt;
+</code></pre>
+<h2 id="html-strings-will-be-escaped"><a class="header" href="#html-strings-will-be-escaped">HTML strings will be escaped</a></h2>
+<pre><code class="language-js">{
+  raw: &quot;var x = y &gt; 4 &amp;&amp; z / 3 == 2 ? 1 : 2&quot;
+}
+</code></pre>
+<pre><code class="language-html">&lt;code :text=&quot;raw&quot;&gt;&lt;/code&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;code&gt;var x = y &amp;gt; 4 &amp;amp;&amp;amp; z / 3 == 2 ? 1 : 2&lt;/code&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ifnot"><a class="header" href="#ifnot">if/not</a></h1>
+<h2 id="remove-node-with-a-conditional-test"><a class="header" href="#remove-node-with-a-conditional-test">Remove node with a conditional test</a></h2>
+<pre><code class="language-js">{
+  john: false,
+  mary: true
+}
+</code></pre>
+<pre><code class="language-html">&lt;div&gt;
+  John:
+  &lt;i :if=&quot;john&quot; class=&quot;fas fa-check&quot;&gt;&lt;/i&gt;
+  &lt;i :not=&quot;john&quot; class=&quot;fas fa-times&quot;&gt;&lt;/i&gt;
+&lt;/div&gt;&lt;div&gt;
+  Mary:
+  &lt;i :if=&quot;mary&quot; class=&quot;fas fa-check&quot;&gt;&lt;/i&gt;
+  &lt;i :not=&quot;mary&quot; class=&quot;fas fa-times&quot;&gt;&lt;/i&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;div&gt;
+  John: &lt;i class=&quot;fas fa-times&quot;&gt;&lt;/i&gt;
+&lt;/div&gt;&lt;div&gt;
+  Mary: &lt;i class=&quot;fas fa-check&quot;&gt;&lt;/i&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="some-critical-js-values"><a class="header" href="#some-critical-js-values">Some critical js values</a></h2>
+<pre><code class="language-js">[
+  null,
+  0,
+  1,
+  -1,
+  &quot;&quot;,
+  &quot;0&quot;,
+  [],
+  {},
+  undefined
+]
+</code></pre>
+<pre><code class="language-html">&lt;div&gt;
+  null: &lt;template :if=&quot;0&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;0&quot;&gt;false&lt;/template&gt;
+  0: &lt;template :if=&quot;1&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;1&quot;&gt;false&lt;/template&gt;
+  1: &lt;template :if=&quot;2&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;2&quot;&gt;false&lt;/template&gt;
+  -1: &lt;template :if=&quot;3&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;3&quot;&gt;false&lt;/template&gt;
+  &quot;&quot;: &lt;template :if=&quot;4&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;4&quot;&gt;false&lt;/template&gt;
+  &quot;0&quot;: &lt;template :if=&quot;5&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;5&quot;&gt;false&lt;/template&gt;
+  []: &lt;template :if=&quot;6&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;6&quot;&gt;false&lt;/template&gt;
+  {}: &lt;template :if=&quot;7&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;7&quot;&gt;false&lt;/template&gt;
+  undefined: &lt;template :if=&quot;8&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;8&quot;&gt;false&lt;/template&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;div&gt;
+  null: false
+  0: false
+  1: true
+  -1: true
+  &quot;&quot;: false
+  &quot;0&quot;: true
+  []: true
+  {}: true
+  undefined: false
+&lt;/div&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="switchcase"><a class="header" href="#switchcase">switch/case</a></h1>
+<h2 id="choose-a-imediate-children-tag-based-on-a-criteria"><a class="header" href="#choose-a-imediate-children-tag-based-on-a-criteria">Choose a imediate children tag based on a criteria.</a></h2>
+<pre><code class="language-js">{
+  input: &quot;text&quot;,
+  name: &quot;bio&quot;,
+  title: &quot;Bio&quot;
+}
+</code></pre>
+<pre><code class="language-html">&lt;form :switch=&quot;input&quot;&gt;
+  &lt;label :text=&quot;title&quot;&gt;&lt;/label&gt;
+  &lt;select
+    case=&quot;boolean&quot;
+    :name=&quot;name&quot;
+  &gt;
+    &lt;option value=&quot;0&quot;&gt;No&lt;/option&gt;
+    &lt;option value=&quot;1&quot;&gt;Yes&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;textarea
+    case=&quot;text&quot;
+    :name=&quot;name&quot;
+    rows=&quot;6&quot;
+  &gt;&lt;/textarea&gt;
+  &lt;input
+    case=&quot;default&quot;
+    type=&quot;text&quot;
+    :name=&quot;name&quot;
+  &gt;
+  &lt;button&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;form&gt;
+  &lt;label&gt;Bio&lt;/label&gt;
+  &lt;textarea name=&quot;bio&quot; rows=&quot;6&quot;&gt;&lt;/textarea&gt;
+  &lt;button&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<h2 id="you-can-use-template-for-case"><a class="header" href="#you-can-use-template-for-case">You can use template for case</a></h2>
+<pre><code class="language-js">{
+  color: &quot;red&quot;
+}
+</code></pre>
+<pre><code class="language-html">&lt;div :switch=&quot;color&quot;&gt;
+  My favorite color is:
+  &lt;template case=&quot;red&quot;&gt;Red&lt;/template&gt;
+  &lt;template case=&quot;green&quot;&gt;Green&lt;/template&gt;
+  &lt;template case=&quot;blue&quot;&gt;Blue&lt;/template&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;div&gt;
+  My favorite color is: Red
+&lt;/div&gt;
+</code></pre>
+<h2 id="you-can-use-template-for-switch"><a class="header" href="#you-can-use-template-for-switch">You can use template for switch</a></h2>
+<pre><code class="language-js">{
+  color: &quot;green&quot;
+}
+</code></pre>
+<pre><code class="language-html">&lt;template :switch=&quot;color&quot;&gt;
+  My favorite color is:
+  &lt;b case=&quot;red&quot;&gt;Red&lt;/b&gt;
+  &lt;b case=&quot;green&quot;&gt;Green&lt;/b&gt;
+  &lt;b case=&quot;blue&quot;&gt;Blue&lt;/b&gt;
+&lt;/template&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">My favorite color is: &lt;b&gt;Green&lt;/b&gt;
+</code></pre>
+<h2 id="you-can-use-in-both"><a class="header" href="#you-can-use-in-both">You can use in both</a></h2>
+<pre><code class="language-js">{
+  color: &quot;blue&quot;
+}
+</code></pre>
+<pre><code class="language-html">&lt;template :switch=&quot;color&quot;&gt;
+  My favorite color is:
+  &lt;template case=&quot;red&quot;&gt;Red&lt;/template&gt;
+  &lt;template case=&quot;green&quot;&gt;Green&lt;/template&gt;
+  &lt;template case=&quot;blue&quot;&gt;Blue&lt;/template&gt;
+&lt;/template&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">My favorite color is: Blue
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="with"><a class="header" href="#with">with</a></h1>
+<h2 id="change-scope-within-tag"><a class="header" href="#change-scope-within-tag">Change scope within tag.</a></h2>
+<pre><code class="language-js">{
+  name: &quot;Mary&quot;,
+  friend: {
+    name: &quot;John&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-html">&lt;div&gt;
+  &lt;p&gt;My name is: &lt;template :text=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
+  &lt;p :with=&quot;friend&quot;&gt;My name is: &lt;template :text=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
+  &lt;p&gt;My name is: &lt;template :text=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;div&gt;
+  &lt;p&gt;My name is: Mary&lt;/p&gt;
+  &lt;p&gt;My name is: John&lt;/p&gt;
+  &lt;p&gt;My name is: Mary&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="parent-keys-access"><a class="header" href="#parent-keys-access">Parent keys access.</a></h2>
+<pre><code class="language-js">{
+  greeting: &quot;Hello&quot;,
+  name: &quot;Mary&quot;,
+  friend: {
+    name: &quot;John&quot;
+  }
+}
+</code></pre>
+<pre><code class="language-html">&lt;div&gt;
+  &lt;p&gt;&lt;b :text=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span :text=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+  &lt;p :with=&quot;friend&quot;&gt;&lt;b :text=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span :text=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;b :text=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span :text=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;div&gt;
+  &lt;p&gt;&lt;b&gt;Hello&lt;/b&gt;&lt;span&gt;Mary&lt;/span&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;b&gt;Hello&lt;/b&gt;&lt;span&gt;John&lt;/span&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;b&gt;Hello&lt;/b&gt;&lt;span&gt;Mary&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="simple-types-access"><a class="header" href="#simple-types-access">Simple types access.</a></h2>
+<pre><code class="language-js">[[&quot;Mary&quot;, &quot;John&quot;], &quot;dog&quot;, 3.14]
+</code></pre>
+<pre><code class="language-html">&lt;div :with=&quot;0&quot;&gt;
+  &lt;p :text=&quot;0&quot;&gt;&lt;/p&gt;
+  &lt;template :with=&quot;1&quot;&gt;
+    &lt;p :text=&quot;&quot;&gt;&lt;/p&gt;
+  &lt;/template&gt;
+&lt;/div&gt;
+&lt;div :with=&quot;1&quot;&gt;
+  &lt;p :text=&quot;&quot;&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div :with=&quot;2&quot;&gt;
+  &lt;template :with=&quot;&quot;&gt;
+    &lt;p :text=&quot;&quot;&gt;&lt;/p&gt;
+  &lt;/template&gt;
+&lt;/div&gt;
+&lt;div :with=&quot;3&quot;&gt;
+  &lt;p&gt;This will not render&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;div&gt;
+  &lt;p&gt;Mary&lt;/p&gt;
+  &lt;p&gt;John&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;dog&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;3.14&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="each"><a class="header" href="#each">each</a></h1>
+<h2 id="simple-array-iteration"><a class="header" href="#simple-array-iteration">Simple array iteration.</a></h2>
+<pre><code class="language-js">[&quot;dog&quot;, &quot;cat&quot;, &quot;horse&quot;]
+</code></pre>
+<pre><code class="language-html">&lt;template :each=&quot;&quot;&gt;
+  &lt;template :text=&quot;&quot;&gt;&lt;/template&gt;
+&lt;/template&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">dog
+cat
+horse
+</code></pre>
+<h2 id="complex-array-iteration"><a class="header" href="#complex-array-iteration">Complex array iteration.</a></h2>
+<pre><code class="language-js">{
+  links: [&quot;Delete&quot;, &quot;Edit&quot;],
+  rows: [
+    {
+      id: 1,
+      name: &quot;Mary&quot;,
+      css: &quot;dark&quot;,
+      links: [
+        {
+          title: &quot;Delete&quot;,
+          href: &quot;#/delete/1&quot;
+        }, {
+          title: &quot;Edit&quot;,
+          href: &quot;#/edit/1&quot;
+        }
+      ]
+    }, {
+      id: 2,
+      name: &quot;John&quot;,
+      css: &quot;light&quot;,
+      links: [
+        {
+          title: &quot;Delete&quot;,
+          href: &quot;#/delete/2&quot;
+        }, {
+          title: &quot;Edit&quot;,
+          href: &quot;#/edit/2&quot;
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+<pre><code class="language-html">&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th :each=&quot;links&quot; :text=&quot;&quot;&gt;&lt;/th&gt;
+      &lt;th&gt;Id&lt;/th&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr :each=&quot;rows&quot; :class=&quot;css&quot;&gt;
+      &lt;td :each=&quot;links&quot;&gt;
+        &lt;a :href=&quot;href&quot; :href=&quot;id&quot; :text=&quot;title&quot;&gt;&lt;/a&gt;
+      &lt;/td&gt;
+      &lt;td :text=&quot;id&quot;&gt;&lt;/td&gt;
+      &lt;td :text=&quot;name&quot;&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Delete&lt;/th&gt;&lt;th&gt;Edit&lt;/th&gt;
+      &lt;th&gt;Id&lt;/th&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr class=&quot;dark&quot;&gt;
+      &lt;td&gt;
+        &lt;a href=&quot;#/delete/1&quot;&gt;Delete&lt;/a&gt;
+      &lt;/td&gt;&lt;td&gt;
+        &lt;a href=&quot;#/edit/1&quot;&gt;Edit&lt;/a&gt;
+      &lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;Mary&lt;/td&gt;
+    &lt;/tr&gt;&lt;tr class=&quot;light&quot;&gt;
+      &lt;td&gt;
+        &lt;a href=&quot;#/delete/2&quot;&gt;Delete&lt;/a&gt;
+      &lt;/td&gt;&lt;td&gt;
+        &lt;a href=&quot;#/edit/2&quot;&gt;Edit&lt;/a&gt;
+      &lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;John&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="custom-tags"><a class="header" href="#custom-tags">Custom Tags</a></h1>
+<p>Observe that you can only use as custom tags templates that id contains <code>-</code>.
+As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements">here</a>.</p>
+<p>With the following tag in your <code>HTML</code> <code>template</code> </p>
+<pre><code class="language-html">&lt;template id=&quot;my-button&quot;&gt;
+  &lt;button class=&quot;btn btn-&quot; :class=&quot;btn&quot; :text=&quot;text&quot; :click=&quot;click&quot;&gt;
+    &lt;slot&gt;&lt;/slot&gt;
+  &lt;/button&gt;
+&lt;/template&gt;
+</code></pre>
+<h2 id="reuse-your-templates-inside-another-template"><a class="header" href="#reuse-your-templates-inside-another-template">Reuse your templates inside another template.</a></h2>
+<pre><code class="language-js">{
+  button: &quot;primary&quot;
+}
+</code></pre>
+<pre><code class="language-html">&lt;div&gt;
+  &lt;my-button :btn=&quot;button&quot;&gt;
+    Action
+  &lt;/my-button&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;div&gt;
+  &lt;button class=&quot;btn btn-primary&quot;&gt;
+    Action
+  &lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="iterate-with-custom-tags"><a class="header" href="#iterate-with-custom-tags">Iterate with custom tags.</a></h2>
+<pre><code class="language-js">[
+  {button: &quot;secondary&quot;, title: &quot;Cancel&quot;},
+  {button: &quot;primary&quot;, title: &quot;Submit&quot;}
+]
+</code></pre>
+<pre><code class="language-html">&lt;div&gt;
+  &lt;my-button :each=&quot;&quot; :btn=&quot;button&quot; :text=&quot;title&quot;&gt;&lt;/my-button&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;div&gt;
+  &lt;button class=&quot;btn btn-secondary&quot;&gt;Cancel&lt;/button&gt;
+  &lt;button class=&quot;btn btn-primary&quot;&gt;Submit&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="recursive-tags"><a class="header" href="#recursive-tags">Recursive tags.</a></h2>
+<pre><code class="language-js">[
+  {
+    title: &quot;animals&quot;,
+    children: [
+      {
+        title: &quot;dog&quot;
+      }, {
+        title: &quot;cat&quot;
+      }
+    ]
+  }, {
+    title: &quot;countries&quot;,
+    children: [
+      {
+        title: &quot;US&quot;,
+        children: [
+          {
+            title: &quot;NY&quot;,
+            children: [
+              {title: &quot;New York&quot;}
+            ]
+          }, {
+            title: &quot;CA&quot;,
+            children: [
+              {title: &quot;San Francisco&quot;},
+              {title: &quot;Los Angeles&quot;}
+            ]
+          }
+        ]
+      }
+    ]
+  }, {
+    title: &quot;home&quot;
+  }
+]
+</code></pre>
+<pre><code class="language-html">&lt;template id=&quot;my-list&quot;&gt;
+  &lt;ul :if=&quot;items&quot;&gt;
+    &lt;li :each=&quot;items&quot;&gt;
+      &lt;span :text=&quot;title&quot;&gt;&lt;/span&gt;
+      &lt;my-list :items=&quot;children&quot;&gt;&lt;/my-list&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/template&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;ul&gt;
+  &lt;li&gt;
+    &lt;span&gt;animals&lt;/span&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;span&gt;dog&lt;/span&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;span&gt;cat&lt;/span&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;span&gt;countries&lt;/span&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;span&gt;US&lt;/span&gt;
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;span&gt;NY&lt;/span&gt;
+            &lt;ul&gt;
+              &lt;li&gt;
+                &lt;span&gt;New York&lt;/span&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;span&gt;CA&lt;/span&gt;
+            &lt;ul&gt;
+              &lt;li&gt;
+                &lt;span&gt;San Francisco&lt;/span&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;span&gt;Los Angeles&lt;/span&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;span&gt;home&lt;/span&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bind"><a class="header" href="#bind">bind</a></h1>
+<h2 id="spread-attributes"><a class="header" href="#spread-attributes">Spread attributes</a></h2>
+<pre><code class="language-js">{
+  class: &quot;message&quot;,
+  style: &quot;white-space:pre-wrap;&quot;,
+  text: &quot;Hello John!&quot;
+}
+</code></pre>
+<pre><code class="language-html">&lt;h1 :bind=&quot;&quot;&gt;Hello World!&lt;/h1&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;h1 class=&quot;message&quot; style=&quot;white-space:pre-wrap;&quot;&gt;Hello John!&lt;/h1&gt;
+</code></pre>
+<h2 id="very-useful-with-custom-tags"><a class="header" href="#very-useful-with-custom-tags">Very useful with custom tags</a></h2>
+<p>With the following tag in your <code>HTML</code> <code>template</code>: </p>
+<pre><code class="language-html">&lt;template id=&quot;my-button&quot;&gt;
+  &lt;button class=&quot;btn btn-&quot; :class=&quot;btn&quot; :text=&quot;text&quot; :click=&quot;click&quot;&gt;
+    &lt;slot&gt;&lt;/slot&gt;
+  &lt;/button&gt;
+&lt;/template&gt;
+</code></pre>
+<p>Render this:</p>
+<pre><code class="language-js">[
+  {
+    btn: &quot;secondary&quot;,
+    text: &quot;Cancel&quot;,
+    click: (ev) =&gt; {
+      ev.target.textContent = 'canceled!';
+    }
+  },
+  {
+    btn: &quot;primary&quot;,
+    text: &quot;Submit&quot;,
+    click: (ev) =&gt; {
+      ev.target.textContent = 'submited!';
+    }
+  }
+]
+</code></pre>
+<pre><code class="language-html">&lt;my-button :each=&quot;&quot; :bind=&quot;&quot;&gt;&lt;/my-button&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;button class=&quot;btn btn-secondary&quot;&gt;Cancel&lt;/button&gt;
+&lt;button class=&quot;btn btn-primary&quot;&gt;Submit&lt;/button&gt;
+</code></pre>
+<p>After clicking on the two buttons:</p>
+<pre><code class="language-html">&lt;button class=&quot;btn btn-secondary&quot;&gt;canceled!&lt;/button&gt;
+&lt;button class=&quot;btn btn-primary&quot;&gt;submited!&lt;/button&gt;
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>

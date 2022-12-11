@@ -1,0 +1,10 @@
+[book]
+authors = ["Marco Di Pillo Tomic"]
+language = "en"
+multilingual = false
+src = "book"
+title = "Tint"
+description = "A natural template engine for the HTML DOM."
+
+[build]
+build-dir = "docs"

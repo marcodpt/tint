@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>preact + tint</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <script type="module">
+      import preact from "../preact.js"
+
+      const state = {
+        todos: [],
+        value: "",
+        AddTodo: () => {
+          state.todos.push(state.value)
+          state.value = ""
+          render()
+        },
+        NewValue: ev => {
+          state.value = ev.target.value
+        }
+      }
+
+      const render = preact(state, document.getElementById("app"))
+    </script>
+  </head>
+  <body>
+    <main id="app">
+      <div>
+        <h1>To do list</h1>
+        <input type="text" :value="value" :oninput="NewValue">
+        <ul>
+          <li :each="todos" :text></li>
+        </ul>
+        <button :onclick="AddTodo">New!</button>
+      </div>
+    </main>
+  </body>
+</html>
