@@ -88,10 +88,10 @@ You can use it
 (and even define single-file Components without any build steps!!!)
 with these frameworks:
 
-- [Hyperapp](lib/hyperapp.md)
-- [Superfine](lib/superfine.md)
-- [Mithril](lib/mithril.md)
-- [Preact](lib/preact.md)
+- [Hyperapp](https://marcodpt.github.io/tint/lib/hyperapp.html)
+- [Superfine](https://marcodpt.github.io/tint/lib/superfine.md)
+- [Mithril](https://marcodpt.github.io/tint/lib/mithril.md)
+- [Preact](https://marcodpt.github.io/tint/lib/preact.md)
 
 With your help, we can grow this list and improve the work done on already
 supported frameworks.

@@ -8,3 +8,7 @@ description = "A natural template engine for the HTML DOM."
 
 [build]
 build-dir = "docs"
+
+[output.html]
+git-repository-url = "https://github.com/marcodpt/tint"
+git-repository-icon = "fa-github"
