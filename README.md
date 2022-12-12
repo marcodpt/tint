@@ -87,9 +87,9 @@ where `h` and `text` can be any hyperscript function you want to use.
 You can use it with these frameworks:
 
 - [Hyperapp](https://marcodpt.github.io/tint/lib/hyperapp.html)
-- [Superfine](https://marcodpt.github.io/tint/lib/superfine.md)
-- [Mithril](https://marcodpt.github.io/tint/lib/mithril.md)
-- [Preact](https://marcodpt.github.io/tint/lib/preact.md)
+- [Superfine](https://marcodpt.github.io/tint/lib/superfine.html)
+- [Mithril](https://marcodpt.github.io/tint/lib/mithril.html)
+- [Preact](https://marcodpt.github.io/tint/lib/preact.html)
 
 With your help, we can grow this list and improve the work done on already
 supported frameworks.
@@ -135,8 +135,8 @@ without the complications of the build steps.
 </html>
 ```
 
-- [Example in action](samples/ssr_dynamic.html)
-- [Static HTML rendered by server](samples/ssr_static.html)
+- [Example in action](https://marcodpt.github.io/tint/samples/ssr_dynamic.html)
+- [Static HTML rendered by server](https://marcodpt.github.io/tint/samples/ssr_static.html)
 
 What have you achieved:
  - The happiness of designers who can write in plain html.
