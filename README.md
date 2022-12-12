@@ -9,7 +9,8 @@ function you want to use.
  - works with all javascript frameworks that support
 [hyperscript](https://github.com/hyperhype/hyperscript).
  - you can use the template as a server-side rendered version of your app.
- - you can use a regular HTML file as a single file component without ANY javascript build tools.
+ - you can use a regular HTML file as a single file component without ANY
+javascript build tools.
  - [hyperscript](https://github.com/hyperhype/hyperscript) frameworks can be
 used by any team of designers or people with no javascript knowledge.
  - the template syntax allow very simple and elegant templates without
@@ -164,7 +165,7 @@ and quickly become productive.
 
 ## Contributing
 Everything within this documentation is tested 
-[here](tests/).
+[here](https://marcodpt.github.io/tint/tests/).
 And it will always like this. Any changes to the documentation,
 any contributions MUST be present in the tests.
 
