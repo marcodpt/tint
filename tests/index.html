@@ -135,15 +135,15 @@
       <div :with="0">
         <p :text="0"></p>
         <template :with="1">
-          <p :text=""></p>
+          <p :text></p>
         </template>
       </div>
       <div :with="1">
-        <p :text=""></p>
+        <p :text></p>
       </div>
       <div :with="2">
-        <template :with="">
-          <p :text=""></p>
+        <template :with>
+          <p :text></p>
         </template>
       </div>
       <div :with="3">
@@ -152,15 +152,15 @@
     </template>
 
     <template id="each-1">
-      <template :each="">
-        <template :text=""></template>
+      <template :each>
+        <template :text></template>
       </template>
     </template>
     <template id="each-2">
       <table>
         <thead>
           <tr>
-            <th :each="links" :text=""></th>
+            <th :each="links" :text></th>
             <th>Id</th>
             <th>Name</th>
           </tr>
@@ -192,7 +192,7 @@
     </template>
     <template id="custom-2">
       <div>
-        <my-button :each="" :btn="button" :text="title"></my-button>
+        <my-button :each :btn="button" :text="title"></my-button>
       </div>
     </template>
 
@@ -206,11 +206,11 @@
     </template>
 
     <template id="bind-1">
-      <h1 :bind="">Hello World!</h1>
+      <h1 :bind>Hello World!</h1>
     </template>
 
     <template id="bind-2">
-      <my-button :each="" :bind=""></my-button>
+      <my-button :each :bind></my-button>
     </template>
   </body>
 </html>

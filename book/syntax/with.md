@@ -58,15 +58,15 @@ Result:
 <div :with="0">
   <p :text="0"></p>
   <template :with="1">
-    <p :text=""></p>
+    <p :text></p>
   </template>
 </div>
 <div :with="1">
-  <p :text=""></p>
+  <p :text></p>
 </div>
 <div :with="2">
-  <template :with="">
-    <p :text=""></p>
+  <template :with>
+    <p :text></p>
   </template>
 </div>
 <div :with="3">

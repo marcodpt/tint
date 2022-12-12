@@ -5,8 +5,8 @@
 ["dog", "cat", "horse"]
 ```
 ```html
-<template :each="">
-  <template :text=""></template>
+<template :each>
+  <template :text></template>
 </template>
 ```
 Result:
@@ -55,7 +55,7 @@ horse
 <table>
   <thead>
     <tr>
-      <th :each="links" :text=""></th>
+      <th :each="links" :text></th>
       <th>Id</th>
       <th>Name</th>
     </tr>

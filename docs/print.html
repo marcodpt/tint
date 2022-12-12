@@ -217,9 +217,7 @@ repeat yourself.</li>
   ])
 </code></pre>
 <p>where <code>h</code> and <code>text</code> can be any hyperscript function you want to use.</p>
-<p>You can use it
-(and even define single-file Components without any build steps!!!)
-with these frameworks:</p>
+<p>You can use it with these frameworks:</p>
 <ul>
 <li><a href="https://marcodpt.github.io/tint/lib/hyperapp.html">Hyperapp</a></li>
 <li><a href="https://marcodpt.github.io/tint/lib/superfine.md">Superfine</a></li>
@@ -230,15 +228,41 @@ with these frameworks:</p>
 supported frameworks.</p>
 <p>With a little trick, you can even render your application on the server side,
 without the complications of the build steps.</p>
-<pre><code class="language-html">&lt;main id=&quot;app&quot;&gt;
-  &lt;h1&gt;To do list&lt;/h1&gt;
-  &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
-  &lt;ul&gt;
-    &lt;li :each=&quot;todos&quot; :text&gt;read a book&lt;/li&gt;
-    &lt;li :not&gt;plant a tree&lt;/li&gt;
-  &lt;/ul&gt;
-  &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
-&lt;/main&gt;
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;script type=&quot;module&quot;&gt;
+      import compile from &quot;https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js&quot;
+      const app = document.getElementById(&quot;app&quot;)
+      const render = compile(app)
+
+      const state = {
+        todos: Array.from(app.querySelectorAll('li')).map(e =&gt; e.textContent),
+        value: &quot;&quot;,
+        AddTodo: () =&gt; {
+          state.todos.push(state.value)
+          state.value = &quot;&quot;
+          render(state)
+        },
+        NewValue: ev =&gt; {
+          state.value = ev.target.value
+        }
+      }
+
+      render(state)
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;main id=&quot;app&quot;&gt;
+      &lt;h1&gt;To do list&lt;/h1&gt;
+      &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+      &lt;ul&gt;
+        &lt;li :each=&quot;todos&quot; :text&gt;read a book&lt;/li&gt;
+        &lt;li :not&gt;plant a tree&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+    &lt;/main&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 <ul>
 <li><a href="../samples/ssr_dynamic.html">Example in action</a></li>
@@ -947,15 +971,15 @@ template.</li>
 <pre><code class="language-html">&lt;div :with=&quot;0&quot;&gt;
   &lt;p :text=&quot;0&quot;&gt;&lt;/p&gt;
   &lt;template :with=&quot;1&quot;&gt;
-    &lt;p :text=&quot;&quot;&gt;&lt;/p&gt;
+    &lt;p :text&gt;&lt;/p&gt;
   &lt;/template&gt;
 &lt;/div&gt;
 &lt;div :with=&quot;1&quot;&gt;
-  &lt;p :text=&quot;&quot;&gt;&lt;/p&gt;
+  &lt;p :text&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div :with=&quot;2&quot;&gt;
-  &lt;template :with=&quot;&quot;&gt;
-    &lt;p :text=&quot;&quot;&gt;&lt;/p&gt;
+  &lt;template :with&gt;
+    &lt;p :text&gt;&lt;/p&gt;
   &lt;/template&gt;
 &lt;/div&gt;
 &lt;div :with=&quot;3&quot;&gt;
@@ -978,8 +1002,8 @@ template.</li>
 <h2 id="simple-array-iteration"><a class="header" href="#simple-array-iteration">Simple array iteration.</a></h2>
 <pre><code class="language-js">[&quot;dog&quot;, &quot;cat&quot;, &quot;horse&quot;]
 </code></pre>
-<pre><code class="language-html">&lt;template :each=&quot;&quot;&gt;
-  &lt;template :text=&quot;&quot;&gt;&lt;/template&gt;
+<pre><code class="language-html">&lt;template :each&gt;
+  &lt;template :text&gt;&lt;/template&gt;
 &lt;/template&gt;
 </code></pre>
 <p>Result:</p>
@@ -1024,7 +1048,7 @@ horse
 <pre><code class="language-html">&lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th :each=&quot;links&quot; :text=&quot;&quot;&gt;&lt;/th&gt;
+      &lt;th :each=&quot;links&quot; :text&gt;&lt;/th&gt;
       &lt;th&gt;Id&lt;/th&gt;
       &lt;th&gt;Name&lt;/th&gt;
     &lt;/tr&gt;
@@ -1105,7 +1129,7 @@ As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Component
 ]
 </code></pre>
 <pre><code class="language-html">&lt;div&gt;
-  &lt;my-button :each=&quot;&quot; :btn=&quot;button&quot; :text=&quot;title&quot;&gt;&lt;/my-button&gt;
+  &lt;my-button :each :btn=&quot;button&quot; :text=&quot;title&quot;&gt;&lt;/my-button&gt;
 &lt;/div&gt;
 </code></pre>
 <p>Result:</p>
@@ -1215,7 +1239,7 @@ As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Component
   text: &quot;Hello John!&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;h1 :bind=&quot;&quot;&gt;Hello World!&lt;/h1&gt;
+<pre><code class="language-html">&lt;h1 :bind&gt;Hello World!&lt;/h1&gt;
 </code></pre>
 <p>Result:</p>
 <pre><code class="language-html">&lt;h1 class=&quot;message&quot; style=&quot;white-space:pre-wrap;&quot;&gt;Hello John!&lt;/h1&gt;
@@ -1246,7 +1270,7 @@ As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Component
   }
 ]
 </code></pre>
-<pre><code class="language-html">&lt;my-button :each=&quot;&quot; :bind=&quot;&quot;&gt;&lt;/my-button&gt;
+<pre><code class="language-html">&lt;my-button :each :bind&gt;&lt;/my-button&gt;
 </code></pre>
 <p>Result:</p>
 <pre><code class="language-html">&lt;button class=&quot;btn btn-secondary&quot;&gt;Cancel&lt;/button&gt;

@@ -216,9 +216,7 @@ repeat yourself.</li>
   ])
 </code></pre>
 <p>where <code>h</code> and <code>text</code> can be any hyperscript function you want to use.</p>
-<p>You can use it
-(and even define single-file Components without any build steps!!!)
-with these frameworks:</p>
+<p>You can use it with these frameworks:</p>
 <ul>
 <li><a href="https://marcodpt.github.io/tint/lib/hyperapp.html">Hyperapp</a></li>
 <li><a href="https://marcodpt.github.io/tint/lib/superfine.md">Superfine</a></li>
@@ -229,15 +227,41 @@ with these frameworks:</p>
 supported frameworks.</p>
 <p>With a little trick, you can even render your application on the server side,
 without the complications of the build steps.</p>
-<pre><code class="language-html">&lt;main id=&quot;app&quot;&gt;
-  &lt;h1&gt;To do list&lt;/h1&gt;
-  &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
-  &lt;ul&gt;
-    &lt;li :each=&quot;todos&quot; :text&gt;read a book&lt;/li&gt;
-    &lt;li :not&gt;plant a tree&lt;/li&gt;
-  &lt;/ul&gt;
-  &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
-&lt;/main&gt;
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;script type=&quot;module&quot;&gt;
+      import compile from &quot;https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js&quot;
+      const app = document.getElementById(&quot;app&quot;)
+      const render = compile(app)
+
+      const state = {
+        todos: Array.from(app.querySelectorAll('li')).map(e =&gt; e.textContent),
+        value: &quot;&quot;,
+        AddTodo: () =&gt; {
+          state.todos.push(state.value)
+          state.value = &quot;&quot;
+          render(state)
+        },
+        NewValue: ev =&gt; {
+          state.value = ev.target.value
+        }
+      }
+
+      render(state)
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;main id=&quot;app&quot;&gt;
+      &lt;h1&gt;To do list&lt;/h1&gt;
+      &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+      &lt;ul&gt;
+        &lt;li :each=&quot;todos&quot; :text&gt;read a book&lt;/li&gt;
+        &lt;li :not&gt;plant a tree&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+    &lt;/main&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 <ul>
 <li><a href="../samples/ssr_dynamic.html">Example in action</a></li>

@@ -43,7 +43,7 @@ Result:
 ```
 ```html
 <div>
-  <my-button :each="" :btn="button" :text="title"></my-button>
+  <my-button :each :btn="button" :text="title"></my-button>
 </div>
 ```
 Result:

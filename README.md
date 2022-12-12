@@ -84,9 +84,7 @@ It looks like a normal template engine, but internally compiles the template to:
 ```
 where `h` and `text` can be any hyperscript function you want to use.
 
-You can use it
-(and even define single-file Components without any build steps!!!)
-with these frameworks:
+You can use it with these frameworks:
 
 - [Hyperapp](https://marcodpt.github.io/tint/lib/hyperapp.html)
 - [Superfine](https://marcodpt.github.io/tint/lib/superfine.md)
@@ -100,15 +98,41 @@ With a little trick, you can even render your application on the server side,
 without the complications of the build steps.
 
 ```html
-<main id="app">
-  <h1>To do list</h1>
-  <input type="text" :value="value" :oninput="NewValue">
-  <ul>
-    <li :each="todos" :text>read a book</li>
-    <li :not>plant a tree</li>
-  </ul>
-  <button :onclick="AddTodo">New!</button>
-</main>
+<html>
+  <head>
+    <script type="module">
+      import compile from "https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js"
+      const app = document.getElementById("app")
+      const render = compile(app)
+
+      const state = {
+        todos: Array.from(app.querySelectorAll('li')).map(e => e.textContent),
+        value: "",
+        AddTodo: () => {
+          state.todos.push(state.value)
+          state.value = ""
+          render(state)
+        },
+        NewValue: ev => {
+          state.value = ev.target.value
+        }
+      }
+
+      render(state)
+    </script>
+  </head>
+  <body>
+    <main id="app">
+      <h1>To do list</h1>
+      <input type="text" :value="value" :oninput="NewValue">
+      <ul>
+        <li :each="todos" :text>read a book</li>
+        <li :not>plant a tree</li>
+      </ul>
+      <button :onclick="AddTodo">New!</button>
+    </main>
+  </body>
+</html>
 ```
 
 - [Example in action](../samples/ssr_dynamic.html)

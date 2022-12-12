@@ -8,7 +8,7 @@
 }
 ```
 ```html
-<h1 :bind="">Hello World!</h1>
+<h1 :bind>Hello World!</h1>
 ```
 Result:
 ```html
@@ -44,7 +44,7 @@ Render this:
 ]
 ```
 ```html
-<my-button :each="" :bind=""></my-button>
+<my-button :each :bind></my-button>
 ```
 Result:
 ```html

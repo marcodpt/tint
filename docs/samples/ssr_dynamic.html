@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     <script type="module">
       import compile from "../template.js"
-      const render = compile(document.getElementById("app"))
+      const app = document.getElementById("app")
+      const render = compile(app)
 
       const state = {
-        todos: [
-          "read a book",
-          "plant a tree"
-        ],
+        todos: Array.from(app.querySelectorAll('li')).map(e => e.textContent),
         value: "",
         AddTodo: () => {
           state.todos.push(state.value)
