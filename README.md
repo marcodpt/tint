@@ -135,8 +135,8 @@ without the complications of the build steps.
 </html>
 ```
 
-- [Example in action](../samples/ssr_dynamic.html)
-- [Static HTML rendered by server](../samples/ssr_static.html)
+- [Example in action](samples/ssr_dynamic.html)
+- [Static HTML rendered by server](samples/ssr_static.html)
 
 What have you achieved:
  - The happiness of designers who can write in plain html.

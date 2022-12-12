@@ -137,7 +137,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="attribute"><a class="header" href="#attribute">:attribute</a></h1>
+                        <h1 id="dynamic-attributes-attribute"><a class="header" href="#dynamic-attributes-attribute">Dynamic attributes (:attribute)</a></h1>
 <h2 id="simple-eval"><a class="header" href="#simple-eval">Simple eval</a></h2>
 <pre><code class="language-js">{
   target: &quot;#/page/1&quot;
@@ -224,22 +224,6 @@
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>

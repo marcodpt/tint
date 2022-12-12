@@ -265,8 +265,8 @@ without the complications of the build steps.</p>
 &lt;/html&gt;
 </code></pre>
 <ul>
-<li><a href="../samples/ssr_dynamic.html">Example in action</a></li>
-<li><a href="../samples/ssr_static.html">Static HTML rendered by server</a></li>
+<li><a href="samples/ssr_dynamic.html">Example in action</a></li>
+<li><a href="samples/ssr_static.html">Static HTML rendered by server</a></li>
 </ul>
 <p>What have you achieved:</p>
 <ul>
@@ -672,7 +672,8 @@ it has some important differences:</p>
 <li>you can use functions and will be bound to DOM element events.</li>
 <li>the syntax must always be valid HTML, in order to use the javascript DOM.</li>
 <li>although it is currently implemented in the browser, as long as the DOM API
-is available, can be implemented in languages such as node and deno.</li>
+is available, can be implemented in javascript runtimes such as
+<a href="https://nodejs.org/en/">node</a> and <a href="https://deno.land/">deno</a>.</li>
 <li>there is no dot syntax, javascript expressions, filters, delimiters for text
 interpolation or any kind of logic other than the special attributes available,
 this is a decision made in order for the template to be as free of logic as
@@ -680,7 +681,7 @@ possible.</li>
 <li>all complex data operations must be done in javascript before rendering the
 template.</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="attribute"><a class="header" href="#attribute">:attribute</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dynamic-attributes-attribute"><a class="header" href="#dynamic-attributes-attribute">Dynamic attributes (:attribute)</a></h1>
 <h2 id="simple-eval"><a class="header" href="#simple-eval">Simple eval</a></h2>
 <pre><code class="language-js">{
   target: &quot;#/page/1&quot;
@@ -1295,22 +1296,6 @@ As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Component
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>

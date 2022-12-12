@@ -146,7 +146,8 @@ it has some important differences:</p>
 <li>you can use functions and will be bound to DOM element events.</li>
 <li>the syntax must always be valid HTML, in order to use the javascript DOM.</li>
 <li>although it is currently implemented in the browser, as long as the DOM API
-is available, can be implemented in languages such as node and deno.</li>
+is available, can be implemented in javascript runtimes such as
+<a href="https://nodejs.org/en/">node</a> and <a href="https://deno.land/">deno</a>.</li>
 <li>there is no dot syntax, javascript expressions, filters, delimiters for text
 interpolation or any kind of logic other than the special attributes available,
 this is a decision made in order for the template to be as free of logic as
@@ -181,22 +182,6 @@ template.</li>
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>

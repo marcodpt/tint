@@ -1,4 +1,4 @@
-# :attribute
+# Dynamic attributes (:attribute)
 ## Simple eval
 ```js
 {

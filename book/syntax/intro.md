@@ -9,7 +9,8 @@ it has some important differences:
 - you can use functions and will be bound to DOM element events.
 - the syntax must always be valid HTML, in order to use the javascript DOM.
 - although it is currently implemented in the browser, as long as the DOM API
-is available, can be implemented in languages such as node and deno.
+is available, can be implemented in javascript runtimes such as
+[node](https://nodejs.org/en/) and [deno](https://deno.land/).
 - there is no dot syntax, javascript expressions, filters, delimiters for text
 interpolation or any kind of logic other than the special attributes available,
 this is a decision made in order for the template to be as free of logic as
