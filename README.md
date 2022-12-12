@@ -136,7 +136,7 @@ without the complications of the build steps.
 ```
 
 - [Example in action](https://marcodpt.github.io/tint/samples/ssr_dynamic.html)
-- [Static HTML rendered by server](https://marcodpt.github.io/tint/samples/ssr_static.html)
+- [Static HTML rendered by the server](https://marcodpt.github.io/tint/samples/ssr_static.html)
 
 What have you achieved:
  - The happiness of designers who can write in plain html.
