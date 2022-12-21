@@ -1,5 +1,7 @@
-# ![Tint](assets/favicon.ico) Tint
+# ![](assets/favicon.ico) Tint
 A natural template engine for the HTML DOM. 
+
+[Docs](https://marcodpt.github.io/tint/)
 
  - takes valid `HTML` as input.
  - converts the result to any 
@@ -87,6 +89,7 @@ where `h` and `text` can be any hyperscript function you want to use.
 
 You can use it with these frameworks:
 
+- [Merlin](https://github.com/marcodpt/merlin)
 - [Hyperapp](https://marcodpt.github.io/tint/lib/hyperapp.html)
 - [Superfine](https://marcodpt.github.io/tint/lib/superfine.html)
 - [Mithril](https://marcodpt.github.io/tint/lib/mithril.html)
@@ -151,6 +154,13 @@ and they can use any hyperscript framework they want.
 To celebrate the widespread happiness, how about taking a look at the
 [documentation](https://marcodpt.github.io/tint/).
 
+## [Docs](https://marcodpt.github.io/tint/)
+To generate the docs and create a server for tests.
+
+```
+mdbook serve
+```
+
 ## Philosophy
  - Separation: Functions and data transformations belong in javascript, design
 and visual presentation to the html and css, and the data belongs to the database.
@@ -175,13 +185,6 @@ an issue.
 Any changes must be within the philosophy of this project.
 
 It's a very simple project. Any contribution is greatly appreciated.
-
-## [Docs](https://marcodpt.github.io/tint/)
-To generate the docs and create a server for tests.
-
-```
-mdbook serve
-```
 
 ## Influences and thanks
 This work is hugely influenced by these amazing template engines and frameworks:
