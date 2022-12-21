@@ -17,6 +17,7 @@ javascript build tools.
 used by any team of designers or people with no javascript knowledge.
  - the template syntax allow very simple and elegant templates without
 repeat yourself.
+ - see also [Merlin](https://github.com/marcodpt/merlin), a tint based framework.
 
 ## Showcase
 The classic TODO app, with an initial server-rendered state.
