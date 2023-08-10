@@ -2,7 +2,8 @@
 We delete the `view` property because `tint` will automatically generate it
 based on the `node` that is passed to the `app`.
 
-We've also introduced an `actions` object for your static methods.
+We've also introduced an `actions` object for your static methods and an
+optional `template` property when the node is rendered from a template.
 
 Everything else is exactly equals on hyperapp.
 

@@ -22,3 +22,4 @@
 - [each](syntax/each.md)
 - [Custom Tags](syntax/custom.md)
 - [bind](syntax/bind.md)
+- [Static id](syntax/static.md)

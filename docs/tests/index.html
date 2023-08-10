@@ -183,6 +183,16 @@
       </button>
     </template>
 
+    <template id="my-div">
+      <div :class="css">
+        <slot></slot>
+      </div>
+    </template>
+
+    <template id="my-span">
+      <span :text="label"></span>
+    </template>
+
     <template id="custom-1">
       <div>
         <my-button :btn="button">
@@ -211,6 +221,51 @@
 
     <template id="bind-2">
       <my-button :each :bind></my-button>
+    </template>
+
+    <template id="bind-3">
+      <my-div :css="css">
+        <a :text="css"></a>
+        <a :with="one" :text="label"></a>
+        <a :with="two" :text="label"></a>
+        <my-span :bind="one"></my-span>
+        <my-span :bind="two"></my-span>
+      </my-div>
+    </template>
+
+    <template id="static-1">
+      <div>
+        <a id="a" :text="a"></a>
+        <a id="static-b" :text="b"></a>
+        <a><span :text="c"></span></a>
+        <a id="static-d"><span :text="d"></span></a>
+      </div>
+    </template>
+
+    <template id="static-2">
+      <div>
+        <h1 :text="title"></h1>
+        <p :text="description"></p>
+        <external-component id="static-comp"></external-component>
+        <div id="static-results"></div>
+      </div>
+    </template>
+
+    <template id="static-3">
+      <div>
+        <h1 :text="title"></h1>
+        <button :onclick="update">Update</button>
+        <p>Update <template :text="count"></template></p>
+        <external-component id="static-comp"></external-component>
+        <div id="static-results"></div>
+      </div>
+    </template>
+
+    <template id="static-4">
+      <div>
+        <p :text="msg"></p>
+        <div id="static-data">Loading...</div>
+      </div>
     </template>
   </body>
 </html>

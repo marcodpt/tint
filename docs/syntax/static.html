@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Preact - Tint</title>
+        <title>Static id - Tint</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="A natural template engine for the HTML DOM.">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Usage</li><li class="chapter-item expanded "><a href="../lib/template.html"><strong aria-hidden="true">1.</strong> Template engine</a></li><li class="chapter-item expanded "><a href="../lib/hyperapp.html"><strong aria-hidden="true">2.</strong> Hyperapp</a></li><li class="chapter-item expanded "><a href="../lib/superfine.html"><strong aria-hidden="true">3.</strong> Superfine</a></li><li class="chapter-item expanded "><a href="../lib/mithril.html"><strong aria-hidden="true">4.</strong> Mithril</a></li><li class="chapter-item expanded "><a href="../lib/preact.html" class="active"><strong aria-hidden="true">5.</strong> Preact</a></li><li class="chapter-item expanded "><a href="../lib/library.html"><strong aria-hidden="true">6.</strong> Low-level library</a></li><li class="chapter-item expanded affix "><li class="part-title">Template Syntax Reference</li><li class="chapter-item expanded "><a href="../syntax/intro.html"><strong aria-hidden="true">7.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../syntax/attribute.html"><strong aria-hidden="true">8.</strong> Dynamic attributes</a></li><li class="chapter-item expanded "><a href="../syntax/text.html"><strong aria-hidden="true">9.</strong> text</a></li><li class="chapter-item expanded "><a href="../syntax/if.html"><strong aria-hidden="true">10.</strong> if/not</a></li><li class="chapter-item expanded "><a href="../syntax/switch.html"><strong aria-hidden="true">11.</strong> switch/case</a></li><li class="chapter-item expanded "><a href="../syntax/with.html"><strong aria-hidden="true">12.</strong> with</a></li><li class="chapter-item expanded "><a href="../syntax/each.html"><strong aria-hidden="true">13.</strong> each</a></li><li class="chapter-item expanded "><a href="../syntax/custom.html"><strong aria-hidden="true">14.</strong> Custom Tags</a></li><li class="chapter-item expanded "><a href="../syntax/bind.html"><strong aria-hidden="true">15.</strong> bind</a></li><li class="chapter-item expanded "><a href="../syntax/static.html"><strong aria-hidden="true">16.</strong> Static id</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Usage</li><li class="chapter-item expanded "><a href="../lib/template.html"><strong aria-hidden="true">1.</strong> Template engine</a></li><li class="chapter-item expanded "><a href="../lib/hyperapp.html"><strong aria-hidden="true">2.</strong> Hyperapp</a></li><li class="chapter-item expanded "><a href="../lib/superfine.html"><strong aria-hidden="true">3.</strong> Superfine</a></li><li class="chapter-item expanded "><a href="../lib/mithril.html"><strong aria-hidden="true">4.</strong> Mithril</a></li><li class="chapter-item expanded "><a href="../lib/preact.html"><strong aria-hidden="true">5.</strong> Preact</a></li><li class="chapter-item expanded "><a href="../lib/library.html"><strong aria-hidden="true">6.</strong> Low-level library</a></li><li class="chapter-item expanded affix "><li class="part-title">Template Syntax Reference</li><li class="chapter-item expanded "><a href="../syntax/intro.html"><strong aria-hidden="true">7.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../syntax/attribute.html"><strong aria-hidden="true">8.</strong> Dynamic attributes</a></li><li class="chapter-item expanded "><a href="../syntax/text.html"><strong aria-hidden="true">9.</strong> text</a></li><li class="chapter-item expanded "><a href="../syntax/if.html"><strong aria-hidden="true">10.</strong> if/not</a></li><li class="chapter-item expanded "><a href="../syntax/switch.html"><strong aria-hidden="true">11.</strong> switch/case</a></li><li class="chapter-item expanded "><a href="../syntax/with.html"><strong aria-hidden="true">12.</strong> with</a></li><li class="chapter-item expanded "><a href="../syntax/each.html"><strong aria-hidden="true">13.</strong> each</a></li><li class="chapter-item expanded "><a href="../syntax/custom.html"><strong aria-hidden="true">14.</strong> Custom Tags</a></li><li class="chapter-item expanded "><a href="../syntax/bind.html"><strong aria-hidden="true">15.</strong> bind</a></li><li class="chapter-item expanded "><a href="../syntax/static.html" class="active"><strong aria-hidden="true">16.</strong> Static id</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -137,59 +137,45 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="usage-with-preact"><a class="header" href="#usage-with-preact">Usage with <a href="https://github.com/preactjs/preact">preact</a></a></h1>
-<p>Our <code>preact</code> wrapper is not the best. But it serves to show an example
-with a global state and no components. If you think you can improve this
-wrapper, please submit a pull request.</p>
-<h2 id="todo-app-sample"><a class="header" href="#todo-app-sample">TODO app sample</a></h2>
-<ul>
-<li><a href="../samples/preact.html">Example in action</a></li>
-</ul>
-<pre><code class="language-html">&lt;html&gt;
-  &lt;head&gt;
-    &lt;script type=&quot;module&quot;&gt;
-      import preact from &quot;https://cdn.jsdelivr.net/gh/marcodpt/tint/preact.js&quot;
-
-      const state = {
-        todos: [],
-        value: &quot;&quot;,
-        AddTodo: () =&gt; {
-          state.todos.push(state.value)
-          state.value = &quot;&quot;
-          render()
-        },
-        NewValue: ev =&gt; {
-          state.value = ev.target.value
-        }
-      }
-
-      const render = preact(state, document.getElementById(&quot;app&quot;))
-    &lt;/script&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;main id=&quot;app&quot;&gt;
-      &lt;div&gt;
-        &lt;h1&gt;To do list&lt;/h1&gt;
-        &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
-        &lt;ul&gt;
-          &lt;li :each=&quot;todos&quot; :text&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-        &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
-      &lt;/div&gt;
-    &lt;/main&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
+                        <h1 id="static-id"><a class="header" href="#static-id">Static id</a></h1>
+<p>Is it possible to ignore vdom on elements with id starting with static-</p>
+<pre><code class="language-js">{
+  msg: &quot;Static demo&quot;
+}
+</code></pre>
+<pre><code class="language-html">&lt;div&gt;
+  &lt;p :text=&quot;msg&quot;&gt;&lt;/p&gt;
+  &lt;div id=&quot;static-data&quot;&gt;Loading...&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Result:</p>
+<pre><code class="language-html">&lt;div&gt;
+  &lt;p&gt;Static demo&lt;/p&gt;
+  &lt;div id=&quot;static-data&quot;&gt;Loading...&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>External library takes over element</p>
+<pre><code class="language-js">document.getElementById('static-data').textContent = 'Some data'
+</code></pre>
+<p>Rerender</p>
+<pre><code class="language-js">{
+  msg: &quot;Demo updated&quot;
+}
+</code></pre>
+<p>The result does not change the content in static-data even though the template
+contains Loading...</p>
+<pre><code class="language-html">&lt;div&gt;
+  &lt;p&gt;Demo updated&lt;/p&gt;
+  &lt;div id=&quot;static-data&quot;&gt;Some data&lt;/div&gt;
+&lt;/div&gt;
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../lib/mithril.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../syntax/bind.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
-                            </a>
-                            <a rel="next" href="../lib/library.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
                     </nav>
@@ -197,11 +183,8 @@ wrapper, please submit a pull request.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../lib/mithril.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../syntax/bind.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
-                    </a>
-                    <a rel="next" href="../lib/library.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 

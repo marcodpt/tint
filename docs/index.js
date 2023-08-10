@@ -50,7 +50,7 @@ export default (h, text) => {
       (tag == 'template' ? element.content : element).childNodes
     ).map(child => compile(child))
 
-    return (scope, word, rootChildren) => attributes.reduce(
+    return (scope, word, rootChildren, rootScope) => attributes.reduce(
       (nodes, attrs) => nodes.reduce((nodes, data) => {
         const {scope, attributes} = data
         var {key, value} = attrs
@@ -115,16 +115,18 @@ export default (h, text) => {
         return nodes
       }, [])
     , [{
-      scope: scope,
+      scope: tag == 'slot' ? rootScope : scope,
       attributes: {}
     }]).reduce((nodes, {scope, attributes, word}) => {
       const children = (tag == 'slot' ? rootChildren : childNodes)
         .reduce((result, render) => {
-          render(scope, word, rootChildren || childNodes).forEach(child => {
+          render(
+            scope, word, rootChildren || childNodes, rootScope
+          ).forEach(child => {
             result.push(child)
           })
           return result
-        }, [])
+        }, []).filter(c => c)
       const tpl = tag.indexOf('-') >= 0 ? document.getElementById(tag) : null
 
       if (attributes.text != null && tpl == null) {
@@ -140,9 +142,14 @@ export default (h, text) => {
       if (tag == 'template' || tag == 'slot') {
         it = children
       } else if (tpl != null) {
-        it = compile(tpl)(attributes, null, childNodes)
+        it = compile(tpl)(attributes, null, childNodes, scope)
       } else {
-        it = [h(tag, attributes, children)]
+        var target = null
+        if (attributes.id && attributes.id.substr(0, 7) == 'static-') {
+          target = document.getElementById(attributes.id)
+        }
+        it = target && target != element ?
+          compile(target)() : [h(tag, attributes, children)]
       }
 
       it.forEach(child => {
