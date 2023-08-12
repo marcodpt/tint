@@ -55,8 +55,9 @@ export default (h, text) => {
         const {scope, attributes} = data
         var {key, value} = attrs
 
-        if (key.substr(0, 1) == ':') {
-          key = key.substr(1)
+        if (key.substr(0, 1) == ':' || key.substr(key.length - 1) == ':') {
+          key = key.substr(0, 1) == ':' ?
+            key.substr(1) : key.substr(0, key.length - 1)
           if (value == '') {
             value = scope
           } else if (scope && typeof scope == 'object' && scope[value] != null) {

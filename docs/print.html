@@ -356,7 +356,7 @@ any JSON object even with javascript functions is valid!</li>
   &lt;/head&gt;
   &lt;body&gt;
     &lt;div id=&quot;app&quot;&gt;
-      &lt;h1 :text=&quot;message&quot;&gt;Loading...&lt;/h1&gt;
+      &lt;h1 text:=&quot;message&quot;&gt;Loading...&lt;/h1&gt;
     &lt;/div&gt;
   &lt;/body&gt;
 &lt;/html&gt;
@@ -388,7 +388,7 @@ any JSON object even with javascript functions is valid!</li>
       &lt;p&gt;Loading...&lt;/p&gt;
     &lt;/div&gt;
     &lt;template id=&quot;view&quot;&gt;
-      &lt;h1 :text=&quot;message&quot;&gt;&lt;/h1&gt;
+      &lt;h1 text:=&quot;message&quot;&gt;&lt;/h1&gt;
     &lt;/template&gt;
   &lt;/body&gt;
 &lt;/html&gt;
@@ -430,11 +430,11 @@ But here's a demo anyway.</p>
   &lt;body&gt;
     &lt;main id=&quot;app&quot;&gt;
       &lt;h1&gt;To do list&lt;/h1&gt;
-      &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+      &lt;input type=&quot;text&quot; value:=&quot;value&quot; oninput:=&quot;NewValue&quot;&gt;
       &lt;ul&gt;
-        &lt;li :each=&quot;todos&quot; :text&gt;&lt;/li&gt;
+        &lt;li each:=&quot;todos&quot; text:&gt;&lt;/li&gt;
       &lt;/ul&gt;
-      &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+      &lt;button onclick:=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
     &lt;/main&gt;
   &lt;/body&gt;
 &lt;/html&gt;
@@ -479,11 +479,11 @@ that gave rise to this wrapper.</p>
   &lt;body&gt;
     &lt;main id=&quot;app&quot;&gt;
       &lt;h1&gt;To do list&lt;/h1&gt;
-      &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+      &lt;input type=&quot;text&quot; value:=&quot;value&quot; oninput:=&quot;NewValue&quot;&gt;
       &lt;ul&gt;
-        &lt;li :each=&quot;todos&quot; :text&gt;&lt;/li&gt;
+        &lt;li each:=&quot;todos&quot; text:&gt;&lt;/li&gt;
       &lt;/ul&gt;
-      &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+      &lt;button onclick:=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
     &lt;/main&gt;
   &lt;/body&gt;
 &lt;/html&gt;
@@ -518,11 +518,11 @@ that gave rise to this wrapper.</p>
   &lt;body&gt;
     &lt;main id=&quot;app&quot;&gt;
       &lt;h1&gt;To do list&lt;/h1&gt;
-      &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+      &lt;input type=&quot;text&quot; value:=&quot;value&quot; oninput:=&quot;NewValue&quot;&gt;
       &lt;ul&gt;
-        &lt;li :each=&quot;todos&quot; :text&gt;&lt;/li&gt;
+        &lt;li each:=&quot;todos&quot; text:&gt;&lt;/li&gt;
       &lt;/ul&gt;
-      &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+      &lt;button onclick:=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
     &lt;/main&gt;
   &lt;/body&gt;
 &lt;/html&gt;
@@ -567,11 +567,11 @@ All other components methods are available. Ex: <code>oninit</code>, <code>oncre
     &lt;main id=&quot;app&quot;&gt;
       &lt;div id=&quot;view-todo&quot;&gt;
         &lt;h1&gt;To do list&lt;/h1&gt;
-        &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+        &lt;input type=&quot;text&quot; value:=&quot;value&quot; oninput:=&quot;NewValue&quot;&gt;
         &lt;ul&gt;
-          &lt;li :each=&quot;todos&quot; :text&gt;&lt;/li&gt;
+          &lt;li each:=&quot;todos&quot; text:&gt;&lt;/li&gt;
         &lt;/ul&gt;
-        &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+        &lt;button onclick:=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
       &lt;/div&gt;
     &lt;/main&gt;
   &lt;/body&gt;
@@ -610,11 +610,11 @@ wrapper, please submit a pull request.</p>
     &lt;main id=&quot;app&quot;&gt;
       &lt;div&gt;
         &lt;h1&gt;To do list&lt;/h1&gt;
-        &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+        &lt;input type=&quot;text&quot; value:=&quot;value&quot; oninput:=&quot;NewValue&quot;&gt;
         &lt;ul&gt;
-          &lt;li :each=&quot;todos&quot; :text&gt;&lt;/li&gt;
+          &lt;li each:=&quot;todos&quot; text:&gt;&lt;/li&gt;
         &lt;/ul&gt;
-        &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+        &lt;button onclick:=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
       &lt;/div&gt;
     &lt;/main&gt;
   &lt;/body&gt;
@@ -692,7 +692,7 @@ template.</li>
   target: &quot;#/page/1&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;a class=&quot;primary&quot; :href=&quot;target&quot;&gt;Go to page 1&lt;/a&gt;
+<pre><code class="language-html">&lt;a class=&quot;primary&quot; href:=&quot;target&quot;&gt;Go to page 1&lt;/a&gt;
 </code></pre>
 <p>Result:</p>
 <pre><code class="language-html">&lt;a class=&quot;primary&quot; href=&quot;#/page/1&quot;&gt;Go to page 1&lt;/a&gt;
@@ -703,7 +703,7 @@ template.</li>
   isChecked: false
 }
 </code></pre>
-<pre><code class="language-html">&lt;input type=&quot;checkbox&quot; :checked=&quot;isChecked&quot; :disabled=&quot;isDisabled&quot;&gt;
+<pre><code class="language-html">&lt;input type=&quot;checkbox&quot; checked:=&quot;isChecked&quot; disabled:=&quot;isDisabled&quot;&gt;
 </code></pre>
 <p>Result:</p>
 <pre><code class="language-html">&lt;input type=&quot;checkbox&quot; disabled=&quot;&quot;&gt;
@@ -714,7 +714,7 @@ template.</li>
   btn: &quot;primary&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;button class=&quot;btn btn-&quot; :class=&quot;btn&quot; disabled :disabled=&quot;isDisabled&quot;&gt;
+<pre><code class="language-html">&lt;button class=&quot;btn btn-&quot; class:=&quot;btn&quot; disabled disabled:=&quot;isDisabled&quot;&gt;
   Submit
 &lt;/button&gt;
 </code></pre>
@@ -732,7 +732,7 @@ template.</li>
   }
 }
 </code></pre>
-<pre><code class="language-html">&lt;button class=&quot;btn btn-primary&quot; :onclick=&quot;action&quot;&gt;
+<pre><code class="language-html">&lt;button class=&quot;btn btn-primary&quot; onclick:=&quot;action&quot;&gt;
   Submit
 &lt;/button&gt;
 </code></pre>
@@ -752,7 +752,7 @@ template.</li>
   content: &quot;Hello John!&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;h1 :text=&quot;content&quot;&gt;Hello World!&lt;/h1&gt;
+<pre><code class="language-html">&lt;h1 text:=&quot;content&quot;&gt;Hello World!&lt;/h1&gt;
 </code></pre>
 <p>Result:</p>
 <pre><code class="language-html">&lt;h1&gt;Hello John&lt;/h1&gt;
@@ -763,7 +763,7 @@ template.</li>
 }
 </code></pre>
 <pre><code class="language-html">&lt;h1&gt;
-  Hello &lt;template :text=&quot;name&quot;&gt;&lt;/template&gt;, how are you?
+  Hello &lt;template text:=&quot;name&quot;&gt;&lt;/template&gt;, how are you?
 &lt;/h1&gt;
 </code></pre>
 <p>Result:</p>
@@ -776,7 +776,7 @@ template.</li>
   raw: &quot;var x = y &gt; 4 &amp;&amp; z / 3 == 2 ? 1 : 2&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;code :text=&quot;raw&quot;&gt;&lt;/code&gt;
+<pre><code class="language-html">&lt;code text:=&quot;raw&quot;&gt;&lt;/code&gt;
 </code></pre>
 <p>Result:</p>
 <pre><code class="language-html">&lt;code&gt;var x = y &amp;gt; 4 &amp;amp;&amp;amp; z / 3 == 2 ? 1 : 2&lt;/code&gt;
@@ -790,12 +790,12 @@ template.</li>
 </code></pre>
 <pre><code class="language-html">&lt;div&gt;
   John:
-  &lt;i :if=&quot;john&quot; class=&quot;fas fa-check&quot;&gt;&lt;/i&gt;
-  &lt;i :not=&quot;john&quot; class=&quot;fas fa-times&quot;&gt;&lt;/i&gt;
+  &lt;i if:=&quot;john&quot; class=&quot;fas fa-check&quot;&gt;&lt;/i&gt;
+  &lt;i not:=&quot;john&quot; class=&quot;fas fa-times&quot;&gt;&lt;/i&gt;
 &lt;/div&gt;&lt;div&gt;
   Mary:
-  &lt;i :if=&quot;mary&quot; class=&quot;fas fa-check&quot;&gt;&lt;/i&gt;
-  &lt;i :not=&quot;mary&quot; class=&quot;fas fa-times&quot;&gt;&lt;/i&gt;
+  &lt;i if:=&quot;mary&quot; class=&quot;fas fa-check&quot;&gt;&lt;/i&gt;
+  &lt;i not:=&quot;mary&quot; class=&quot;fas fa-times&quot;&gt;&lt;/i&gt;
 &lt;/div&gt;
 </code></pre>
 <p>Result:</p>
@@ -819,15 +819,15 @@ template.</li>
 ]
 </code></pre>
 <pre><code class="language-html">&lt;div&gt;
-  null: &lt;template :if=&quot;0&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;0&quot;&gt;false&lt;/template&gt;
-  0: &lt;template :if=&quot;1&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;1&quot;&gt;false&lt;/template&gt;
-  1: &lt;template :if=&quot;2&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;2&quot;&gt;false&lt;/template&gt;
-  -1: &lt;template :if=&quot;3&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;3&quot;&gt;false&lt;/template&gt;
-  &quot;&quot;: &lt;template :if=&quot;4&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;4&quot;&gt;false&lt;/template&gt;
-  &quot;0&quot;: &lt;template :if=&quot;5&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;5&quot;&gt;false&lt;/template&gt;
-  []: &lt;template :if=&quot;6&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;6&quot;&gt;false&lt;/template&gt;
-  {}: &lt;template :if=&quot;7&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;7&quot;&gt;false&lt;/template&gt;
-  undefined: &lt;template :if=&quot;8&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;8&quot;&gt;false&lt;/template&gt;
+  null: &lt;template if:=&quot;0&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;0&quot;&gt;false&lt;/template&gt;
+  0: &lt;template if:=&quot;1&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;1&quot;&gt;false&lt;/template&gt;
+  1: &lt;template if:=&quot;2&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;2&quot;&gt;false&lt;/template&gt;
+  -1: &lt;template if:=&quot;3&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;3&quot;&gt;false&lt;/template&gt;
+  &quot;&quot;: &lt;template if:=&quot;4&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;4&quot;&gt;false&lt;/template&gt;
+  &quot;0&quot;: &lt;template if:=&quot;5&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;5&quot;&gt;false&lt;/template&gt;
+  []: &lt;template if:=&quot;6&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;6&quot;&gt;false&lt;/template&gt;
+  {}: &lt;template if:=&quot;7&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;7&quot;&gt;false&lt;/template&gt;
+  undefined: &lt;template if:=&quot;8&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;8&quot;&gt;false&lt;/template&gt;
 &lt;/div&gt;
 </code></pre>
 <p>Result:</p>
@@ -851,24 +851,24 @@ template.</li>
   title: &quot;Bio&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;form :switch=&quot;input&quot;&gt;
-  &lt;label :text=&quot;title&quot;&gt;&lt;/label&gt;
+<pre><code class="language-html">&lt;form switch:=&quot;input&quot;&gt;
+  &lt;label text:=&quot;title&quot;&gt;&lt;/label&gt;
   &lt;select
     case=&quot;boolean&quot;
-    :name=&quot;name&quot;
+    name:=&quot;name&quot;
   &gt;
     &lt;option value=&quot;0&quot;&gt;No&lt;/option&gt;
     &lt;option value=&quot;1&quot;&gt;Yes&lt;/option&gt;
   &lt;/select&gt;
   &lt;textarea
     case=&quot;text&quot;
-    :name=&quot;name&quot;
+    name:=&quot;name&quot;
     rows=&quot;6&quot;
   &gt;&lt;/textarea&gt;
   &lt;input
     case=&quot;default&quot;
     type=&quot;text&quot;
-    :name=&quot;name&quot;
+    name:=&quot;name&quot;
   &gt;
   &lt;button&gt;Submit&lt;/button&gt;
 &lt;/form&gt;
@@ -885,7 +885,7 @@ template.</li>
   color: &quot;red&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;div :switch=&quot;color&quot;&gt;
+<pre><code class="language-html">&lt;div switch:=&quot;color&quot;&gt;
   My favorite color is:
   &lt;template case=&quot;red&quot;&gt;Red&lt;/template&gt;
   &lt;template case=&quot;green&quot;&gt;Green&lt;/template&gt;
@@ -902,7 +902,7 @@ template.</li>
   color: &quot;green&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;template :switch=&quot;color&quot;&gt;
+<pre><code class="language-html">&lt;template switch:=&quot;color&quot;&gt;
   My favorite color is:
   &lt;b case=&quot;red&quot;&gt;Red&lt;/b&gt;
   &lt;b case=&quot;green&quot;&gt;Green&lt;/b&gt;
@@ -917,7 +917,7 @@ template.</li>
   color: &quot;blue&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;template :switch=&quot;color&quot;&gt;
+<pre><code class="language-html">&lt;template switch:=&quot;color&quot;&gt;
   My favorite color is:
   &lt;template case=&quot;red&quot;&gt;Red&lt;/template&gt;
   &lt;template case=&quot;green&quot;&gt;Green&lt;/template&gt;
@@ -937,9 +937,9 @@ template.</li>
 }
 </code></pre>
 <pre><code class="language-html">&lt;div&gt;
-  &lt;p&gt;My name is: &lt;template :text=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
-  &lt;p :with=&quot;friend&quot;&gt;My name is: &lt;template :text=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
-  &lt;p&gt;My name is: &lt;template :text=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
+  &lt;p&gt;My name is: &lt;template text:=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
+  &lt;p with:=&quot;friend&quot;&gt;My name is: &lt;template text:=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
+  &lt;p&gt;My name is: &lt;template text:=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
 &lt;/div&gt;
 </code></pre>
 <p>Result:</p>
@@ -959,9 +959,9 @@ template.</li>
 }
 </code></pre>
 <pre><code class="language-html">&lt;div&gt;
-  &lt;p&gt;&lt;b :text=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span :text=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-  &lt;p :with=&quot;friend&quot;&gt;&lt;b :text=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span :text=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-  &lt;p&gt;&lt;b :text=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span :text=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;b text:=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span text:=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+  &lt;p with:=&quot;friend&quot;&gt;&lt;b text:=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span text:=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;b text:=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span text:=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 </code></pre>
 <p>Result:</p>
@@ -974,21 +974,21 @@ template.</li>
 <h2 id="simple-types-access"><a class="header" href="#simple-types-access">Simple types access.</a></h2>
 <pre><code class="language-js">[[&quot;Mary&quot;, &quot;John&quot;], &quot;dog&quot;, 3.14]
 </code></pre>
-<pre><code class="language-html">&lt;div :with=&quot;0&quot;&gt;
-  &lt;p :text=&quot;0&quot;&gt;&lt;/p&gt;
-  &lt;template :with=&quot;1&quot;&gt;
-    &lt;p :text&gt;&lt;/p&gt;
+<pre><code class="language-html">&lt;div with:=&quot;0&quot;&gt;
+  &lt;p text:=&quot;0&quot;&gt;&lt;/p&gt;
+  &lt;template with:=&quot;1&quot;&gt;
+    &lt;p text:&gt;&lt;/p&gt;
   &lt;/template&gt;
 &lt;/div&gt;
-&lt;div :with=&quot;1&quot;&gt;
-  &lt;p :text&gt;&lt;/p&gt;
+&lt;div with:=&quot;1&quot;&gt;
+  &lt;p text:&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div :with=&quot;2&quot;&gt;
-  &lt;template :with&gt;
-    &lt;p :text&gt;&lt;/p&gt;
+&lt;div with:=&quot;2&quot;&gt;
+  &lt;template with:&gt;
+    &lt;p text:&gt;&lt;/p&gt;
   &lt;/template&gt;
 &lt;/div&gt;
-&lt;div :with=&quot;3&quot;&gt;
+&lt;div with:=&quot;3&quot;&gt;
   &lt;p&gt;This will not render&lt;/p&gt;
 &lt;/div&gt;
 </code></pre>
@@ -1008,8 +1008,8 @@ template.</li>
 <h2 id="simple-array-iteration"><a class="header" href="#simple-array-iteration">Simple array iteration.</a></h2>
 <pre><code class="language-js">[&quot;dog&quot;, &quot;cat&quot;, &quot;horse&quot;]
 </code></pre>
-<pre><code class="language-html">&lt;template :each&gt;
-  &lt;template :text&gt;&lt;/template&gt;
+<pre><code class="language-html">&lt;template each:&gt;
+  &lt;template text:&gt;&lt;/template&gt;
 &lt;/template&gt;
 </code></pre>
 <p>Result:</p>
@@ -1054,18 +1054,18 @@ horse
 <pre><code class="language-html">&lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th :each=&quot;links&quot; :text&gt;&lt;/th&gt;
+      &lt;th each:=&quot;links&quot; text:&gt;&lt;/th&gt;
       &lt;th&gt;Id&lt;/th&gt;
       &lt;th&gt;Name&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
-    &lt;tr :each=&quot;rows&quot; :class=&quot;css&quot;&gt;
-      &lt;td :each=&quot;links&quot;&gt;
-        &lt;a :href=&quot;href&quot; :href=&quot;id&quot; :text=&quot;title&quot;&gt;&lt;/a&gt;
+    &lt;tr each:=&quot;rows&quot; class:=&quot;css&quot;&gt;
+      &lt;td each:=&quot;links&quot;&gt;
+        &lt;a href:=&quot;href&quot; href:=&quot;id&quot; text:=&quot;title&quot;&gt;&lt;/a&gt;
       &lt;/td&gt;
-      &lt;td :text=&quot;id&quot;&gt;&lt;/td&gt;
-      &lt;td :text=&quot;name&quot;&gt;&lt;/td&gt;
+      &lt;td text:=&quot;id&quot;&gt;&lt;/td&gt;
+      &lt;td text:=&quot;name&quot;&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -1105,7 +1105,7 @@ horse
 As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements">here</a>.</p>
 <p>With the following tag in your <code>HTML</code> <code>template</code> </p>
 <pre><code class="language-html">&lt;template id=&quot;my-button&quot;&gt;
-  &lt;button class=&quot;btn btn-&quot; :class=&quot;btn&quot; :text=&quot;text&quot; :click=&quot;click&quot;&gt;
+  &lt;button class=&quot;btn btn-&quot; class:=&quot;btn&quot; text:=&quot;text&quot; click:=&quot;click&quot;&gt;
     &lt;slot&gt;&lt;/slot&gt;
   &lt;/button&gt;
 &lt;/template&gt;
@@ -1116,7 +1116,7 @@ As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Component
 }
 </code></pre>
 <pre><code class="language-html">&lt;div&gt;
-  &lt;my-button :btn=&quot;button&quot;&gt;
+  &lt;my-button btn:=&quot;button&quot;&gt;
     Action
   &lt;/my-button&gt;
 &lt;/div&gt;
@@ -1135,7 +1135,7 @@ As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Component
 ]
 </code></pre>
 <pre><code class="language-html">&lt;div&gt;
-  &lt;my-button :each :btn=&quot;button&quot; :text=&quot;title&quot;&gt;&lt;/my-button&gt;
+  &lt;my-button each: btn:=&quot;button&quot; text:=&quot;title&quot;&gt;&lt;/my-button&gt;
 &lt;/div&gt;
 </code></pre>
 <p>Result:</p>
@@ -1182,10 +1182,10 @@ As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Component
 ]
 </code></pre>
 <pre><code class="language-html">&lt;template id=&quot;my-list&quot;&gt;
-  &lt;ul :if=&quot;items&quot;&gt;
-    &lt;li :each=&quot;items&quot;&gt;
-      &lt;span :text=&quot;title&quot;&gt;&lt;/span&gt;
-      &lt;my-list :items=&quot;children&quot;&gt;&lt;/my-list&gt;
+  &lt;ul if:=&quot;items&quot;&gt;
+    &lt;li each:=&quot;items&quot;&gt;
+      &lt;span text:=&quot;title&quot;&gt;&lt;/span&gt;
+      &lt;my-list items:=&quot;children&quot;&gt;&lt;/my-list&gt;
     &lt;/li&gt;
   &lt;/ul&gt;
 &lt;/template&gt;
@@ -1245,7 +1245,7 @@ As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Component
   text: &quot;Hello John!&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;h1 :bind&gt;Hello World!&lt;/h1&gt;
+<pre><code class="language-html">&lt;h1 bind:&gt;Hello World!&lt;/h1&gt;
 </code></pre>
 <p>Result:</p>
 <pre><code class="language-html">&lt;h1 class=&quot;message&quot; style=&quot;white-space:pre-wrap;&quot;&gt;Hello John!&lt;/h1&gt;
@@ -1253,7 +1253,7 @@ As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Component
 <h2 id="very-useful-with-custom-tags"><a class="header" href="#very-useful-with-custom-tags">Very useful with custom tags</a></h2>
 <p>With the following tag in your <code>HTML</code> <code>template</code>: </p>
 <pre><code class="language-html">&lt;template id=&quot;my-button&quot;&gt;
-  &lt;button class=&quot;btn btn-&quot; :class=&quot;btn&quot; :text=&quot;text&quot; :click=&quot;click&quot;&gt;
+  &lt;button class=&quot;btn btn-&quot; class:=&quot;btn&quot; text:=&quot;text&quot; click:=&quot;click&quot;&gt;
     &lt;slot&gt;&lt;/slot&gt;
   &lt;/button&gt;
 &lt;/template&gt;
@@ -1276,7 +1276,7 @@ As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Component
   }
 ]
 </code></pre>
-<pre><code class="language-html">&lt;my-button :each :bind&gt;&lt;/my-button&gt;
+<pre><code class="language-html">&lt;my-button each: bind:&gt;&lt;/my-button&gt;
 </code></pre>
 <p>Result:</p>
 <pre><code class="language-html">&lt;button class=&quot;btn btn-secondary&quot;&gt;Cancel&lt;/button&gt;

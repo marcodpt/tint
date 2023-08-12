@@ -8,7 +8,7 @@
 }
 ```
 ```html
-<h1 :bind>Hello World!</h1>
+<h1 bind:>Hello World!</h1>
 ```
 Result:
 ```html
@@ -19,7 +19,7 @@ Result:
 With the following tag in your `HTML` `template`: 
 ```html
 <template id="my-button">
-  <button class="btn btn-" :class="btn" :text="text" :click="click">
+  <button class="btn btn-" class:="btn" text:="text" click:="click">
     <slot></slot>
   </button>
 </template>
@@ -44,7 +44,7 @@ Render this:
 ]
 ```
 ```html
-<my-button :each :bind></my-button>
+<my-button each: bind:></my-button>
 ```
 Result:
 ```html

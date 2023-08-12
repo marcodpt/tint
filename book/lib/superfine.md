@@ -29,11 +29,11 @@
   <body>
     <main id="app">
       <h1>To do list</h1>
-      <input type="text" :value="value" :oninput="NewValue">
+      <input type="text" value:="value" oninput:="NewValue">
       <ul>
-        <li :each="todos" :text></li>
+        <li each:="todos" text:></li>
       </ul>
-      <button :onclick="AddTodo">New!</button>
+      <button onclick:="AddTodo">New!</button>
     </main>
   </body>
 </html>

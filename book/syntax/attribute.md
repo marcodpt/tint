@@ -6,7 +6,7 @@
 }
 ```
 ```html
-<a class="primary" :href="target">Go to page 1</a>
+<a class="primary" href:="target">Go to page 1</a>
 ```
 Result:
 ```html
@@ -21,7 +21,7 @@ Result:
 }
 ```
 ```html
-<input type="checkbox" :checked="isChecked" :disabled="isDisabled">
+<input type="checkbox" checked:="isChecked" disabled:="isDisabled">
 ```
 Result:
 ```html
@@ -36,7 +36,7 @@ Result:
 }
 ```
 ```html
-<button class="btn btn-" :class="btn" disabled :disabled="isDisabled">
+<button class="btn btn-" class:="btn" disabled disabled:="isDisabled">
   Submit
 </button>
 ```
@@ -58,7 +58,7 @@ Result:
 }
 ```
 ```html
-<button class="btn btn-primary" :onclick="action">
+<button class="btn btn-primary" onclick:="action">
   Submit
 </button>
 ```

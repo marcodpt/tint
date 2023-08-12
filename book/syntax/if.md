@@ -9,12 +9,12 @@
 ```html
 <div>
   John:
-  <i :if="john" class="fas fa-check"></i>
-  <i :not="john" class="fas fa-times"></i>
+  <i if:="john" class="fas fa-check"></i>
+  <i not:="john" class="fas fa-times"></i>
 </div><div>
   Mary:
-  <i :if="mary" class="fas fa-check"></i>
-  <i :not="mary" class="fas fa-times"></i>
+  <i if:="mary" class="fas fa-check"></i>
+  <i not:="mary" class="fas fa-times"></i>
 </div>
 ```
 Result:
@@ -42,15 +42,15 @@ Result:
 ```
 ```html
 <div>
-  null: <template :if="0">true</template><template :not="0">false</template>
-  0: <template :if="1">true</template><template :not="1">false</template>
-  1: <template :if="2">true</template><template :not="2">false</template>
-  -1: <template :if="3">true</template><template :not="3">false</template>
-  "": <template :if="4">true</template><template :not="4">false</template>
-  "0": <template :if="5">true</template><template :not="5">false</template>
-  []: <template :if="6">true</template><template :not="6">false</template>
-  {}: <template :if="7">true</template><template :not="7">false</template>
-  undefined: <template :if="8">true</template><template :not="8">false</template>
+  null: <template if:="0">true</template><template not:="0">false</template>
+  0: <template if:="1">true</template><template not:="1">false</template>
+  1: <template if:="2">true</template><template not:="2">false</template>
+  -1: <template if:="3">true</template><template not:="3">false</template>
+  "": <template if:="4">true</template><template not:="4">false</template>
+  "0": <template if:="5">true</template><template not:="5">false</template>
+  []: <template if:="6">true</template><template not:="6">false</template>
+  {}: <template if:="7">true</template><template not:="7">false</template>
+  undefined: <template if:="8">true</template><template not:="8">false</template>
 </div>
 ```
 Result:

@@ -142,7 +142,7 @@
 As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements">here</a>.</p>
 <p>With the following tag in your <code>HTML</code> <code>template</code> </p>
 <pre><code class="language-html">&lt;template id=&quot;my-button&quot;&gt;
-  &lt;button class=&quot;btn btn-&quot; :class=&quot;btn&quot; :text=&quot;text&quot; :click=&quot;click&quot;&gt;
+  &lt;button class=&quot;btn btn-&quot; class:=&quot;btn&quot; text:=&quot;text&quot; click:=&quot;click&quot;&gt;
     &lt;slot&gt;&lt;/slot&gt;
   &lt;/button&gt;
 &lt;/template&gt;
@@ -153,7 +153,7 @@ As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Component
 }
 </code></pre>
 <pre><code class="language-html">&lt;div&gt;
-  &lt;my-button :btn=&quot;button&quot;&gt;
+  &lt;my-button btn:=&quot;button&quot;&gt;
     Action
   &lt;/my-button&gt;
 &lt;/div&gt;
@@ -172,7 +172,7 @@ As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Component
 ]
 </code></pre>
 <pre><code class="language-html">&lt;div&gt;
-  &lt;my-button :each :btn=&quot;button&quot; :text=&quot;title&quot;&gt;&lt;/my-button&gt;
+  &lt;my-button each: btn:=&quot;button&quot; text:=&quot;title&quot;&gt;&lt;/my-button&gt;
 &lt;/div&gt;
 </code></pre>
 <p>Result:</p>
@@ -219,10 +219,10 @@ As described <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Component
 ]
 </code></pre>
 <pre><code class="language-html">&lt;template id=&quot;my-list&quot;&gt;
-  &lt;ul :if=&quot;items&quot;&gt;
-    &lt;li :each=&quot;items&quot;&gt;
-      &lt;span :text=&quot;title&quot;&gt;&lt;/span&gt;
-      &lt;my-list :items=&quot;children&quot;&gt;&lt;/my-list&gt;
+  &lt;ul if:=&quot;items&quot;&gt;
+    &lt;li each:=&quot;items&quot;&gt;
+      &lt;span text:=&quot;title&quot;&gt;&lt;/span&gt;
+      &lt;my-list items:=&quot;children&quot;&gt;&lt;/my-list&gt;
     &lt;/li&gt;
   &lt;/ul&gt;
 &lt;/template&gt;

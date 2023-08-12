@@ -10,9 +10,9 @@
 ```
 ```html
 <div>
-  <p>My name is: <template :text="name"></template></p>
-  <p :with="friend">My name is: <template :text="name"></template></p>
-  <p>My name is: <template :text="name"></template></p>
+  <p>My name is: <template text:="name"></template></p>
+  <p with:="friend">My name is: <template text:="name"></template></p>
+  <p>My name is: <template text:="name"></template></p>
 </div>
 ```
 Result:
@@ -36,9 +36,9 @@ Result:
 ```
 ```html
 <div>
-  <p><b :text="greeting"></b><span :text="name"></span></p>
-  <p :with="friend"><b :text="greeting"></b><span :text="name"></span></p>
-  <p><b :text="greeting"></b><span :text="name"></span></p>
+  <p><b text:="greeting"></b><span text:="name"></span></p>
+  <p with:="friend"><b text:="greeting"></b><span text:="name"></span></p>
+  <p><b text:="greeting"></b><span text:="name"></span></p>
 </div>
 ```
 Result:
@@ -55,21 +55,21 @@ Result:
 [["Mary", "John"], "dog", 3.14]
 ```
 ```html
-<div :with="0">
-  <p :text="0"></p>
-  <template :with="1">
-    <p :text></p>
+<div with:="0">
+  <p text:="0"></p>
+  <template with:="1">
+    <p text:></p>
   </template>
 </div>
-<div :with="1">
-  <p :text></p>
+<div with:="1">
+  <p text:></p>
 </div>
-<div :with="2">
-  <template :with>
-    <p :text></p>
+<div with:="2">
+  <template with:>
+    <p text:></p>
   </template>
 </div>
-<div :with="3">
+<div with:="3">
   <p>This will not render</p>
 </div>
 ```

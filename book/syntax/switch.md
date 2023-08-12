@@ -8,24 +8,24 @@
 }
 ```
 ```html
-<form :switch="input">
-  <label :text="title"></label>
+<form switch:="input">
+  <label text:="title"></label>
   <select
     case="boolean"
-    :name="name"
+    name:="name"
   >
     <option value="0">No</option>
     <option value="1">Yes</option>
   </select>
   <textarea
     case="text"
-    :name="name"
+    name:="name"
     rows="6"
   ></textarea>
   <input
     case="default"
     type="text"
-    :name="name"
+    name:="name"
   >
   <button>Submit</button>
 </form>
@@ -46,7 +46,7 @@ Result:
 }
 ```
 ```html
-<div :switch="color">
+<div switch:="color">
   My favorite color is:
   <template case="red">Red</template>
   <template case="green">Green</template>
@@ -67,7 +67,7 @@ Result:
 }
 ```
 ```html
-<template :switch="color">
+<template switch:="color">
   My favorite color is:
   <b case="red">Red</b>
   <b case="green">Green</b>
@@ -86,7 +86,7 @@ My favorite color is: <b>Green</b>
 }
 ```
 ```html
-<template :switch="color">
+<template switch:="color">
   My favorite color is:
   <template case="red">Red</template>
   <template case="green">Green</template>

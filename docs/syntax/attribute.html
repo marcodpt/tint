@@ -143,7 +143,7 @@
   target: &quot;#/page/1&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;a class=&quot;primary&quot; :href=&quot;target&quot;&gt;Go to page 1&lt;/a&gt;
+<pre><code class="language-html">&lt;a class=&quot;primary&quot; href:=&quot;target&quot;&gt;Go to page 1&lt;/a&gt;
 </code></pre>
 <p>Result:</p>
 <pre><code class="language-html">&lt;a class=&quot;primary&quot; href=&quot;#/page/1&quot;&gt;Go to page 1&lt;/a&gt;
@@ -154,7 +154,7 @@
   isChecked: false
 }
 </code></pre>
-<pre><code class="language-html">&lt;input type=&quot;checkbox&quot; :checked=&quot;isChecked&quot; :disabled=&quot;isDisabled&quot;&gt;
+<pre><code class="language-html">&lt;input type=&quot;checkbox&quot; checked:=&quot;isChecked&quot; disabled:=&quot;isDisabled&quot;&gt;
 </code></pre>
 <p>Result:</p>
 <pre><code class="language-html">&lt;input type=&quot;checkbox&quot; disabled=&quot;&quot;&gt;
@@ -165,7 +165,7 @@
   btn: &quot;primary&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;button class=&quot;btn btn-&quot; :class=&quot;btn&quot; disabled :disabled=&quot;isDisabled&quot;&gt;
+<pre><code class="language-html">&lt;button class=&quot;btn btn-&quot; class:=&quot;btn&quot; disabled disabled:=&quot;isDisabled&quot;&gt;
   Submit
 &lt;/button&gt;
 </code></pre>
@@ -183,7 +183,7 @@
   }
 }
 </code></pre>
-<pre><code class="language-html">&lt;button class=&quot;btn btn-primary&quot; :onclick=&quot;action&quot;&gt;
+<pre><code class="language-html">&lt;button class=&quot;btn btn-primary&quot; onclick:=&quot;action&quot;&gt;
   Submit
 &lt;/button&gt;
 </code></pre>

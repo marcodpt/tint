@@ -145,24 +145,24 @@
   title: &quot;Bio&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;form :switch=&quot;input&quot;&gt;
-  &lt;label :text=&quot;title&quot;&gt;&lt;/label&gt;
+<pre><code class="language-html">&lt;form switch:=&quot;input&quot;&gt;
+  &lt;label text:=&quot;title&quot;&gt;&lt;/label&gt;
   &lt;select
     case=&quot;boolean&quot;
-    :name=&quot;name&quot;
+    name:=&quot;name&quot;
   &gt;
     &lt;option value=&quot;0&quot;&gt;No&lt;/option&gt;
     &lt;option value=&quot;1&quot;&gt;Yes&lt;/option&gt;
   &lt;/select&gt;
   &lt;textarea
     case=&quot;text&quot;
-    :name=&quot;name&quot;
+    name:=&quot;name&quot;
     rows=&quot;6&quot;
   &gt;&lt;/textarea&gt;
   &lt;input
     case=&quot;default&quot;
     type=&quot;text&quot;
-    :name=&quot;name&quot;
+    name:=&quot;name&quot;
   &gt;
   &lt;button&gt;Submit&lt;/button&gt;
 &lt;/form&gt;
@@ -179,7 +179,7 @@
   color: &quot;red&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;div :switch=&quot;color&quot;&gt;
+<pre><code class="language-html">&lt;div switch:=&quot;color&quot;&gt;
   My favorite color is:
   &lt;template case=&quot;red&quot;&gt;Red&lt;/template&gt;
   &lt;template case=&quot;green&quot;&gt;Green&lt;/template&gt;
@@ -196,7 +196,7 @@
   color: &quot;green&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;template :switch=&quot;color&quot;&gt;
+<pre><code class="language-html">&lt;template switch:=&quot;color&quot;&gt;
   My favorite color is:
   &lt;b case=&quot;red&quot;&gt;Red&lt;/b&gt;
   &lt;b case=&quot;green&quot;&gt;Green&lt;/b&gt;
@@ -211,7 +211,7 @@
   color: &quot;blue&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;template :switch=&quot;color&quot;&gt;
+<pre><code class="language-html">&lt;template switch:=&quot;color&quot;&gt;
   My favorite color is:
   &lt;template case=&quot;red&quot;&gt;Red&lt;/template&gt;
   &lt;template case=&quot;green&quot;&gt;Green&lt;/template&gt;

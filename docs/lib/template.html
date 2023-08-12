@@ -167,7 +167,7 @@ any JSON object even with javascript functions is valid!</li>
   &lt;/head&gt;
   &lt;body&gt;
     &lt;div id=&quot;app&quot;&gt;
-      &lt;h1 :text=&quot;message&quot;&gt;Loading...&lt;/h1&gt;
+      &lt;h1 text:=&quot;message&quot;&gt;Loading...&lt;/h1&gt;
     &lt;/div&gt;
   &lt;/body&gt;
 &lt;/html&gt;
@@ -199,7 +199,7 @@ any JSON object even with javascript functions is valid!</li>
       &lt;p&gt;Loading...&lt;/p&gt;
     &lt;/div&gt;
     &lt;template id=&quot;view&quot;&gt;
-      &lt;h1 :text=&quot;message&quot;&gt;&lt;/h1&gt;
+      &lt;h1 text:=&quot;message&quot;&gt;&lt;/h1&gt;
     &lt;/template&gt;
   &lt;/body&gt;
 &lt;/html&gt;
@@ -241,11 +241,11 @@ But here's a demo anyway.</p>
   &lt;body&gt;
     &lt;main id=&quot;app&quot;&gt;
       &lt;h1&gt;To do list&lt;/h1&gt;
-      &lt;input type=&quot;text&quot; :value=&quot;value&quot; :oninput=&quot;NewValue&quot;&gt;
+      &lt;input type=&quot;text&quot; value:=&quot;value&quot; oninput:=&quot;NewValue&quot;&gt;
       &lt;ul&gt;
-        &lt;li :each=&quot;todos&quot; :text&gt;&lt;/li&gt;
+        &lt;li each:=&quot;todos&quot; text:&gt;&lt;/li&gt;
       &lt;/ul&gt;
-      &lt;button :onclick=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
+      &lt;button onclick:=&quot;AddTodo&quot;&gt;New!&lt;/button&gt;
     &lt;/main&gt;
   &lt;/body&gt;
 &lt;/html&gt;

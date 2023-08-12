@@ -6,7 +6,7 @@
 }
 ```
 ```html
-<h1 :text="content">Hello World!</h1>
+<h1 text:="content">Hello World!</h1>
 ```
 Result:
 ```html
@@ -21,7 +21,7 @@ Result:
 ```
 ```html
 <h1>
-  Hello <template :text="name"></template>, how are you?
+  Hello <template text:="name"></template>, how are you?
 </h1>
 ```
 Result:
@@ -38,7 +38,7 @@ Result:
 }
 ```
 ```html
-<code :text="raw"></code>
+<code text:="raw"></code>
 ```
 Result:
 ```html

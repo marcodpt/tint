@@ -143,7 +143,7 @@
   content: &quot;Hello John!&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;h1 :text=&quot;content&quot;&gt;Hello World!&lt;/h1&gt;
+<pre><code class="language-html">&lt;h1 text:=&quot;content&quot;&gt;Hello World!&lt;/h1&gt;
 </code></pre>
 <p>Result:</p>
 <pre><code class="language-html">&lt;h1&gt;Hello John&lt;/h1&gt;
@@ -154,7 +154,7 @@
 }
 </code></pre>
 <pre><code class="language-html">&lt;h1&gt;
-  Hello &lt;template :text=&quot;name&quot;&gt;&lt;/template&gt;, how are you?
+  Hello &lt;template text:=&quot;name&quot;&gt;&lt;/template&gt;, how are you?
 &lt;/h1&gt;
 </code></pre>
 <p>Result:</p>
@@ -167,7 +167,7 @@
   raw: &quot;var x = y &gt; 4 &amp;&amp; z / 3 == 2 ? 1 : 2&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;code :text=&quot;raw&quot;&gt;&lt;/code&gt;
+<pre><code class="language-html">&lt;code text:=&quot;raw&quot;&gt;&lt;/code&gt;
 </code></pre>
 <p>Result:</p>
 <pre><code class="language-html">&lt;code&gt;var x = y &amp;gt; 4 &amp;amp;&amp;amp; z / 3 == 2 ? 1 : 2&lt;/code&gt;

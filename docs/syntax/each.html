@@ -141,8 +141,8 @@
 <h2 id="simple-array-iteration"><a class="header" href="#simple-array-iteration">Simple array iteration.</a></h2>
 <pre><code class="language-js">[&quot;dog&quot;, &quot;cat&quot;, &quot;horse&quot;]
 </code></pre>
-<pre><code class="language-html">&lt;template :each&gt;
-  &lt;template :text&gt;&lt;/template&gt;
+<pre><code class="language-html">&lt;template each:&gt;
+  &lt;template text:&gt;&lt;/template&gt;
 &lt;/template&gt;
 </code></pre>
 <p>Result:</p>
@@ -187,18 +187,18 @@ horse
 <pre><code class="language-html">&lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th :each=&quot;links&quot; :text&gt;&lt;/th&gt;
+      &lt;th each:=&quot;links&quot; text:&gt;&lt;/th&gt;
       &lt;th&gt;Id&lt;/th&gt;
       &lt;th&gt;Name&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
-    &lt;tr :each=&quot;rows&quot; :class=&quot;css&quot;&gt;
-      &lt;td :each=&quot;links&quot;&gt;
-        &lt;a :href=&quot;href&quot; :href=&quot;id&quot; :text=&quot;title&quot;&gt;&lt;/a&gt;
+    &lt;tr each:=&quot;rows&quot; class:=&quot;css&quot;&gt;
+      &lt;td each:=&quot;links&quot;&gt;
+        &lt;a href:=&quot;href&quot; href:=&quot;id&quot; text:=&quot;title&quot;&gt;&lt;/a&gt;
       &lt;/td&gt;
-      &lt;td :text=&quot;id&quot;&gt;&lt;/td&gt;
-      &lt;td :text=&quot;name&quot;&gt;&lt;/td&gt;
+      &lt;td text:=&quot;id&quot;&gt;&lt;/td&gt;
+      &lt;td text:=&quot;name&quot;&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;

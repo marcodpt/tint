@@ -5,8 +5,8 @@
 ["dog", "cat", "horse"]
 ```
 ```html
-<template :each>
-  <template :text></template>
+<template each:>
+  <template text:></template>
 </template>
 ```
 Result:
@@ -55,18 +55,18 @@ horse
 <table>
   <thead>
     <tr>
-      <th :each="links" :text></th>
+      <th each:="links" text:></th>
       <th>Id</th>
       <th>Name</th>
     </tr>
   </thead>
   <tbody>
-    <tr :each="rows" :class="css">
-      <td :each="links">
-        <a :href="href" :href="id" :text="title"></a>
+    <tr each:="rows" class:="css">
+      <td each:="links">
+        <a href:="href" href:="id" text:="title"></a>
       </td>
-      <td :text="id"></td>
-      <td :text="name"></td>
+      <td text:="id"></td>
+      <td text:="name"></td>
     </tr>
   </tbody>
 </table>

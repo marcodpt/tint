@@ -145,7 +145,7 @@
   text: &quot;Hello John!&quot;
 }
 </code></pre>
-<pre><code class="language-html">&lt;h1 :bind&gt;Hello World!&lt;/h1&gt;
+<pre><code class="language-html">&lt;h1 bind:&gt;Hello World!&lt;/h1&gt;
 </code></pre>
 <p>Result:</p>
 <pre><code class="language-html">&lt;h1 class=&quot;message&quot; style=&quot;white-space:pre-wrap;&quot;&gt;Hello John!&lt;/h1&gt;
@@ -153,7 +153,7 @@
 <h2 id="very-useful-with-custom-tags"><a class="header" href="#very-useful-with-custom-tags">Very useful with custom tags</a></h2>
 <p>With the following tag in your <code>HTML</code> <code>template</code>: </p>
 <pre><code class="language-html">&lt;template id=&quot;my-button&quot;&gt;
-  &lt;button class=&quot;btn btn-&quot; :class=&quot;btn&quot; :text=&quot;text&quot; :click=&quot;click&quot;&gt;
+  &lt;button class=&quot;btn btn-&quot; class:=&quot;btn&quot; text:=&quot;text&quot; click:=&quot;click&quot;&gt;
     &lt;slot&gt;&lt;/slot&gt;
   &lt;/button&gt;
 &lt;/template&gt;
@@ -176,7 +176,7 @@
   }
 ]
 </code></pre>
-<pre><code class="language-html">&lt;my-button :each :bind&gt;&lt;/my-button&gt;
+<pre><code class="language-html">&lt;my-button each: bind:&gt;&lt;/my-button&gt;
 </code></pre>
 <p>Result:</p>
 <pre><code class="language-html">&lt;button class=&quot;btn btn-secondary&quot;&gt;Cancel&lt;/button&gt;

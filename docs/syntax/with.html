@@ -147,9 +147,9 @@
 }
 </code></pre>
 <pre><code class="language-html">&lt;div&gt;
-  &lt;p&gt;My name is: &lt;template :text=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
-  &lt;p :with=&quot;friend&quot;&gt;My name is: &lt;template :text=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
-  &lt;p&gt;My name is: &lt;template :text=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
+  &lt;p&gt;My name is: &lt;template text:=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
+  &lt;p with:=&quot;friend&quot;&gt;My name is: &lt;template text:=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
+  &lt;p&gt;My name is: &lt;template text:=&quot;name&quot;&gt;&lt;/template&gt;&lt;/p&gt;
 &lt;/div&gt;
 </code></pre>
 <p>Result:</p>
@@ -169,9 +169,9 @@
 }
 </code></pre>
 <pre><code class="language-html">&lt;div&gt;
-  &lt;p&gt;&lt;b :text=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span :text=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-  &lt;p :with=&quot;friend&quot;&gt;&lt;b :text=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span :text=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-  &lt;p&gt;&lt;b :text=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span :text=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;b text:=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span text:=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+  &lt;p with:=&quot;friend&quot;&gt;&lt;b text:=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span text:=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;b text:=&quot;greeting&quot;&gt;&lt;/b&gt;&lt;span text:=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 </code></pre>
 <p>Result:</p>
@@ -184,21 +184,21 @@
 <h2 id="simple-types-access"><a class="header" href="#simple-types-access">Simple types access.</a></h2>
 <pre><code class="language-js">[[&quot;Mary&quot;, &quot;John&quot;], &quot;dog&quot;, 3.14]
 </code></pre>
-<pre><code class="language-html">&lt;div :with=&quot;0&quot;&gt;
-  &lt;p :text=&quot;0&quot;&gt;&lt;/p&gt;
-  &lt;template :with=&quot;1&quot;&gt;
-    &lt;p :text&gt;&lt;/p&gt;
+<pre><code class="language-html">&lt;div with:=&quot;0&quot;&gt;
+  &lt;p text:=&quot;0&quot;&gt;&lt;/p&gt;
+  &lt;template with:=&quot;1&quot;&gt;
+    &lt;p text:&gt;&lt;/p&gt;
   &lt;/template&gt;
 &lt;/div&gt;
-&lt;div :with=&quot;1&quot;&gt;
-  &lt;p :text&gt;&lt;/p&gt;
+&lt;div with:=&quot;1&quot;&gt;
+  &lt;p text:&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div :with=&quot;2&quot;&gt;
-  &lt;template :with&gt;
-    &lt;p :text&gt;&lt;/p&gt;
+&lt;div with:=&quot;2&quot;&gt;
+  &lt;template with:&gt;
+    &lt;p text:&gt;&lt;/p&gt;
   &lt;/template&gt;
 &lt;/div&gt;
-&lt;div :with=&quot;3&quot;&gt;
+&lt;div with:=&quot;3&quot;&gt;
   &lt;p&gt;This will not render&lt;/p&gt;
 &lt;/div&gt;
 </code></pre>

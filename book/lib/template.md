@@ -29,7 +29,7 @@ any JSON object even with javascript functions is valid!
   </head>
   <body>
     <div id="app">
-      <h1 :text="message">Loading...</h1>
+      <h1 text:="message">Loading...</h1>
     </div>
   </body>
 </html>
@@ -62,7 +62,7 @@ Result:
       <p>Loading...</p>
     </div>
     <template id="view">
-      <h1 :text="message"></h1>
+      <h1 text:="message"></h1>
     </template>
   </body>
 </html>
@@ -107,11 +107,11 @@ But here's a demo anyway.
   <body>
     <main id="app">
       <h1>To do list</h1>
-      <input type="text" :value="value" :oninput="NewValue">
+      <input type="text" value:="value" oninput:="NewValue">
       <ul>
-        <li :each="todos" :text></li>
+        <li each:="todos" text:></li>
       </ul>
-      <button :onclick="AddTodo">New!</button>
+      <button onclick:="AddTodo">New!</button>
     </main>
   </body>
 </html>

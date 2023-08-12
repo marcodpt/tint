@@ -146,12 +146,12 @@
 </code></pre>
 <pre><code class="language-html">&lt;div&gt;
   John:
-  &lt;i :if=&quot;john&quot; class=&quot;fas fa-check&quot;&gt;&lt;/i&gt;
-  &lt;i :not=&quot;john&quot; class=&quot;fas fa-times&quot;&gt;&lt;/i&gt;
+  &lt;i if:=&quot;john&quot; class=&quot;fas fa-check&quot;&gt;&lt;/i&gt;
+  &lt;i not:=&quot;john&quot; class=&quot;fas fa-times&quot;&gt;&lt;/i&gt;
 &lt;/div&gt;&lt;div&gt;
   Mary:
-  &lt;i :if=&quot;mary&quot; class=&quot;fas fa-check&quot;&gt;&lt;/i&gt;
-  &lt;i :not=&quot;mary&quot; class=&quot;fas fa-times&quot;&gt;&lt;/i&gt;
+  &lt;i if:=&quot;mary&quot; class=&quot;fas fa-check&quot;&gt;&lt;/i&gt;
+  &lt;i not:=&quot;mary&quot; class=&quot;fas fa-times&quot;&gt;&lt;/i&gt;
 &lt;/div&gt;
 </code></pre>
 <p>Result:</p>
@@ -175,15 +175,15 @@
 ]
 </code></pre>
 <pre><code class="language-html">&lt;div&gt;
-  null: &lt;template :if=&quot;0&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;0&quot;&gt;false&lt;/template&gt;
-  0: &lt;template :if=&quot;1&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;1&quot;&gt;false&lt;/template&gt;
-  1: &lt;template :if=&quot;2&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;2&quot;&gt;false&lt;/template&gt;
-  -1: &lt;template :if=&quot;3&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;3&quot;&gt;false&lt;/template&gt;
-  &quot;&quot;: &lt;template :if=&quot;4&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;4&quot;&gt;false&lt;/template&gt;
-  &quot;0&quot;: &lt;template :if=&quot;5&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;5&quot;&gt;false&lt;/template&gt;
-  []: &lt;template :if=&quot;6&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;6&quot;&gt;false&lt;/template&gt;
-  {}: &lt;template :if=&quot;7&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;7&quot;&gt;false&lt;/template&gt;
-  undefined: &lt;template :if=&quot;8&quot;&gt;true&lt;/template&gt;&lt;template :not=&quot;8&quot;&gt;false&lt;/template&gt;
+  null: &lt;template if:=&quot;0&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;0&quot;&gt;false&lt;/template&gt;
+  0: &lt;template if:=&quot;1&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;1&quot;&gt;false&lt;/template&gt;
+  1: &lt;template if:=&quot;2&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;2&quot;&gt;false&lt;/template&gt;
+  -1: &lt;template if:=&quot;3&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;3&quot;&gt;false&lt;/template&gt;
+  &quot;&quot;: &lt;template if:=&quot;4&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;4&quot;&gt;false&lt;/template&gt;
+  &quot;0&quot;: &lt;template if:=&quot;5&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;5&quot;&gt;false&lt;/template&gt;
+  []: &lt;template if:=&quot;6&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;6&quot;&gt;false&lt;/template&gt;
+  {}: &lt;template if:=&quot;7&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;7&quot;&gt;false&lt;/template&gt;
+  undefined: &lt;template if:=&quot;8&quot;&gt;true&lt;/template&gt;&lt;template not:=&quot;8&quot;&gt;false&lt;/template&gt;
 &lt;/div&gt;
 </code></pre>
 <p>Result:</p>

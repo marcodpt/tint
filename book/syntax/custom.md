@@ -6,7 +6,7 @@ As described [here](https://developer.mozilla.org/en-US/docs/Web/Web_Components/
 With the following tag in your `HTML` `template` 
 ```html
 <template id="my-button">
-  <button class="btn btn-" :class="btn" :text="text" :click="click">
+  <button class="btn btn-" class:="btn" text:="text" click:="click">
     <slot></slot>
   </button>
 </template>
@@ -20,7 +20,7 @@ With the following tag in your `HTML` `template`
 ```
 ```html
 <div>
-  <my-button :btn="button">
+  <my-button btn:="button">
     Action
   </my-button>
 </div>
@@ -43,7 +43,7 @@ Result:
 ```
 ```html
 <div>
-  <my-button :each :btn="button" :text="title"></my-button>
+  <my-button each: btn:="button" text:="title"></my-button>
 </div>
 ```
 Result:
@@ -94,10 +94,10 @@ Result:
 ```
 ```html
 <template id="my-list">
-  <ul :if="items">
-    <li :each="items">
-      <span :text="title"></span>
-      <my-list :items="children"></my-list>
+  <ul if:="items">
+    <li each:="items">
+      <span text:="title"></span>
+      <my-list items:="children"></my-list>
     </li>
   </ul>
 </template>
