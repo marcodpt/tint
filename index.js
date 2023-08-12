@@ -144,12 +144,7 @@ export default (h, text) => {
       } else if (tpl != null) {
         it = compile(tpl)(attributes, null, childNodes, scope)
       } else {
-        var target = null
-        if (attributes.id && attributes.id.substr(0, 7) == 'static-') {
-          target = document.getElementById(attributes.id)
-        }
-        it = target && target != element ?
-          compile(target)() : [h(tag, attributes, children)]
+        it = [h(tag, attributes, children)]
       }
 
       it.forEach(child => {
