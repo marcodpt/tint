@@ -87,6 +87,15 @@ export default (h, text) => {
           if ((key == 'if' && value) || (key == 'not' && !value)) {
             nodes.push(data)
           }
+        } else if (key == 'show' || key == 'hide') {
+          if ((key == 'hide' && value) || (key == 'show' && !value)) {
+            attributes.style = 'display: none;'+
+              (typeof attributes.style == 'string' ? attributes.style : '')
+          }
+          nodes.push({
+            ...data,
+            attributes: attributes
+          })
         } else if (key == 'case') {
           if (word != null && word == value) {
             nodes.push(data)

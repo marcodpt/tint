@@ -101,6 +101,23 @@ QUnit.module('if/not', () => {
   `))
 })
 
+QUnit.module('show/hide', () => {
+  QUnit.test('Remove node with a conditional test.', test('show-hide-1', {
+    john: false,
+    mary: true
+  }, `
+    <div>
+      John:
+      <i style="display: none;" class="fas fa-check"></i>
+      <i class="fas fa-times"></i>
+    </div><div>
+      Mary:
+      <i class="fas fa-check" style="max-width:200px"></i>
+      <i style="display: none;max-width:200px" class="fas fa-times"></i>
+    </div>
+  `))
+})
+
 QUnit.module('switch/case', () => {
   QUnit.test('Choose a imediate children tag based on a criteria.', test('switch-case-1', {
     input: "text",

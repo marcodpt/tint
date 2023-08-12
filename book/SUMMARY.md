@@ -17,6 +17,7 @@
 - [Dynamic attributes](syntax/attribute.md)
 - [text](syntax/text.md)
 - [if/not](syntax/if.md)
+- [show/hide](syntax/show.md)
 - [switch/case](syntax/switch.md)
 - [with](syntax/with.md)
 - [each](syntax/each.md)
