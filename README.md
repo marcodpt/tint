@@ -187,6 +187,11 @@ Any changes must be within the philosophy of this project.
 
 It's a very simple project. Any contribution is greatly appreciated.
 
+## Testing in Deno
+```
+deno test --allow-read tests/deno.js
+```
+
 ## Influences and thanks
 This work is hugely influenced by these amazing template engines and frameworks:
  - [mustache](https://mustache.github.io/mustache.5.html)

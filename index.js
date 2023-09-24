@@ -1,31 +1,6 @@
-export default (h, text) => {
-  if (typeof h != 'function') {
-    h = (tagName, attributes, children) => {
-      const element = document.createElement(tagName)
-      Object.keys(attributes).forEach(key => {
-        const v = attributes[key]
-        if (typeof v == 'function') {
-          element.addEventListener(
-            key.substr(key.substr(0, 2) == 'on' ? 2 : 0), v
-          )
-        } else if (v != null && v !== false) {
-          element.setAttribute(key, v === true ? '' : v)
-        }
-      })
-      children.forEach(child => {
-        element.appendChild(child)
-      })
-      return element
-    }
-
-    if (typeof text != 'function') {
-      text = str => document.createTextNode(str)
-    }
-  }
-
-  if (typeof text != 'function') {
-    text = str => str
-  }
+export default (h, text, doc) => {
+  text = text || (str => str)
+  doc = doc || document
 
   const isObj = X => X && typeof X == 'object' && !(X instanceof Array)
   const merge = (X, Y) => isObj(X) && isObj(Y) ? {...X, ...Y} : Y
@@ -137,7 +112,7 @@ export default (h, text) => {
           })
           return result
         }, []).filter(c => c)
-      const tpl = tag.indexOf('-') >= 0 ? document.getElementById(tag) : null
+      const tpl = tag.indexOf('-') >= 0 ? doc.getElementById(tag) : null
 
       if (attributes.text != null && tpl == null) {
         while (children.length) {
