@@ -47,7 +47,7 @@ Result:
 <html>
   <head>
     <script type="module">
-      import compile from "../template.js"
+      import compile from "https://cdn.jsdelivr.net/gh/marcodpt/tint/template.js"
       const render = compile(
         document.getElementById("app"),
         document.getElementById("view")

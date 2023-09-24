@@ -51,11 +51,11 @@ The classic TODO app, with an initial server-rendered state.
   <body>
     <main id="app">
       <h1>To do list</h1>
-      <input type="text" :value="value" :oninput="NewValue">
+      <input type="text" value:="value" oninput:="NewValue">
       <ul>
-        <li :each="todos" :text></li>
+        <li each:="todos" text:></li>
       </ul>
-      <button :onclick="AddTodo">New!</button>
+      <button onclick:="AddTodo">New!</button>
     </main>
   </body>
 </html>
@@ -129,12 +129,12 @@ without the complications of the build steps.
   <body>
     <main id="app">
       <h1>To do list</h1>
-      <input type="text" :value="value" :oninput="NewValue">
+      <input type="text" value:="value" oninput:="NewValue">
       <ul>
-        <li :each="todos" :text>read a book</li>
-        <li :not>plant a tree</li>
+        <li each:="todos" text:>read a book</li>
+        <li not:>plant a tree</li>
       </ul>
-      <button :onclick="AddTodo">New!</button>
+      <button onclick:="AddTodo">New!</button>
     </main>
   </body>
 </html>
