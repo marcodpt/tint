@@ -162,6 +162,23 @@ To generate the docs and create a server for tests.
 mdbook serve
 ```
 
+## Deno support
+Testing `tint` in `deno`
+```
+deno test --allow-read tests/deno.js
+```
+
+Currently this is the only suported and tested version (deno_dom@v0.1.38)
+```js
+import {DOMParser} from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts";
+
+const parser = new DOMParser()
+const document = parser.parseFromString(
+  Deno.readTextFileSync('path/to/file.html'),
+  "text/html"
+)
+```
+
 ## Philosophy
  - Separation: Functions and data transformations belong in javascript, design
 and visual presentation to the html and css, and the data belongs to the database.
@@ -186,23 +203,6 @@ an issue.
 Any changes must be within the philosophy of this project.
 
 It's a very simple project. Any contribution is greatly appreciated.
-
-## Deno support
-Testing `tint` in `deno`
-```
-deno test --allow-read tests/deno.js
-```
-
-Currently this is the only suported and tested version (deno_dom@v0.1.38)
-```js
-import {DOMParser} from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts";
-
-const parser = new DOMParser()
-const document = parser.parseFromString(
-  Deno.readTextFileSync('path/to/file.html'),
-  "text/html"
-)
-```
 
 ## Influences and thanks
 This work is hugely influenced by these amazing template engines and frameworks:

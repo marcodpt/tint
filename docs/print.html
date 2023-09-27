@@ -288,6 +288,19 @@ and they can use any hyperscript framework they want.</li>
 <p>To generate the docs and create a server for tests.</p>
 <pre><code>mdbook serve
 </code></pre>
+<h2 id="deno-support"><a class="header" href="#deno-support">Deno support</a></h2>
+<p>Testing <code>tint</code> in <code>deno</code></p>
+<pre><code>deno test --allow-read tests/deno.js
+</code></pre>
+<p>Currently this is the only suported and tested version (deno_dom@v0.1.38)</p>
+<pre><code class="language-js">import {DOMParser} from &quot;https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts&quot;;
+
+const parser = new DOMParser()
+const document = parser.parseFromString(
+  Deno.readTextFileSync('path/to/file.html'),
+  &quot;text/html&quot;
+)
+</code></pre>
 <h2 id="philosophy"><a class="header" href="#philosophy">Philosophy</a></h2>
 <ul>
 <li>Separation: Functions and data transformations belong in javascript, design
@@ -310,19 +323,6 @@ any contributions MUST be present in the tests.</p>
 an issue.</p>
 <p>Any changes must be within the philosophy of this project.</p>
 <p>It's a very simple project. Any contribution is greatly appreciated.</p>
-<h2 id="deno-support"><a class="header" href="#deno-support">Deno support</a></h2>
-<p>Testing <code>tint</code> in <code>deno</code></p>
-<pre><code>deno test --allow-read tests/deno.js
-</code></pre>
-<p>Currently this is the only suported and tested version (deno_dom@v0.1.38)</p>
-<pre><code class="language-js">import {DOMParser} from &quot;https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts&quot;;
-
-const parser = new DOMParser()
-const document = parser.parseFromString(
-  Deno.readTextFileSync('path/to/file.html'),
-  &quot;text/html&quot;
-)
-</code></pre>
 <h2 id="influences-and-thanks"><a class="header" href="#influences-and-thanks">Influences and thanks</a></h2>
 <p>This work is hugely influenced by these amazing template engines and frameworks:</p>
 <ul>
@@ -692,9 +692,9 @@ it has some important differences:</p>
 <ul>
 <li>you can use functions and will be bound to DOM element events.</li>
 <li>the syntax must always be valid HTML, in order to use the javascript DOM.</li>
-<li>although it is currently implemented in the browser, as long as the DOM API
-is available, can be implemented in javascript runtimes such as
-<a href="https://nodejs.org/en/">node</a> and <a href="https://deno.land/">deno</a>.</li>
+<li>although it is currently implemented in the browser and
+<a href="https://deno.land/">deno</a>, as long as the DOM API is available, can be
+implemented in javascript runtimes such as <a href="https://nodejs.org/en/">node</a>.</li>
 <li>there is no dot syntax, javascript expressions, filters, delimiters for text
 interpolation or any kind of logic other than the special attributes available,
 this is a decision made in order for the template to be as free of logic as
