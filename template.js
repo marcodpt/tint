@@ -24,6 +24,7 @@ export default (element, template, doc) => {
   return scope => {
     const x = render(scope)
     e.replaceWith(x)
-    return x
+    e = x
+    return e
   }
 }

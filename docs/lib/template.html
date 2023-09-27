@@ -138,7 +138,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="usage-as-a-template-engine"><a class="header" href="#usage-as-a-template-engine">Usage as a template engine</a></h1>
-<h3 id="compileelement-template---renderscope"><a class="header" href="#compileelement-template---renderscope">compile(element, template?) -&gt; render(scope)</a></h3>
+<h3 id="compileelement-template-document---renderscope"><a class="header" href="#compileelement-template-document---renderscope">compile(element, template?, document?) -&gt; render(scope)</a></h3>
 <p>Returns the view associated with <code>element</code>.</p>
 <p>Optionally, you can use a <code>template</code> element to replace the <code>element</code>'s inner
 HTML with your own contents.</p>
@@ -148,6 +148,8 @@ pass a <code>template</code>, it will be treated as a complete template. In case
 provide a <code>template</code> it will only be used as the root of the result,
 ignoring its content.</li>
 <li>template: The optional <code>template</code> element you want to render inside .</li>
+<li>document: Useful when <code>tint</code> is used in <code>deno</code>,
+you must pass the parsed document, inside the browser just ignore it. </li>
 <li>scope: The data passed to interpolate the <code>element</code>,
 any JSON object even with javascript functions is valid!</li>
 </ul>

@@ -1,6 +1,6 @@
 # Usage as a template engine
 
-### compile(element, template?) -> render(scope)
+### compile(element, template?, document?) -> render(scope)
 Returns the view associated with `element`.
 
 Optionally, you can use a `template` element to replace the `element`'s inner
@@ -11,6 +11,8 @@ pass a `template`, it will be treated as a complete template. In case you
 provide a `template` it will only be used as the root of the result,
 ignoring its content.
  - template: The optional `template` element you want to render inside .
+ - document: Useful when `tint` is used in `deno`,
+you must pass the parsed document, inside the browser just ignore it. 
  - scope: The data passed to interpolate the `element`,
 any JSON object even with javascript functions is valid!
 

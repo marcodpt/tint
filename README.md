@@ -187,14 +187,15 @@ Any changes must be within the philosophy of this project.
 
 It's a very simple project. Any contribution is greatly appreciated.
 
-## Testing in Deno
+## Deno support
+Testing `tint` in `deno`
 ```
 deno test --allow-read tests/deno.js
 ```
 
-Currently this is the only suported and tested version 
-```
-import {DOMParser} from "https://deno.land/x/deno\_dom@v0.1.38/deno-dom-wasm.ts";
+Currently this is the only suported and tested version (deno_dom@v0.1.38)
+```js
+import {DOMParser} from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts";
 
 const parser = new DOMParser()
 const document = parser.parseFromString(

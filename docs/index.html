@@ -309,11 +309,12 @@ any contributions MUST be present in the tests.</p>
 an issue.</p>
 <p>Any changes must be within the philosophy of this project.</p>
 <p>It's a very simple project. Any contribution is greatly appreciated.</p>
-<h2 id="testing-in-deno"><a class="header" href="#testing-in-deno">Testing in Deno</a></h2>
+<h2 id="deno-support"><a class="header" href="#deno-support">Deno support</a></h2>
+<p>Testing <code>tint</code> in <code>deno</code></p>
 <pre><code>deno test --allow-read tests/deno.js
 </code></pre>
-<p>Currently this is the only suported and tested version </p>
-<pre><code>import {DOMParser} from &quot;https://deno.land/x/deno\_dom@v0.1.38/deno-dom-wasm.ts&quot;;
+<p>Currently this is the only suported and tested version (deno_dom@v0.1.38)</p>
+<pre><code class="language-js">import {DOMParser} from &quot;https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts&quot;;
 
 const parser = new DOMParser()
 const document = parser.parseFromString(
