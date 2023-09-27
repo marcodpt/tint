@@ -312,6 +312,15 @@ an issue.</p>
 <h2 id="testing-in-deno"><a class="header" href="#testing-in-deno">Testing in Deno</a></h2>
 <pre><code>deno test --allow-read tests/deno.js
 </code></pre>
+<p>Currently this is the only suported and tested version </p>
+<pre><code>import {DOMParser} from &quot;https://deno.land/x/deno\_dom@v0.1.38/deno-dom-wasm.ts&quot;;
+
+const parser = new DOMParser()
+const document = parser.parseFromString(
+  Deno.readTextFileSync('path/to/file.html'),
+  &quot;text/html&quot;
+)
+</code></pre>
 <h2 id="influences-and-thanks"><a class="header" href="#influences-and-thanks">Influences and thanks</a></h2>
 <p>This work is hugely influenced by these amazing template engines and frameworks:</p>
 <ul>
@@ -349,22 +358,6 @@ an issue.</p>
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>

@@ -18,7 +18,7 @@ export default (h, text, doc) => {
       nodeValue
     }) => ({
       key: nodeName,
-      value: nodeValue
+      value: element.getAttribute(nodeName)
     }))
 
     const childNodes = Array.from(

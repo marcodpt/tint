@@ -1,4 +1,4 @@
-import {DOMParser} from "https://deno.land/x/deno_dom/deno-dom-wasm.ts"
+import {DOMParser} from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts";
 import compile from "../template.js"
 import {assertEquals} from "https://deno.land/std@0.202.0/assert/mod.ts"
 import tests from "./tests.js"
@@ -8,7 +8,7 @@ const doc = parser.parseFromString(
   Deno.readTextFileSync('tests/index.html'),
   "text/html"
 )
-const T = tests(doc)
+const T = tests(doc, true)
 
 T.tests.forEach((M) => {
   M.tests.forEach(({name, id, scope, result, run}) => {

@@ -1,6 +1,6 @@
 import compile from "../template.js"
 
-export default doc => {
+export default (doc, deno) => {
   const text = str => str.trim()
     .replace(/>\s+</g, () => '><')
     .replace(/\s+/g, () => ' ')
@@ -40,28 +40,27 @@ export default doc => {
             name: 'Function calls',
             run: assert => {
               const scope = {
-                action: (ev) => {
-                  const btn = ev.target.closest('button');
-                  btn.disabled = true;
-                  btn.textContent = 'Submited!';
+                action: () => {
+                  b.setAttribute('disabled', '');
+                  b.textContent = 'Submited!';
                 }
               }
               const e = compile(
                 div, doc.getElementById('attributes-4'), doc
               )(scope)
-              const b = e.querySelector('button')
+              const b = e.getElementsByTagName('button')[0]
               assert.equal(
                 text(e.innerHTML),
                 text(`<button class="btn btn-primary"> Submit </button>`)
               )
-              assert.equal(b.disabled, false)
+              assert.equal(b.getAttribute('disabled'), null)
               assert.equal(b.textContent.trim(), 'Submit')
-              b.click()
+              deno ? scope.action() : b.click()
               assert.equal(
                 text(e.innerHTML),
                 text(`<button class="btn btn-primary" disabled="">Submited!</button>`)
               )
-              assert.equal(b.disabled, true)
+              assert.equal(b.getAttribute('disabled'), '')
               assert.equal(b.textContent.trim(), 'Submited!')
             } 
           }
@@ -457,22 +456,22 @@ export default doc => {
           }, {
             name: 'Very useful with custom tags',
             run: assert => {
-              const e = compile(div, doc.getElementById('bind-2'), doc)([
+              const scope = [
                 {
                   btn: "secondary",
                   text: "Cancel",
-                  click: (ev) => {
-                    ev.target.textContent = 'canceled!';
+                  click: () => {
+                    cancel.textContent = 'canceled!';
                   }
-                },
-                {
+                }, {
                   btn: "primary",
                   text: "Submit",
-                  click: (ev) => {
-                    ev.target.textContent = 'submited!';
+                  click: () => {
+                    submit.textContent = 'submited!';
                   }
                 }
-              ])
+              ]
+              const e = compile(div, doc.getElementById('bind-2'), doc)(scope)
               assert.equal(
                 text(e.innerHTML),
                 text(`
@@ -480,8 +479,15 @@ export default doc => {
                   <button class="btn btn-primary">Submit</button>
                 `)
               )
-              e.querySelector('.btn-secondary').click()
-              e.querySelector('.btn-primary').click()
+              const cancel = e.getElementsByClassName('btn-secondary')[0]
+              const submit = e.getElementsByClassName('btn-primary')[0]
+              if (deno) {
+                scope[0].click()
+                scope[1].click()
+              } else {
+                cancel.click()
+                submit.click()
+              }
               assert.equal(
                 text(e.innerHTML),
                 text(`

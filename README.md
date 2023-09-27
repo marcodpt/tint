@@ -192,6 +192,17 @@ It's a very simple project. Any contribution is greatly appreciated.
 deno test --allow-read tests/deno.js
 ```
 
+Currently this is the only suported and tested version 
+```
+import {DOMParser} from "https://deno.land/x/deno\_dom@v0.1.38/deno-dom-wasm.ts";
+
+const parser = new DOMParser()
+const document = parser.parseFromString(
+  Deno.readTextFileSync('path/to/file.html'),
+  "text/html"
+)
+```
+
 ## Influences and thanks
 This work is hugely influenced by these amazing template engines and frameworks:
  - [mustache](https://mustache.github.io/mustache.5.html)
